@@ -3,13 +3,9 @@
 import Image from "next/image";
 import { useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
-import { heroPhotos } from "@/data/heroPhotos";
+import { ambientPhotos } from "@/data/heroPhotos";
 
-// Cukup beberapa foto agar tidak memuat semua gambar hero sebagai latar layar penuh.
-// Foto hero diminta 720px (Unsplash); untuk latar layar penuh minta versi 1600px.
-const PHOTOS = heroPhotos
-  .slice(0, 8)
-  .map((p) => ({ ...p, src: p.src.replace("w=720", "w=1600") }));
+const PHOTOS = ambientPhotos;
 const INTERVAL = 5000;
 
 export default function HubBackground() {
@@ -34,7 +30,7 @@ export default function HubBackground() {
           alt=""
           fill
           sizes="100vw"
-          quality={55}
+          quality={60}
           className={`hub__bg-img ${i === index ? "is-active" : ""}`}
         />
       ))}

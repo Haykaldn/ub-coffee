@@ -27,9 +27,9 @@ const PANELS: Record<PanelKey, ComponentType> = {
 };
 
 const panelVariants = {
-  hidden: { opacity: 0, y: 32 },
+  hidden: { opacity: 0, y: 28.8 },
   show: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 16 },
+  exit: { opacity: 0, y: 14.4 },
 };
 
 function keyFromHash(): PanelKey | null {

@@ -7,9 +7,9 @@ import { formatTime, locations } from "@/data/site";
 import { useOpenState } from "@/lib/hours";
 
 const fade = {
-  hidden: { opacity: 0, y: 8 },
+  hidden: { opacity: 0, y: 7.2 },
   show: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -8 },
+  exit: { opacity: 0, y: -7.2 },
 };
 
 export default function LocationPanel() {

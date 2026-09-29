@@ -1,4 +1,4 @@
-import { unsplash } from "@/lib/unsplash";
+import { photo } from "@/data/heroPhotos";
 
 export type MenuItem = {
   id: string;
@@ -11,9 +11,7 @@ export type MenuItem = {
   taste?: { pahit: number; manis: number; asam: number }; // 0–5, khusus minuman
 };
 
-const u = (id: string) => unsplash(id, 900);
-
-// Contoh data — ganti dengan menu, harga, dan foto resmi.
+// Contoh data — ganti dengan menu dan harga resmi. Foto memakai foto UB Coffee terdekat.
 export const menu: MenuItem[] = [
   {
     id: "kopi-susu-ub",
@@ -22,7 +20,7 @@ export const menu: MenuItem[] = [
     type: "drink",
     description: "Espresso, susu segar, dan gula aren. Favorit untuk menemani jam kerja.",
     price: 20000,
-    image: u("1461023058943-07fcbe16d735"),
+    image: photo("Iced_UB_Coffee_1"),
     taste: { pahit: 3, manis: 4, asam: 1 },
   },
   {
@@ -32,7 +30,7 @@ export const menu: MenuItem[] = [
     type: "drink",
     description: "Espresso dengan air panas. Ringan, bersih, dan tetap berkarakter.",
     price: 18000,
-    image: u("1511920170033-f8396924c348"),
+    image: photo("DSCF0477"),
     taste: { pahit: 4, manis: 0, asam: 2 },
   },
   {
@@ -42,7 +40,7 @@ export const menu: MenuItem[] = [
     type: "drink",
     description: "Espresso lembut dengan susu steamed dan lapisan foam tipis.",
     price: 22000,
-    image: u("1498804103079-a6351b050096"),
+    image: photo("DSC01872"),
     taste: { pahit: 2, manis: 2, asam: 1 },
   },
   {
@@ -52,7 +50,7 @@ export const menu: MenuItem[] = [
     type: "drink",
     description: "Biji kopi pilihan diseduh manual. Tanyakan beans yang tersedia hari ini.",
     price: 25000,
-    image: u("1517701604599-bb29b565090c"),
+    image: photo("DSCF0454"),
     taste: { pahit: 2, manis: 1, asam: 4 },
   },
   {
@@ -62,7 +60,7 @@ export const menu: MenuItem[] = [
     type: "drink",
     description: "Matcha Jepang dengan susu segar, creamy dan tidak terlalu manis.",
     price: 24000,
-    image: u("1515823064-d6e0c04616a7"),
+    image: photo("DSC01795"),
     taste: { pahit: 2, manis: 3, asam: 0 },
   },
   {
@@ -72,7 +70,7 @@ export const menu: MenuItem[] = [
     type: "drink",
     description: "Cokelat pekat dengan susu, disajikan panas atau dingin.",
     price: 22000,
-    image: u("1525193612562-0ec53b0e5d7c"),
+    image: photo("Iced_UB_Coffee_6"),
     taste: { pahit: 1, manis: 5, asam: 0 },
   },
   {
@@ -82,7 +80,7 @@ export const menu: MenuItem[] = [
     type: "food",
     description: "Croissant renyah berlapis mentega. Pas dengan secangkir kopi.",
     price: 18000,
-    image: u("1555507036-ab1f4038808a"),
+    image: photo("DSC01936"),
   },
   {
     id: "toast",
@@ -91,7 +89,7 @@ export const menu: MenuItem[] = [
     type: "food",
     description: "Roti panggang dengan telur dan sayuran segar untuk sarapan.",
     price: 25000,
-    image: u("1484723091739-30a097e8f929"),
+    image: photo("DSC02083"),
   },
   {
     id: "rice-bowl",
@@ -100,7 +98,7 @@ export const menu: MenuItem[] = [
     type: "food",
     description: "Nasi hangat, ayam berbumbu, dan sayuran. Mengenyangkan untuk makan siang.",
     price: 28000,
-    image: u("1512621776951-a57141f2eefd"),
+    image: photo("DSC01924"),
   },
 ];
 

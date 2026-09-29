@@ -37,7 +37,6 @@ const mapsEmbed = (q: string) =>
 const mapsDirections = (q: string) =>
   "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(q);
 
-// TODO: jam buka perlu dikonfirmasi.
 const ubCoffee: Location = {
   key: "ub-coffee",
   name: "UB Coffee",
@@ -48,20 +47,21 @@ const ubCoffee: Location = {
   // TODO: isi koordinat asli UB Coffee (argumen ke-2) agar titik peta tepat.
   ...place("UB Coffee, Jl. MT. Haryono No.169, Ketawanggede, Lowokwaru, Malang"),
   hours: [
-    { day: "Senin – Jumat", days: [1, 2, 3, 4, 5], open: "07:30", close: "22:30" },
-    { day: "Sabtu", days: [6], open: "09:00", close: "22:30" },
-    { day: "Minggu", days: [0], open: "12:00", close: "20:00" },
+    { day: "Minggu – Jumat", days: [0, 1, 2, 3, 4, 5], open: "07:00", close: "22:00" },
+    { day: "Sabtu", days: [6], open: "09:00", close: "22:00" },
   ],
 };
 
-// TODO: ganti alamat, patokan, query maps, dan jam buka dengan data asli Gazebo Corner.
+// TODO: jam buka Gazebo Corner masih contoh, ganti dengan jam asli.
 const gazeboCorner: Location = {
   key: "gazebo-corner",
   name: "Gazebo Corner by UB Coffee",
-  address: "[Alamat Gazebo Corner], Kota Malang, Jawa Timur",
-  addressShort: "[Alamat singkat], Malang",
-  landmark: "[Patokan lokasi Gazebo Corner]",
-  ...place("Gazebo Corner by UB Coffee, Malang"),
+  address:
+    "Jl. Universitas Brawijaya, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145",
+  addressShort: "Gazebo Raden Wijaya, Universitas Brawijaya",
+  landmark: "Berlokasi di Gazebo Raden Wijaya Universitas Brawijaya",
+  // Plus Code Google (2JV7+J3X) menunjuk titik yang tepat
+  ...place("2JV7+J3X Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur"),
   hours: [
     { day: "Senin – Jumat", days: [1, 2, 3, 4, 5], open: "08:00", close: "17:00" },
     { day: "Sabtu", days: [6], open: "09:00", close: "15:00" },
@@ -80,8 +80,8 @@ export const site = {
   address: ubCoffee.address,
   addressShort: ubCoffee.addressShort,
   landmark: ubCoffee.landmark,
-  // File PDF menu diletakkan di public/menu-ub-coffee.pdf
-  menuPdf: "/menu-ub-coffee.pdf",
+  // PDF menu lengkap (Google Drive)
+  menuPdf: "https://drive.google.com/file/d/12NkYto4KrPpZlWOe-BfJy7LZF3TuHb1F/view",
   whatsapp: "6282132245897",
   whatsappDisplay: "+62 821-3224-5897",
   instagram: "Instagram UB Coffee",

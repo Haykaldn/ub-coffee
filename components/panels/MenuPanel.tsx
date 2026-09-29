@@ -16,9 +16,9 @@ const FILTERS = [
 type FilterKey = (typeof FILTERS)[number]["key"];
 
 const fade = {
-  initial: { opacity: 0, y: 10 },
+  initial: { opacity: 0, y: 9 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -10 },
+  exit: { opacity: 0, y: -9 },
   transition: { duration: 0.3 },
 };
 
@@ -97,7 +97,7 @@ export default function MenuPanel() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FileText size={18} /> Lihat Menu Lengkap (PDF)
+          <FileText size={18} /> Lihat Menu Lengkap
         </a>
 
         <nav className="menu-panel__nav" aria-label="Navigasi menu">

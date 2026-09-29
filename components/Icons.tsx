@@ -2,11 +2,14 @@ import type { SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement> & { size?: number };
 
+// Skala 90%: tampilan didesain pada zoom browser 90% (samakan dengan globals.css)
+const ICON_SCALE = 0.9;
+
 function Icon({ size = 20, children, ...props }: IconProps) {
   return (
     <svg
-      width={size}
-      height={size}
+      width={size * ICON_SCALE}
+      height={size * ICON_SCALE}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

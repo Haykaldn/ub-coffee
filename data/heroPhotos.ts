@@ -1,28 +1,50 @@
-// Foto sementara (Unsplash). Ganti dengan 12–24 foto asli UB Coffee:
-// suasana dalam, barista, kopi, meeting room, live akustik, tampak depan.
-import { unsplash } from "@/lib/unsplash";
+// Foto asli UB Coffee (public/images/WEBP). Foto potret sudah dipotong jadi landscape 3:2.
+export const photo = (file: string) => `/images/WEBP/${file}.webp`;
 
-const u = (id: string) => unsplash(id, 720);
-
+// Dinding foto hero: 4 baris × 8 foto, semuanya berbeda.
 export const heroPhotos: { src: string; alt: string }[] = [
-  { src: u("1501339847302-ac426a4a7cbb"), alt: "Suasana dalam kafe" },
-  { src: u("1509042239860-f550ce710b93"), alt: "Latte di atas meja" },
-  { src: u("1600093463592-8e36ae95ef56"), alt: "Barista menyiapkan kopi" },
-  { src: u("1431540015161-0bf868a2d407"), alt: "Meeting room" },
-  { src: u("1510915361894-db8b60106cb1"), alt: "Live akustik" },
-  { src: u("1554118811-1e0d58224f24"), alt: "Area duduk kafe" },
-  { src: u("1495474472287-4d71bcdd2085"), alt: "Secangkir kopi" },
-  { src: u("1559925393-8be0ec4767c8"), alt: "Barista di bar kopi" },
-  { src: u("1521017432531-fbd92d768814"), alt: "Pengunjung kafe" },
-  { src: u("1498804103079-a6351b050096"), alt: "Latte art" },
-  { src: u("1517048676732-d65bc937f952"), alt: "Rapat di ruang meeting" },
-  { src: u("1453614512568-c4024d13c247"), alt: "Sudut kafe" },
-  { src: u("1511920170033-f8396924c348"), alt: "Kopi hitam" },
-  { src: u("1511671782779-c97d3d27a1d4"), alt: "Mikrofon panggung" },
-  { src: u("1445116572660-236099ec97a0"), alt: "Tampak depan kafe" },
-  { src: u("1517701604599-bb29b565090c"), alt: "Seduh manual" },
-  { src: u("1559305616-3f99cd43e353"), alt: "Interior kafe" },
-  { src: u("1447933601403-0c6688de566e"), alt: "Biji kopi dan cangkir" },
-  { src: u("1528605248644-14dd04022da1"), alt: "Pengunjung berbincang" },
-  { src: u("1461023058943-07fcbe16d735"), alt: "Kopi susu" },
+  { src: photo("DSC01991"), alt: "Tampak depan UB Coffee" },
+  { src: photo("Iced_UB_Coffee_1"), alt: "Es kopi susu UB Coffee" },
+  { src: photo("DSCF0390"), alt: "Pengunjung di area dalam" },
+  { src: photo("DFTA0004"), alt: "Papan nama UB Coffee" },
+  { src: photo("DSC01872"), alt: "Barista membuat latte art" },
+  { src: photo("DFTA0041"), alt: "Area taman dan gazebo" },
+  { src: photo("2"), alt: "Merchandise UB Coffee" },
+  { src: photo("DSC02111"), alt: "Meja panjang di area indoor" },
+  { src: photo("DSC01690-2"), alt: "Pelayan mencatat pesanan" },
+  { src: photo("DFTA0061"), alt: "Bangunan UB Coffee" },
+  { src: photo("DSC01924"), alt: "Hidangan nasi UB Coffee" },
+  { src: photo("DSCF0395"), alt: "Suasana ruang kaca" },
+  { src: photo("DSCF0454"), alt: "Biji kopi kemasan UB Coffee" },
+  { src: photo("3"), alt: "Sudut meja kafe" },
+  { src: photo("DSCF0477"), alt: "Es kopi di atas nampan" },
+  { src: photo("DFTA0008"), alt: "Kucing di halaman kafe" },
+  { src: photo("DSC01964"), alt: "Pintu masuk UB Coffee" },
+  { src: photo("DSC01795"), alt: "Minuman botol UB Coffee" },
+  { src: photo("DFTA0029"), alt: "Gazebo beratap genteng" },
+  { src: photo("DSC02083"), alt: "Koki memasak di dapur" },
+  { src: photo("DSCF0394"), alt: "Pengunjung di balik jendela kaca" },
+  { src: photo("DSCF0523"), alt: "Drip bag kopi UB Coffee" },
+  { src: photo("DFTA0062"), alt: "Dinding bata dengan logo UB Coffee" },
+  { src: photo("Iced_UB_Coffee_11"), alt: "Es kopi menemani kerja" },
+  { src: photo("DSC01881"), alt: "Pengunjung bekerja di kafe" },
+  { src: photo("DSC01936"), alt: "Salad UB Coffee" },
+  { src: photo("DFTA0045"), alt: "Area semi outdoor" },
+  { src: photo("4"), alt: "Pengunjung di area merch" },
+  { src: photo("DSCF0516"), alt: "Kopi kemasan dan tumbler" },
+  { src: photo("DSC01993"), alt: "Bangunan bata UB Coffee" },
+  { src: photo("DSC01821"), alt: "Pelayan menyapa pengunjung" },
+  { src: photo("Iced_UB_Coffee_3"), alt: "Es kopi di meja kayu" },
 ];
+
+// Latar slideshow section 2: foto suasana yang tetap enak dilihat saat digelapkan.
+export const ambientPhotos = [
+  "DSC01991",
+  "DSCF0395",
+  "DSC02111",
+  "DFTA0041",
+  "DSC01690-2",
+  "DSCF0390",
+  "DSC01964",
+  "DSC02120",
+].map((f) => ({ src: photo(f), alt: "" }));
