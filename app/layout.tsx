@@ -17,7 +17,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "UB Coffee – Mampir, duduk, nikmati.",
+  title: "UB Coffee",
   description:
     "UB Coffee di Jl. MT. Haryono No.169, Malang. Menu kopi dan makanan, meeting room hingga 15 orang, serta event dan promo terbaru.",
 };

@@ -71,7 +71,6 @@ const gazeboCorner: Location = {
 
 export const locations: Location[] = [ubCoffee, gazeboCorner];
 
-// TODO: lengkapi Instagram.
 export const site = {
   name: "UB Coffee",
   tagline: "Mampir, duduk, nikmati.",
@@ -85,8 +84,8 @@ export const site = {
   menuPdf: "/menu-ub-coffee.pdf",
   whatsapp: "6282132245897",
   whatsappDisplay: "+62 821-3224-5897",
-  instagram: "[@akun]",
-  instagramUrl: "https://www.instagram.com/",
+  instagram: "Instagram UB Coffee",
+  instagramUrl: "https://www.instagram.com/ub_coffee/",
   mapsUrl: ubCoffee.mapsUrl,
   mapsEmbed: ubCoffee.mapsEmbed,
   directionsUrl: ubCoffee.directionsUrl,

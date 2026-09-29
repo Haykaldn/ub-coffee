@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Check, Users, WhatsApp } from "../Icons";
+import { Calendar, Check, Users, WhatsApp } from "../Icons";
 import { site, waLink } from "@/data/site";
 import { unsplash } from "@/lib/unsplash";
 
@@ -9,6 +9,27 @@ const PRICES = [
 ];
 
 const FACILITIES = ["Air mineral 600ml per orang", "LCD proyektor", "Set audio"];
+
+const PACKAGES = [
+  {
+    name: "Mini Coffee Break & 2 Snack",
+    desc: "Cocok untuk pertemuan dengan santai dan ngemil ringan.",
+    price: "IDR 400K",
+    extra: "IDR 40K",
+  },
+  {
+    name: "Mini Coffee Break & 3 Snack",
+    desc: "Pilihan ekstra snack untuk memenuhi selera peserta meeting Anda.",
+    price: "IDR 450K",
+    extra: "IDR 45K",
+  },
+  {
+    name: "Mini Coffee Break Only",
+    desc: "Pilihan praktis bagi Anda yang hanya ingin menikmati kopi berkualitas selama meeting.",
+    price: "IDR 250K",
+    extra: "IDR 25K",
+  },
+];
 
 export default function ReservationPanel() {
   return (
@@ -76,6 +97,60 @@ export default function ReservationPanel() {
           >
             <WhatsApp size={18} /> {site.whatsappDisplay}
           </a>
+        </div>
+      </div>
+
+      <div className="panel-card packages">
+        <span className="eyebrow">Paket meeting</span>
+        <h4 className="display packages__title">
+          Pilihan <em>paket.</em>
+        </h4>
+        <p className="muted">
+          Seluruh paket sudah termasuk biaya sewa ruangan dan air mineral gratis untuk minimal 10
+          orang.
+        </p>
+
+        <div className="package-grid">
+          {PACKAGES.map((pkg) => (
+            <article key={pkg.name} className="package">
+              <h5 className="package__name">{pkg.name}</h5>
+              <p className="muted small">{pkg.desc}</p>
+              <p className="package__price">
+                <strong>{pkg.price}</strong> <span>/ 10 orang</span>
+              </p>
+              <p className="package__extra">Tambahan per orang: {pkg.extra}</p>
+              <a
+                className="btn btn--navy btn--sm"
+                href={waLink(`Halo UB Coffee, saya ingin memesan paket "${pkg.name}".`)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <WhatsApp size={16} /> Pesan paket
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <div className="package-info">
+          <div>
+            <h5 className="sub-label">Pilihan snack favorit</h5>
+            <p className="muted small">
+              Kami menyediakan berbagai pilihan snack tradisional yang lezat, mulai dari donat
+              manis, lapis, dadar gulung, hingga pizza mini. Semua bisa disesuaikan dengan selera
+              peserta meeting Anda untuk pengalaman yang lebih personal.
+            </p>
+          </div>
+          <div>
+            <h5 className="sub-label">Cara pemesanan</h5>
+            <p className="package-info__note">
+              <Calendar size={18} />
+              <span>
+                Untuk memastikan ketersediaan dan kualitas terbaik, pemesanan paket dengan snack
+                harus dikonfirmasi <strong>maksimal H-1</strong> sebelum acara. Jangan lewatkan
+                kesempatan ini dan buat pertemuan Anda lebih berkesan dengan UB Coffee!
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
