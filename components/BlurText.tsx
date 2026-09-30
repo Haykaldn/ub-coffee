@@ -37,7 +37,7 @@ export default function BlurText({
           transition={{ duration: 0.9, delay: 0.2 + i * delay, ease: "easeOut" }}
         >
           {italicWords.includes(word) ? <em>{word}</em> : word}
-          {i < words.length - 1 && " "}
+          {i < words.length - 1 && " "}
         </motion.span>
       ))}
     </Tag>

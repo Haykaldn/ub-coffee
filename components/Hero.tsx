@@ -34,7 +34,7 @@ export default function Hero() {
       </header>
 
       <div className="hero__center">
-        <BlurText as="h1" text={site.name} className="hero__title" />
+        <BlurText as="h1" text={site.name} className="hero__title" italicWords={["Coffee"]} />
 
         <dl className="hero__hours">
           {site.hours.map((row) => {

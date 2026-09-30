@@ -4,16 +4,22 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { ArrowLeft, ArrowRight, FileText } from "../Icons";
-import { formatPrice, menu, type MenuItem } from "@/data/menu";
+import { formatPrice, menu } from "@/data/menu";
 import { site } from "@/data/site";
 
+// Filter tanpa isi (mis. Makanan sebelum datanya ada) tidak ditampilkan
 const FILTERS = [
   { key: "all", label: "Semua" },
-  { key: "drink", label: "Minuman" },
-  { key: "food", label: "Makanan" },
+  { key: "Kopi", label: "Kopi" },
+  { key: "Non-Kopi", label: "Non-Kopi" },
+  { key: "Makanan", label: "Makanan" },
 ] as const;
 
 type FilterKey = (typeof FILTERS)[number]["key"];
+
+const visibleFilters = FILTERS.filter(
+  (f) => f.key === "all" || menu.some((m) => m.category === f.key),
+);
 
 const fade = {
   initial: { opacity: 0, y: 9 },
@@ -22,33 +28,11 @@ const fade = {
   transition: { duration: 0.3 },
 };
 
-function TasteMeter({ taste }: { taste: NonNullable<MenuItem["taste"]> }) {
-  const rows = [
-    { label: "Pahit", value: taste.pahit },
-    { label: "Manis", value: taste.manis },
-    { label: "Asam", value: taste.asam },
-  ];
-  return (
-    <dl className="taste">
-      {rows.map((row) => (
-        <div key={row.label} className="taste__row">
-          <dt>{row.label}</dt>
-          <dd aria-label={`${row.value} dari 5`}>
-            {Array.from({ length: 5 }, (_, i) => (
-              <span key={i} className={`taste__dot ${i < row.value ? "is-on" : ""}`} />
-            ))}
-          </dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-
 export default function MenuPanel() {
   const [filter, setFilter] = useState<FilterKey>("all");
   const [index, setIndex] = useState(0);
 
-  const items = filter === "all" ? menu : menu.filter((m) => m.type === filter);
+  const items = filter === "all" ? menu : menu.filter((m) => m.category === filter);
   const item = items[index] ?? items[0];
 
   const changeFilter = (key: FilterKey) => {
@@ -66,7 +50,7 @@ export default function MenuPanel() {
         </h3>
 
         <div className="chips" role="group" aria-label="Filter menu">
-          {FILTERS.map((f) => (
+          {visibleFilters.map((f) => (
             <button
               key={f.key}
               type="button"
@@ -85,8 +69,9 @@ export default function MenuPanel() {
               <span className="menu-panel__cat">{item.category}</span>
               <h4 className="menu-panel__name">{item.name}</h4>
               <p className="muted">{item.description}</p>
-              {item.taste && <TasteMeter taste={item.taste} />}
-              <p className="menu-panel__price">{formatPrice(item.price)}</p>
+              {item.price !== undefined && (
+                <p className="menu-panel__price">{formatPrice(item.price)}</p>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import { Alfa_Slab_One, Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
 
@@ -8,6 +8,13 @@ const fraunces = Fraunces({
   subsets: ["latin"],
   weight: ["500"],
   style: ["normal", "italic"],
+});
+
+// Slab serif tebal, padanan huruf pada logo UB Coffee
+const alfaSlab = Alfa_Slab_One({
+  variable: "--font-brand",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 const jakarta = Plus_Jakarta_Sans({
@@ -28,7 +35,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="id" className={`${fraunces.variable} ${jakarta.variable}`}>
+    <html lang="id" className={`${fraunces.variable} ${alfaSlab.variable} ${jakarta.variable}`}>
       <body>
         <MotionProvider>{children}</MotionProvider>
       </body>

@@ -439,13 +439,22 @@ img {
 }
 
 .hero__title {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: 108px;
+  font-family: var(--font-brand), var(--font-display);
+  font-weight: 400;
+  font-size: 80px;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.01em;
   color: var(--white);
   text-shadow: 0 3.6px 36px rgba(0, 0, 0, 0.35);
+}
+
+/* "Coffee" memakai serif miring yang sama dengan aksen judul lain */
+.hero__title em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.1em;
+  letter-spacing: -0.01em;
 }
 
 .hero__hours {
@@ -786,40 +795,6 @@ img {
   color: var(--black);
 }
 
-.taste {
-  display: grid;
-  gap: 7.2px;
-  margin-top: 16.2px;
-}
-
-.taste__row {
-  display: grid;
-  grid-template-columns: 57.6px auto;
-  align-items: center;
-}
-
-.taste__row dt {
-  font-size: 12.6px;
-  font-weight: 600;
-  color: var(--text-soft);
-}
-
-.taste__row dd {
-  display: flex;
-  gap: 5.4px;
-}
-
-.taste__dot {
-  width: 10.8px;
-  height: 10.8px;
-  border-radius: 50%;
-  border: 1.35px solid var(--navy);
-}
-
-.taste__dot.is-on {
-  background: var(--navy);
-}
-
 .menu-panel__nav {
   display: flex;
   align-items: center;
@@ -868,11 +843,14 @@ img {
   aspect-ratio: 1;
   border-radius: 50%;
   overflow: hidden;
+  background: var(--white);
   box-shadow: 0 18px 45px -9px rgba(0, 0, 0, 0.5);
 }
 
+/* Foto produk berlatar putih: tampil utuh, tidak terpotong lingkaran */
 .menu-circle__photo img {
-  object-fit: cover;
+  object-fit: contain;
+  padding: 12%;
 }
 
 .menu-circle__label {
@@ -1513,14 +1491,6 @@ img {
   color: var(--white);
 }
 
-.hub .taste__dot {
-  border-color: var(--accent);
-}
-
-.hub .taste__dot.is-on {
-  background: var(--accent);
-}
-
 .hub .hours-table tr.is-today th {
   box-shadow: inset 2.7px 0 0 var(--accent);
 }
@@ -1661,7 +1631,7 @@ img {
 /* Tablet */
 @media (max-width: 1151.1px) {
   .hero__title {
-    font-size: 79.2px;
+    font-size: 60px;
   }
 
   /* Tablet: tombol WhatsApp di atas kanan, tab di tengah baris bawah */
@@ -1718,7 +1688,7 @@ img {
   }
 
   .hero__title {
-    font-size: 50.4px;
+    font-size: 38px;
   }
 
   .photo-wall__item {
