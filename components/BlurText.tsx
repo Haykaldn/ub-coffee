@@ -31,7 +31,7 @@ export default function BlurText({
           initial={{ filter: "blur(10.8px)", opacity: 0, y: -36 }}
           animate={{
             filter: ["blur(10.8px)", "blur(4.5px)", "blur(0px)"],
-            opacity: [0, 0.5, 1],
+            opacity: [0, 0.5, 1], 
             y: [-36, 5.4, 0],
           }}
           transition={{ duration: 0.9, delay: 0.2 + i * delay, ease: "easeOut" }}

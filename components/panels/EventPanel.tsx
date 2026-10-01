@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { ArrowUpRight, Calendar, Instagram, WhatsApp } from "../Icons";
+import { ArrowUpRight, Calendar, Instagram } from "../Icons";
 import { formatDate, news, newsLabel } from "@/data/news";
-import { site, waLink } from "@/data/site";
+import { site } from "@/data/site";
 
 export default function EventPanel() {
   const featured = news.find((n) => n.featured) ?? news[0];
@@ -29,11 +29,11 @@ export default function EventPanel() {
         <p className="muted">{featured.excerpt}</p>
         <a
           className="btn btn--navy"
-          href={waLink(`Halo UB Coffee, saya ingin info tentang "${featured.title}".`)}
+          href={site.instagramUrl}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <WhatsApp size={18} /> Info via WhatsApp
+          <Instagram size={18} /> Selengkapnya di Instagram
         </a>
       </article>
 

@@ -11,10 +11,10 @@ import EventPanel from "./panels/EventPanel";
 import { waLink } from "@/data/site";
 
 const CARDS = [
-  { key: "menu", no: "01", title: "Menu" },
-  { key: "reservasi", no: "02", title: "Reservasi" },
-  { key: "lokasi", no: "03", title: "Lokasi" },
-  { key: "event", no: "04", title: "Event & Promo" },
+  { key: "menu", title: "Menu" },
+  { key: "reservasi", title: "Reservasi" },
+  { key: "lokasi", title: "Lokasi" },
+  { key: "event", title: "Event & Promo" },
 ] as const;
 
 type PanelKey = (typeof CARDS)[number]["key"];
@@ -125,7 +125,6 @@ export default function Hub() {
                     }
                   />
                 )}
-                <span className="hub-tab__no">{card.no}</span>
                 <span className="hub-tab__label">{card.title}</span>
               </button>
             ))}
