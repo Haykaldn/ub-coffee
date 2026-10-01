@@ -17,8 +17,8 @@
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-body: var(--font-jakarta), system-ui, sans-serif;
 
-  --radius-card: 28.8px;
-  --radius-sm: 19.8px;
+  --radius-card: 12px;
+  --radius-sm: 6px;
   --shadow: 0 21.6px 43.2px -18px rgba(10, 10, 10, 0.28);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -85,7 +85,7 @@ img {
 [data-panel-heading]:focus-visible {
   outline: 2.7px solid var(--navy);
   outline-offset: 5.4px;
-  border-radius: 7.2px;
+  border-radius: var(--radius-sm);
 }
 
 .sr-only {
@@ -162,7 +162,7 @@ img {
   justify-content: center;
   gap: 7.2px;
   padding: 11.7px 21.6px;
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   font-size: 13.5px;
   font-weight: 700;
   line-height: 1.2;
@@ -228,7 +228,7 @@ img {
   align-items: center;
   gap: 7.2px;
   padding: 7.2px 14.4px;
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   font-size: 11.7px;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -465,7 +465,7 @@ img {
   gap: 5.4px;
   padding: 7.2px;
   margin-top: 9px;
-  border-radius: 23.4px;
+  border-radius: var(--radius-card);
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.22);
   backdrop-filter: blur(14.4px);
@@ -474,7 +474,7 @@ img {
 
 .hero__hours-col {
   padding: 12.6px 23.4px;
-  border-radius: 18px;
+  border-radius: var(--radius-sm);
   min-width: 153px;
 }
 
@@ -615,7 +615,7 @@ img {
   backdrop-filter: blur(21.6px) saturate(180%);
   -webkit-backdrop-filter: blur(21.6px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.75);
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   box-shadow:
     0 9px 27px rgba(11, 42, 91, 0.1),
     0 1px 1.8px rgba(11, 42, 91, 0.06),
@@ -641,7 +641,7 @@ img {
   gap: 7.2px;
   flex: none;
   padding: 9.9px 18px;
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   font-size: 13.5px;
   font-weight: 700;
   color: var(--ink);
@@ -746,7 +746,7 @@ img {
 
 .chip {
   padding: 8.1px 16.2px;
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--line-strong);
   font-size: 12.6px;
   font-weight: 700;
@@ -857,7 +857,7 @@ img {
   position: absolute;
   bottom: 9%;
   padding: 7.2px 16.2px;
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   background: var(--white);
   color: var(--navy);
   font-size: 11.7px;
@@ -879,7 +879,7 @@ img {
   display: flex;
   flex-direction: column;
   padding: 16.2px 18px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-card);
   border: 1px solid var(--line);
 }
 
@@ -915,7 +915,7 @@ img {
   flex: none;
   display: grid;
   place-items: center;
-  border-radius: 50%;
+  border-radius: var(--radius-sm);
   background: var(--navy);
   color: var(--white);
 }
@@ -955,7 +955,7 @@ img {
   align-items: center;
   gap: 7.2px;
   padding: 9px 14.4px;
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   background: var(--white);
   color: var(--navy);
   font-size: 12.6px;
@@ -1087,7 +1087,7 @@ img {
   margin-bottom: 25.2px;
   background: var(--bg-soft);
   border: 1px solid var(--line);
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -1100,7 +1100,7 @@ img {
   position: relative;
   flex: none;
   padding: 8.1px 16.2px;
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   font-size: 12.6px;
   font-weight: 700;
   color: var(--text-soft);
@@ -1196,7 +1196,7 @@ img {
 .mini-badge {
   display: inline-block;
   padding: 2.7px 9px;
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   font-size: 10.8px;
   font-weight: 800;
   border: 1px solid var(--ink);
@@ -1234,7 +1234,7 @@ img {
   position: relative;
   width: 100%;
   padding: 9px;
-  border-radius: 25.2px;
+  border-radius: var(--radius-card);
   background: var(--white);
   transform: rotate(3deg);
   box-shadow: 0 27px 54px -18px rgba(0, 0, 0, 0.55);
@@ -1245,7 +1245,7 @@ img {
   width: 100%;
   height: 324px;
   border: 0;
-  border-radius: 18px;
+  border-radius: var(--radius-card);
 }
 
 .map-card__tag {
@@ -1256,7 +1256,7 @@ img {
   align-items: center;
   gap: 5.4px;
   padding: 7.2px 14.4px;
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   background: var(--black);
   color: var(--white);
   font-size: 12.6px;
@@ -1281,7 +1281,7 @@ img {
   justify-content: space-between;
   gap: 14.4px;
   padding: 14.4px 14.4px 14.4px 19.8px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-card);
   background: var(--white);
 }
 
@@ -1303,7 +1303,7 @@ img {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  border-radius: 21.6px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   margin-bottom: 19.8px;
   background: var(--navy);
@@ -1341,7 +1341,7 @@ img {
 .badge {
   display: inline-block;
   padding: 4.5px 10.8px;
-  border-radius: 899.1px;
+  border-radius: var(--radius-sm);
   font-size: 10.8px;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -1381,7 +1381,7 @@ img {
   gap: 18px;
   align-items: center;
   padding: 12.6px;
-  border-radius: 23.4px;
+  border-radius: var(--radius-card);
   background: var(--white);
   transition:
     transform 0.3s var(--ease),
@@ -1396,7 +1396,7 @@ img {
 .news-card__photo {
   position: relative;
   aspect-ratio: 1;
-  border-radius: 16.2px;
+  border-radius: var(--radius-card);
   overflow: hidden;
   background: var(--navy);
 }
@@ -1463,7 +1463,7 @@ img {
   background: #1a1a1a;
 }
 
-/* Kartu/kontainer panel bersudut tajam (tombol & chip tetap kapsul) */
+/* Kartu/kontainer panel bersudut tajam */
 .hub .panel-card,
 .hub .menu-panel__visual,
 .hub .news-card,
@@ -1471,7 +1471,7 @@ img {
 .hub .map-address,
 .hub .photo-card,
 .hub .cta-block {
-  border-radius: 0;
+  border-radius: var(--radius-card);
 }
 
 /* Aksen teks: biru tua tidak terbaca di atas hitam */
