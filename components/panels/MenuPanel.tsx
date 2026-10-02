@@ -111,35 +111,9 @@ export default function MenuPanel() {
         >
           <FileText size={18} /> Lihat Menu Lengkap
         </a>
-
-        <nav className="menu-panel__nav" aria-label="Navigasi menu">
-          <button type="button" className="link-btn" onClick={() => step(-1)}>
-            <ArrowLeft size={16} /> Sebelumnya
-          </button>
-          <span className="muted">
-            Menu {index + 1} dari {items.length}
-          </span>
-          <button type="button" className="link-btn" onClick={() => step(1)}>
-            Berikutnya <ArrowRight size={16} />
-          </button>
-        </nav>
       </div>
 
       <div className="menu-panel__visual">
-        {/* Nama menu besar samar sebagai latar dekoratif */}
-        <AnimatePresence mode="wait">
-          <motion.span
-            key={item.id}
-            className="menu-visual__watermark"
-            aria-hidden="true"
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -24 }}
-            transition={{ duration: 0.4 }}
-          >
-            {item.name}
-          </motion.span>
-        </AnimatePresence>
         <span className="menu-visual__dots" aria-hidden="true" />
 
         <div className="menu-circle">
@@ -182,6 +156,18 @@ export default function MenuPanel() {
             </AnimatePresence>
           )}
         </div>
+
+        <nav className="menu-panel__nav" aria-label="Navigasi menu">
+          <button type="button" className="link-btn" onClick={() => step(-1)}>
+            <ArrowLeft size={16} /> Sebelumnya
+          </button>
+          <span className="muted">
+            Menu {index + 1} dari {items.length}
+          </span>
+          <button type="button" className="link-btn" onClick={() => step(1)}>
+            Berikutnya <ArrowRight size={16} />
+          </button>
+        </nav>
       </div>
     </div>
   );
