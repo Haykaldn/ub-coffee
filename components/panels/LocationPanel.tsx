@@ -3,7 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { ArrowUpRight, MapPin } from "../Icons";
-import { formatTime, locations } from "@/data/site";
+import { formatHours, locations } from "@/data/site";
 import { useOpenState } from "@/lib/hours";
 
 const fade = {
@@ -84,7 +84,7 @@ export default function LocationPanel() {
                     <tr key={row.day} className={isToday ? "is-today" : ""}>
                       <th scope="row">{row.day}</th>
                       <td>
-                        {formatTime(row.open)} – {formatTime(row.close)}
+                        {formatHours(row)}
                       </td>
                       <td className="hours-table__status">
                         {isToday && (

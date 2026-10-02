@@ -39,7 +39,10 @@ export function getOpenState(date = new Date(), hours: HoursRow[] = site.hours):
   const { day, minutes } = jakartaNow(date);
   const today = rowForDay(day, hours);
   const isOpen =
-    !!today && minutes >= toMinutes(today.open) && minutes < toMinutes(today.close);
+    !!today?.open &&
+    !!today.close &&
+    minutes >= toMinutes(today.open) &&
+    minutes < toMinutes(today.close);
   return { isOpen, today };
 }
 

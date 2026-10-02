@@ -2,13 +2,11 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useSyncExternalStore, type ComponentType } from "react";
-import { WhatsApp } from "./Icons";
 import HubBackground from "./HubBackground";
 import MenuPanel from "./panels/MenuPanel";
 import ReservationPanel from "./panels/ReservationPanel";
 import LocationPanel from "./panels/LocationPanel";
 import EventPanel from "./panels/EventPanel";
-import { waLink } from "@/data/site";
 
 const CARDS = [
   { key: "menu", title: "Menu" },
@@ -129,15 +127,6 @@ export default function Hub() {
               </button>
             ))}
           </div>
-
-          <a
-            className="btn btn--navy hub__wa"
-            href={waLink("Halo UB Coffee, saya ingin melakukan reservasi.")}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <WhatsApp size={18} /> Reservasi via WhatsApp
-          </a>
         </div>
 
         <AnimatePresence mode="wait">

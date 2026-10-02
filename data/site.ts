@@ -1,8 +1,9 @@
 export type HoursRow = {
   day: string;
   days: number[]; // 0 = Minggu … 6 = Sabtu
-  open: string; // "HH:MM" WIB
-  close: string;
+  // "HH:MM" WIB; kosongkan keduanya bila hari itu libur
+  open?: string;
+  close?: string;
 };
 
 export type Location = {
@@ -52,7 +53,6 @@ const ubCoffee: Location = {
   ],
 };
 
-// TODO: jam buka Gazebo Corner masih contoh, ganti dengan jam asli.
 const gazeboCorner: Location = {
   key: "gazebo-corner",
   name: "Gazebo Corner by UB Coffee",
@@ -63,9 +63,8 @@ const gazeboCorner: Location = {
   // Plus Code Google (2JV7+J3X) menunjuk titik yang tepat
   ...place("2JV7+J3X Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur"),
   hours: [
-    { day: "Senin – Jumat", days: [1, 2, 3, 4, 5], open: "08:00", close: "17:00" },
-    { day: "Sabtu", days: [6], open: "09:00", close: "15:00" },
-    { day: "Minggu", days: [0], open: "10:00", close: "17:00" },
+    { day: "Senin – Sabtu", days: [1, 2, 3, 4, 5, 6], open: "08:00", close: "18:00" },
+    { day: "Minggu", days: [0] },
   ],
 };
 
@@ -100,4 +99,10 @@ export function waLink(message?: string) {
 /** "07:30" → "07.30" (format jam Indonesia) */
 export function formatTime(t: string) {
   return t.replace(":", ".");
+}
+
+/** "08.00 – 18.00", atau "Libur" bila baris tanpa jam buka. */
+export function formatHours(row: HoursRow) {
+  if (!row.open || !row.close) return "Libur";
+  return `${formatTime(row.open)} – ${formatTime(row.close)}`;
 }

@@ -1,13 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import BlurText from "./BlurText";
+import { motion } from "motion/react";
 import OpenStatus from "./OpenStatus";
 import PhotoWall from "./PhotoWall";
 import { ArrowDown, WhatsApp } from "./Icons";
-import { formatTime, site, waLink } from "@/data/site";
+import { formatHours, site, waLink } from "@/data/site";
 import { useOpenState } from "@/lib/hours";
 import logo from "@/public/images/Logo UB COFFEE.webp";
+import wordmark from "@/public/images/WEBP/UB Coffee_Asset 4@3x.webp";
 
 export default function Hero() {
   const open = useOpenState();
@@ -34,7 +35,18 @@ export default function Hero() {
       </header>
 
       <div className="hero__center">
-        <BlurText as="h1" text={site.name} className="hero__title" italicWords={["Coffee"]} />
+        <motion.h1
+          className="hero__title"
+          initial={{ filter: "blur(10.8px)", opacity: 0, y: -36 }}
+          animate={{
+            filter: ["blur(10.8px)", "blur(4.5px)", "blur(0px)"],
+            opacity: [0, 0.5, 1],
+            y: [-36, 5.4, 0],
+          }}
+          transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
+        >
+          <Image src={wordmark} alt={site.name} priority sizes="(max-width: 767px) 85vw, 560px" />
+        </motion.h1>
 
         <dl className="hero__hours">
           {site.hours.map((row) => {
@@ -46,7 +58,7 @@ export default function Hero() {
                   {isToday && <span className="sr-only"> (hari ini)</span>}
                 </dt>
                 <dd>
-                  {formatTime(row.open)} – {formatTime(row.close)}
+                  {formatHours(row)}
                 </dd>
                 {isToday && <OpenStatus state={open} className="status-pill--inline" />}
               </div>
@@ -56,7 +68,7 @@ export default function Hero() {
       </div>
 
       <button type="button" className="hero__scroll" onClick={scrollToHub}>
-        <span>GULIR</span>
+        <span>SELENGKAPNYA</span>
         <ArrowDown size={18} />
       </button>
     </section>

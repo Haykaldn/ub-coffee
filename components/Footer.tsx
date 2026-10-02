@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Instagram, MapPin, WhatsApp } from "./Icons";
-import { formatTime, site, waLink } from "@/data/site";
+import { formatHours, locations, site, waLink } from "@/data/site";
 import logo from "@/public/images/Logo UB COFFEE.webp";
 
 export default function Footer() {
@@ -16,16 +16,19 @@ export default function Footer() {
 
           <div>
             <h2 className="footer__label">Jam Buka</h2>
-            <dl className="footer__hours">
-              {site.hours.map((row) => (
-                <div key={row.day}>
-                  <dt>{row.day}</dt>
-                  <dd>
-                    {formatTime(row.open)} – {formatTime(row.close)}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            {locations.map((loc) => (
+              <section key={loc.key} className="footer__loc">
+                <h3 className="footer__loc-name">{loc.name}</h3>
+                <dl className="footer__hours">
+                  {loc.hours.map((row) => (
+                    <div key={row.day}>
+                      <dt>{row.day}</dt>
+                      <dd>{formatHours(row)}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </section>
+            ))}
           </div>
 
           <div>

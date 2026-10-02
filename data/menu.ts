@@ -16,6 +16,7 @@ export const menu: MenuItem[] = [
     name: "Dampit Robusta",
     category: "Kopi",
     description: "Kopi robusta asal Dampit, Malang. Rasanya tebal dengan pahit yang mantap.",
+    price: 15000,
     image: menuPhoto("dampit-robusta"),
   },
   {
@@ -23,6 +24,7 @@ export const menu: MenuItem[] = [
     name: "Hot Cappucino",
     category: "Kopi",
     description: "Espresso, susu steamed, dan foam lembut dengan latte art khas UB Coffee.",
+    price: 25000,
     image: menuPhoto("hot-cappucino"),
   },
   {
@@ -30,6 +32,7 @@ export const menu: MenuItem[] = [
     name: "Ice Dolce Latte",
     category: "Kopi",
     description: "Espresso dan susu dingin dengan sentuhan manis, berlapis cantik di dalam gelas.",
+    price: 15000,
     image: menuPhoto("ice-dolce-latte"),
   },
   {
@@ -37,6 +40,7 @@ export const menu: MenuItem[] = [
     name: "Ice Lychee Tea",
     category: "Non-Kopi",
     description: "Teh dingin dengan buah leci dan daun mint. Segar dengan manis yang lembut.",
+    price: 20000,
     image: menuPhoto("ice-lychee-tea"),
   },
   {
@@ -44,6 +48,7 @@ export const menu: MenuItem[] = [
     name: "Mango Mojito",
     category: "Non-Kopi",
     description: "Soda mangga dengan irisan lemon dan daun mint, pas untuk siang yang panas.",
+    price: 28000,
     image: menuPhoto("mango-mojito"),
   },
   {
@@ -51,6 +56,7 @@ export const menu: MenuItem[] = [
     name: "Soda Gembira",
     category: "Non-Kopi",
     description: "Perpaduan klasik soda, susu, dan sirup merah yang manis dan menyegarkan.",
+    price: 20000,
     image: menuPhoto("soda-gembira"),
   },
   {
@@ -58,6 +64,7 @@ export const menu: MenuItem[] = [
     name: "Purple Mojito",
     category: "Non-Kopi",
     description: "Mojito ungu dengan lemon dan daun mint. Cantik dilihat, segar diminum.",
+    price: 25000,
     image: menuPhoto("purple-mojito"),
   },
   {
@@ -65,6 +72,7 @@ export const menu: MenuItem[] = [
     name: "Nagaberry Delight",
     category: "Non-Kopi",
     description: "Jus buah naga dan stroberi yang kental, segar, dan kaya warna.",
+    price: 28000,
     image: menuPhoto("nagaberry-delight"),
   },
   {
@@ -80,6 +88,7 @@ export const menu: MenuItem[] = [
     name: "Healthy Tropical Bit",
     category: "Non-Kopi",
     description: "Jus buah bit dan buah tropis dengan irisan lemon. Segar dan menyehatkan.",
+    price: 25000,
     image: menuPhoto("healthy-tropical-bit"),
   },
   {
@@ -148,6 +157,7 @@ export const menu: MenuItem[] = [
     category: "Makanan",
     description:
       "Nasi goreng rempah Nusantara dengan ayam dan sayuran, bercita rasa legit, gurih, asin, dan sedikit pedas. Disajikan bersama acar, kerupuk, ikan asin, dan telur.",
+    price: 40000,
     image: menuPhoto("nasi-goreng-kampung"),
   },
   {
@@ -156,6 +166,7 @@ export const menu: MenuItem[] = [
     category: "Makanan",
     description:
       "Nasi goreng dengan beras basmati dengan rempah Timur Tengah dan daging kambing muda empuk, disajikan dengan acar mentimun dan emping.",
+    price: 60000,
     image: menuPhoto("nasi-goreng-briyani"),
   },
   {
@@ -164,6 +175,7 @@ export const menu: MenuItem[] = [
     category: "Makanan",
     description:
       "Pasta klasik Italia dengan saus daging cincang dan tomat segar, dibumbui herbs Italia, disajikan bersama garlic bread gurih.",
+    price: 39000,
     image: menuPhoto("spagheti-bolognese"),
   },
   {
