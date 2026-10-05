@@ -71,9 +71,8 @@ export default function MenuPanel() {
   return (
     <div className="panel-grid menu-panel">
       <div className="panel-card menu-panel__info">
-        <span className="eyebrow">Menu</span>
         <h3 className="display panel-title" tabIndex={-1} data-panel-heading>
-          Temani setiap <em>jeda harimu.</em>
+          Temukan Menu <em>Favoritmu</em>
         </h3>
 
         <div className="chips" role="group" aria-label="Filter menu">

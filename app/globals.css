@@ -14,7 +14,7 @@
   --line-strong: #d6d6d6;
   --bg-soft: #f5f5f5;
 
-  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-display: var(--font-montserrat), system-ui, sans-serif;
   --font-body: var(--font-jakarta), system-ui, sans-serif;
 
   --radius-card: 12px;
@@ -111,7 +111,7 @@ img {
 
 .display {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 800;
   color: var(--black);
   font-size: clamp(30.6px, 4vw, 52.2px);
   line-height: 1.05;
@@ -741,7 +741,7 @@ img {
 
 .menu-panel__name {
   font-family: var(--font-display);
-  font-weight: 500;
+  font-weight: 800;
   font-size: 30.6px;
   line-height: 1.15;
   margin: 3.6px 0 7.2px;
@@ -1570,6 +1570,7 @@ img {
 .footer__tagline {
   margin-top: 12.6px;
   font-family: var(--font-display);
+  font-weight: 800;
   font-style: italic;
   font-size: 19.8px;
   color: rgba(255, 255, 255, 0.9);

@@ -48,9 +48,8 @@ export default function LocationPanel() {
           ))}
         </div>
 
-        <span className="eyebrow">Temui kami</span>
         <h3 className="display panel-title" tabIndex={-1} data-panel-heading>
-          Di mana jeda <em>bermula.</em>
+          Temukan <em>UB Coffee</em>
         </h3>
 
         <AnimatePresence mode="wait" initial={false}>

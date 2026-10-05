@@ -45,9 +45,8 @@ export default function ReservationPanel() {
   return (
     <div className="panel-grid">
       <div className="panel-card">
-        <span className="eyebrow">Reservasi</span>
         <h3 className="display panel-title" tabIndex={-1} data-panel-heading>
-          Ruang meeting yang <em>nyaman.</em>
+          Ruang meeting yang <em>nyaman</em>
         </h3>
         <p className="muted">
           Cari ruang meeting yang nyaman, fasilitas lengkap, dan suasana inspiratif? Meeting Room
