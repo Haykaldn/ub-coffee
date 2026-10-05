@@ -4,7 +4,7 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, FileText } from "../Icons";
-import { formatPrice, menu } from "@/data/menu";
+import { menu } from "@/data/menu";
 import { site } from "@/data/site";
 
 // Filter tanpa isi (mis. Makanan sebelum datanya ada) tidak ditampilkan
@@ -96,21 +96,21 @@ export default function MenuPanel() {
               <span className="menu-panel__cat">{item.category}</span>
               <h4 className="menu-panel__name">{item.name}</h4>
               <p className="muted">{item.description}</p>
-              {item.price !== undefined && (
-                <p className="menu-panel__price">{formatPrice(item.price)}</p>
-              )}
             </motion.div>
           </AnimatePresence>
         </div>
 
-        <a
-          className="btn btn--navy"
-          href={site.menuPdf}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FileText size={18} /> Lihat Menu Lengkap
-        </a>
+        <div className="menu-panel__cta">
+          <p>Temukan lebih banyak pilihan menu kami</p>
+          <a
+            className="btn btn--navy"
+            href={site.menuPdf}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FileText size={18} /> Lihat Menu Lengkap
+          </a>
+        </div>
       </div>
 
       <div className="menu-panel__visual">
@@ -138,23 +138,6 @@ export default function MenuPanel() {
               </div>
             </motion.div>
           </AnimatePresence>
-
-          {item.price !== undefined && (
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={item.id}
-                className="menu-circle__price"
-                aria-hidden="true"
-                initial={{ opacity: 0, scale: 0.6, rotate: -30 }}
-                animate={{ opacity: 1, scale: 1, rotate: -12 }}
-                exit={{ opacity: 0, scale: 0.6 }}
-                transition={{ duration: 0.35, delay: 0.15 }}
-              >
-                <small>IDR</small>
-                {Math.round(item.price / 1000)}K
-              </motion.span>
-            </AnimatePresence>
-          )}
         </div>
 
         <nav className="menu-panel__nav" aria-label="Navigasi menu">

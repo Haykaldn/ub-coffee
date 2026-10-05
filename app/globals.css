@@ -747,13 +747,6 @@ img {
   margin: 3.6px 0 7.2px;
 }
 
-.menu-panel__price {
-  margin-top: 16.2px;
-  font-size: 21.6px;
-  font-weight: 800;
-  color: var(--black);
-}
-
 .menu-panel__nav {
   display: flex;
   align-items: center;
@@ -778,8 +771,19 @@ img {
   color: var(--white);
 }
 
-.menu-panel .btn--navy {
-  margin-bottom: 28.8px;
+/* Ajakan lihat menu lengkap, didorong ke bagian bawah kartu */
+.menu-panel__cta {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 21.6px;
+  border-top: 1px solid var(--line);
+}
+
+.menu-panel__cta p {
+  margin: 0 0 12.6px;
+  font-size: 14.4px;
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .menu-panel__visual {
@@ -885,36 +889,6 @@ img {
   to {
     transform: rotate(360deg);
   }
-}
-
-/* Stiker harga bulat bergaya promo */
-.menu-circle__price {
-  position: absolute;
-  z-index: 2;
-  top: 4%;
-  left: 4%;
-  width: clamp(64px, 19%, 84px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  display: grid;
-  place-content: center;
-  text-align: center;
-  background: var(--white);
-  color: var(--navy);
-  font-family: var(--font-display);
-  font-size: clamp(20px, 5.5vw, 26px);
-  line-height: 1;
-  box-shadow:
-    0 0 0 5px rgba(255, 255, 255, 0.18),
-    0 12px 24px -6px rgba(0, 0, 0, 0.5);
-}
-
-.menu-circle__price small {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  margin-bottom: 3px;
 }
 
 /* Pola titik halus di pojok kanan atas */
