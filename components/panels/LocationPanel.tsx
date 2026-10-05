@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { ArrowUpRight, MapPin } from "../Icons";
 import { formatHours, locations } from "@/data/site";
-import { useOpenState } from "@/lib/hours";
+import { useOpenState } from "@/hooks/useOpenState";
 
 const fade = {
   hidden: { opacity: 0, y: 7.2 },
@@ -70,7 +70,12 @@ export default function LocationPanel() {
               </span>
             </address>
 
-            <a className="btn btn--navy" href={loc.mapsUrl} target="_blank" rel="noopener noreferrer">
+            <a
+              className="btn btn--navy"
+              href={loc.mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Buka di Google Maps <ArrowUpRight size={18} />
             </a>
 
@@ -82,9 +87,7 @@ export default function LocationPanel() {
                   return (
                     <tr key={row.day} className={isToday ? "is-today" : ""}>
                       <th scope="row">{row.day}</th>
-                      <td>
-                        {formatHours(row)}
-                      </td>
+                      <td>{formatHours(row)}</td>
                       <td className="hours-table__status">
                         {isToday && (
                           <span className={`mini-badge ${open.isOpen ? "is-open" : ""}`}>

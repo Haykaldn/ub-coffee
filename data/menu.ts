@@ -7,6 +7,16 @@ export type MenuItem = {
   image: string;
 };
 
+// Tombol filter di panel Menu, sesuai urutan tampil. "all" = semua kategori.
+export const menuFilters = [
+  { key: "all", label: "Semua" },
+  { key: "Kopi", label: "Kopi" },
+  { key: "Non-Kopi", label: "Non-Kopi" },
+  { key: "Makanan", label: "Makanan" },
+] as const;
+
+export type MenuFilterKey = (typeof menuFilters)[number]["key"];
+
 // Foto menu (public/images/menu), nama file = id menu.
 const menuPhoto = (id: string) => `/images/menu/${id}.webp`;
 
@@ -111,7 +121,8 @@ export const menu: MenuItem[] = [
     id: "ubee-breakfast",
     name: "Ubee Breakfast",
     category: "Makanan",
-    description: "Sarapan lengkap dengan telur orak-arik, sosis panggang, kentang panggang, dan saus.",
+    description:
+      "Sarapan lengkap dengan telur orak-arik, sosis panggang, kentang panggang, dan saus.",
     price: 30000,
     image: menuPhoto("ubee-breakfast"),
   },
@@ -191,7 +202,8 @@ export const menu: MenuItem[] = [
     id: "gado-gado-mente",
     name: "Gado-Gado Mente",
     category: "Makanan",
-    description: "Sayuran, lontong, dan telur rebus dengan saus kacang mete yang gurih, lengkap dengan kerupuk.",
+    description:
+      "Sayuran, lontong, dan telur rebus dengan saus kacang mete yang gurih, lengkap dengan kerupuk.",
     price: 30000,
     image: menuPhoto("gado-gado-mente"),
   },
@@ -216,7 +228,8 @@ export const menu: MenuItem[] = [
     id: "dimsum-kaicha",
     name: "Dimsum Kaicha",
     category: "Makanan",
-    description: "Dimsum kulit tipis berisi ayam dan sayuran, disajikan dengan saus sambal dan kuah hangat.",
+    description:
+      "Dimsum kulit tipis berisi ayam dan sayuran, disajikan dengan saus sambal dan kuah hangat.",
     price: 30000,
     image: menuPhoto("dimsum-kaicha"),
   },
@@ -232,7 +245,8 @@ export const menu: MenuItem[] = [
     id: "cookie-bomb",
     name: "Cookie Bomb",
     category: "Makanan",
-    description: "Cookie cokelat tebal yang lembut di dalam, disajikan dengan whipped cream dan daun mint.",
+    description:
+      "Cookie cokelat tebal yang lembut di dalam, disajikan dengan whipped cream dan daun mint.",
     price: 35000,
     image: menuPhoto("cookie-bomb"),
   },
@@ -245,7 +259,3 @@ export const menu: MenuItem[] = [
     image: menuPhoto("millecrepes-tiramisu"),
   },
 ];
-
-export function formatPrice(price: number) {
-  return `IDR ${Math.round(price / 1000)}K`;
-}

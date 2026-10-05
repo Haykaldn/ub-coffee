@@ -6,7 +6,7 @@ import OpenStatus from "./OpenStatus";
 import PhotoWall from "./PhotoWall";
 import { ArrowDown, WhatsApp } from "./Icons";
 import { formatHours, site, waLink } from "@/data/site";
-import { useOpenState } from "@/lib/hours";
+import { useOpenState } from "@/hooks/useOpenState";
 import logo from "@/public/images/Logo UB COFFEE.webp";
 import wordmark from "@/public/images/WEBP/UB Coffee_Asset 4@3x.webp";
 
@@ -57,9 +57,7 @@ export default function Hero() {
                   {row.day}
                   {isToday && <span className="sr-only"> (hari ini)</span>}
                 </dt>
-                <dd>
-                  {formatHours(row)}
-                </dd>
+                <dd>{formatHours(row)}</dd>
                 {isToday && <OpenStatus state={open} className="status-pill--inline" />}
               </div>
             );

@@ -2,7 +2,7 @@ import type { SVGProps } from "react";
 
 type IconProps = SVGProps<SVGSVGElement> & { size?: number };
 
-// Skala 90%: tampilan didesain pada zoom browser 90% (samakan dengan globals.css)
+// Skala 90%: tampilan didesain pada zoom browser 90% (sama dengan skala --space-* di app/styles/base.css)
 const ICON_SCALE = 0.9;
 
 function Icon({ size = 20, children, ...props }: IconProps) {

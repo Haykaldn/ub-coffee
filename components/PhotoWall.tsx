@@ -29,7 +29,7 @@ export default function PhotoWall() {
                     src={photo.src}
                     alt=""
                     fill
-                    sizes="480px"
+                    sizes="360px"
                     quality={60}
                     loading={row < 2 ? "eager" : "lazy"}
                   />

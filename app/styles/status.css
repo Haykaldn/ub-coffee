@@ -1,0 +1,62 @@
+/* ---------- Status buka/tutup ---------- */
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-sm);
+  font-size: 11.7px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  color: var(--white);
+}
+
+.status-pill__dot {
+  width: 7.2px;
+  height: 7.2px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.status-pill.is-open {
+  background: var(--white);
+  color: var(--navy);
+  border-color: var(--white);
+}
+
+.status-pill.is-open .status-pill__dot {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.status-pill.is-pending {
+  opacity: 0.7;
+}
+
+/* Versi ringkas di dalam kolom jam hari ini (hero) */
+.status-pill--inline,
+.status-pill--inline.is-open {
+  margin-top: var(--space-6);
+  padding: 0;
+  gap: var(--space-6);
+  font-size: 10.8px;
+  border: 0;
+  background: none;
+  color: var(--white);
+}
+
+.status-pill--inline.is-open .status-pill__dot {
+  background: #4ade80;
+  box-shadow: 0 0 0 2.7px rgba(74, 222, 128, 0.25);
+}
+
+.status-pill--inline.is-closed .status-pill__dot {
+  background: #f87171;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.3;
+  }
+}

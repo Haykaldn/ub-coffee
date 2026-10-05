@@ -1,5 +1,3 @@
-"use client";
-
 import type { OpenState } from "@/lib/hours";
 
 export default function OpenStatus({

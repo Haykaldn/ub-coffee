@@ -1,0 +1,60 @@
+/* ---------- Tombol ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  padding: 11.7px var(--space-24);
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition:
+    transform 0.25s var(--ease),
+    background-color 0.25s,
+    box-shadow 0.25s;
+}
+
+.btn:hover {
+  transform: translateY(-1.8px);
+}
+
+.btn--white {
+  background: var(--white);
+  color: var(--navy);
+}
+
+.btn--white:hover {
+  box-shadow: 0 9px 21.6px -9px rgba(0, 0, 0, 0.45);
+}
+
+.btn--navy {
+  background: var(--navy);
+  color: var(--white);
+}
+
+.btn--navy:hover {
+  background: var(--navy-deep);
+  box-shadow: 0 9px 21.6px -9px rgba(11, 42, 91, 0.6);
+}
+
+.btn--sm {
+  padding: var(--space-10) var(--space-16);
+  font-size: 12.6px;
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  font-weight: 700;
+  font-size: 12.6px;
+  color: var(--accent);
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+  text-underline-offset: 3.6px;
+}

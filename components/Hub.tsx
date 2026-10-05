@@ -7,17 +7,9 @@ import MenuPanel from "./panels/MenuPanel";
 import ReservationPanel from "./panels/ReservationPanel";
 import LocationPanel from "./panels/LocationPanel";
 import EventPanel from "./panels/EventPanel";
+import { hubTabs, type HubTabKey } from "@/data/navigation";
 
-const CARDS = [
-  { key: "menu", title: "Menu" },
-  { key: "reservasi", title: "Reservasi" },
-  { key: "lokasi", title: "Lokasi" },
-  { key: "event", title: "Event & Promo" },
-] as const;
-
-type PanelKey = (typeof CARDS)[number]["key"];
-
-const PANELS: Record<PanelKey, ComponentType> = {
+const PANELS: Record<HubTabKey, ComponentType> = {
   menu: MenuPanel,
   reservasi: ReservationPanel,
   lokasi: LocationPanel,
@@ -30,15 +22,18 @@ const panelVariants = {
   exit: { opacity: 0, y: 14.4 },
 };
 
-function keyFromHash(): PanelKey | null {
+function keyFromHash(): HubTabKey | null {
   const hash = window.location.hash.slice(1);
-  return CARDS.some((c) => c.key === hash) ? (hash as PanelKey) : null;
+  return hubTabs.some((c) => c.key === hash) ? (hash as HubTabKey) : null;
 }
 
-const DEFAULT_PANEL: PanelKey = "menu";
+const DEFAULT_PANEL: HubTabKey = "menu";
 
-// URL (#menu, #reservasi, …) menjadi sumber kebenaran panel aktif, termasuk tombol back browser.
-// Tanpa hash, panel Menu yang tampil.
+// URL (#menu, #reservasi, …) menjadi sumber kebenaran panel aktif, bukan state React, agar
+// tombol back/forward browser dan tautan yang dibagikan (mis. /#lokasi) langsung membuka panel
+// yang benar. Tanpa hash, panel Menu yang tampil.
+// history.pushState tidak memicu event apa pun, jadi navigate() mengirim event sendiri
+// supaya useSyncExternalStore membaca ulang hash.
 const NAV_EVENT = "ubcoffee:navigate";
 
 function subscribeHash(onChange: () => void) {
@@ -58,8 +53,8 @@ function navigate(url: string) {
 }
 
 export default function Hub() {
-  const active =
-    useSyncExternalStore(subscribeHash, keyFromHash, () => null) ?? DEFAULT_PANEL;
+  // Snapshot server = null (tidak ada window); di klien hash dibaca setelah hydration.
+  const active = useSyncExternalStore(subscribeHash, keyFromHash, () => null) ?? DEFAULT_PANEL;
   const sectionRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const focusOnEnter = useRef(false);
@@ -74,13 +69,15 @@ export default function Hub() {
     if (keyFromHash()) sectionRef.current?.scrollIntoView();
   }, []);
 
-  const open = (key: PanelKey) => {
+  const open = (key: HubTabKey) => {
     if (key === active) return;
     focusOnEnter.current = true;
     navigate(`#${key}`);
     scrollToTop();
   };
 
+  // Setelah tab diklik, fokus dipindah ke judul panel baru agar pengguna keyboard dan pembaca
+  // layar langsung berada di konten yang berganti. Tidak dilakukan saat halaman pertama dibuka.
   const onPanelEntered = () => {
     if (!focusOnEnter.current) return;
     focusOnEnter.current = false;
@@ -100,7 +97,7 @@ export default function Hub() {
         </h2>
         <div className="hub__bar">
           <div className="hub__tabs" role="tablist" aria-label="Pilih konten">
-            {CARDS.map((card) => (
+            {hubTabs.map((card) => (
               <button
                 key={card.key}
                 type="button"

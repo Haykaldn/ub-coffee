@@ -3,8 +3,7 @@
 import Image from "next/image";
 import { useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
-
-type Photo = { src: string; alt: string };
+import type { Photo } from "@/types/content";
 
 /** Foto berganti otomatis dengan transisi memudar (dipakai di kartu foto panel). */
 export default function PhotoSlideshow({
@@ -27,6 +26,9 @@ export default function PhotoSlideshow({
     return () => window.clearInterval(id);
   }, [reduceMotion, photos.length, interval]);
 
+  // Semua foto dirender bertumpuk dan hanya class is-active yang berpindah, agar transisi
+  // memudar tidak berkedip menunggu gambar dimuat. Hanya foto aktif yang diberi alt supaya
+  // pembaca layar tidak membacakan semua foto sekaligus.
   return (
     <>
       {photos.map((photo, i) => (

@@ -4,20 +4,11 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, FileText } from "../Icons";
-import { menu } from "@/data/menu";
+import { menu, menuFilters, type MenuFilterKey } from "@/data/menu";
 import { site } from "@/data/site";
 
-// Filter tanpa isi (mis. Makanan sebelum datanya ada) tidak ditampilkan
-const FILTERS = [
-  { key: "all", label: "Semua" },
-  { key: "Kopi", label: "Kopi" },
-  { key: "Non-Kopi", label: "Non-Kopi" },
-  { key: "Makanan", label: "Makanan" },
-] as const;
-
-type FilterKey = (typeof FILTERS)[number]["key"];
-
-const visibleFilters = FILTERS.filter(
+// Filter yang belum punya item tidak ditampilkan
+const visibleFilters = menuFilters.filter(
   (f) => f.key === "all" || menu.some((m) => m.category === f.key),
 );
 
@@ -34,7 +25,7 @@ const AUTOPLAY_MS = 3000;
 const RESUME_AFTER_MS = 10000;
 
 export default function MenuPanel() {
-  const [filter, setFilter] = useState<FilterKey>("all");
+  const [filter, setFilter] = useState<MenuFilterKey>("all");
   const [index, setIndex] = useState(0);
   const [manual, setManual] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -42,7 +33,7 @@ export default function MenuPanel() {
   const items = filter === "all" ? menu : menu.filter((m) => m.category === filter);
   const item = items[index] ?? items[0];
 
-  const changeFilter = (key: FilterKey) => {
+  const changeFilter = (key: MenuFilterKey) => {
     setFilter(key);
     setIndex(0);
     setManual(false);
@@ -131,7 +122,7 @@ export default function MenuPanel() {
                   src={item.image}
                   alt={item.name}
                   fill
-                  sizes="(max-width: 767px) 70vw, 380px"
+                  sizes="(max-width: 690px) 70vw, 380px"
                   quality={75}
                 />
               </div>

@@ -1,0 +1,240 @@
+/* ==========================================================================
+   Section 1 — Hero
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 108px var(--space-24) 90px;
+  overflow: hidden;
+  background: var(--navy-deep);
+  color: var(--white);
+}
+
+.hero :focus-visible {
+  outline-color: var(--white);
+}
+
+.photo-wall {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.photo-wall__tilt {
+  position: absolute;
+  top: 50%;
+  left: -20%;
+  width: 140%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+  transform: translateY(-50%) rotate(-6deg);
+}
+
+.photo-wall__row {
+  display: flex;
+  width: max-content;
+  animation: wall-left 75s linear infinite;
+  will-change: transform;
+}
+
+.photo-wall__row.is-right {
+  animation-name: wall-right;
+}
+
+.photo-wall__item {
+  position: relative;
+  flex: none;
+  /* ±360×225px; membesar di layar tinggi agar 4 baris tetap menutupi hero */
+  height: clamp(225px, 26vh, 378px);
+  aspect-ratio: 36 / 25;
+  margin-right: 18px; /* margin (bukan gap) agar setengah baris tepat -50% */
+  overflow: hidden;
+  background: var(--navy);
+  transition:
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.5s ease;
+}
+
+.photo-wall__item img {
+  object-fit: cover;
+}
+
+/* Tint biru per foto (bukan di overlay) agar foto yang di-hover bisa tampil warna asli */
+.photo-wall__item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 42, 91, 0.72);
+  transition: opacity 0.5s ease;
+}
+
+@media (hover: hover) {
+  .photo-wall__row:hover {
+    animation-play-state: paused;
+  }
+
+  .photo-wall__item:hover {
+    z-index: 1;
+    transform: scale(1.07);
+    box-shadow: 0 21.6px 54px rgba(0, 0, 0, 0.55);
+  }
+
+  .photo-wall__item:hover::after {
+    opacity: 0;
+  }
+}
+
+@keyframes wall-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes wall-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Hanya menggelapkan area tengah (keterbacaan judul); tepi dibiarkan bersih
+   agar foto yang di-hover tampil warna asli. */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 42% 38% at 50% 50%,
+    rgba(6, 20, 45, 0.85) 0%,
+    rgba(6, 20, 45, 0.55) 55%,
+    transparent 100%
+  );
+}
+
+.hero__top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-24) var(--space-32);
+}
+
+.hero__brand {
+  width: auto;
+  height: 46.8px;
+  /* Bayangan putih mengikuti bentuk logo agar tidak menyatu dengan latar gelap */
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 0 8px rgba(255, 255, 255, 0.45));
+}
+
+.hero__center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-22);
+}
+
+/* Judul berupa gambar wordmark UB COFFEE (putih, latar transparan) */
+.hero__title {
+  width: 560px;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.hero__title img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 3.6px 24px rgba(0, 0, 0, 0.35));
+}
+
+.hero__hours {
+  display: grid;
+  /* Satu kolom per baris jam buka, berapa pun jumlahnya */
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: var(--space-6);
+  padding: var(--space-8);
+  margin-top: var(--space-10);
+  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(14.4px);
+  -webkit-backdrop-filter: blur(14.4px);
+}
+
+.hero__hours-col {
+  padding: var(--space-14) var(--space-26);
+  border-radius: var(--radius-sm);
+  min-width: 153px;
+}
+
+.hero__hours-col dt {
+  font-size: 10.8px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.hero__hours-col dd {
+  font-size: 17.1px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero__hours-col.is-today {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.hero__hours-col.is-today dt {
+  opacity: 1;
+}
+
+.hero__scroll {
+  position: absolute;
+  z-index: 3;
+  bottom: var(--space-32);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  font-size: 10.8px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--white);
+  opacity: 0.85;
+}
+
+.hero__scroll svg {
+  animation: nudge 1.8s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  50% {
+    transform: translateY(4.5px);
+  }
+}

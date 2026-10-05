@@ -1,9 +1,11 @@
+import type { Photo } from "@/types/content";
+
 // Foto asli UB Coffee (public/images/WEBP). Foto potret sudah dipotong jadi landscape 3:2.
 export const photo = (file: string) => `/images/WEBP/${file}.webp`;
 
 // Dinding foto hero: 4 baris × 8 kotak dari 18 foto pilihan. Foto yang sama
 // muncul lagi di baris lain; urutan dicampur (eksterior, interior, orang) agar bervariasi.
-export const heroPhotos: { src: string; alt: string }[] = [
+export const heroPhotos: Photo[] = [
   { src: photo("DSC01991"), alt: "Tampak depan UB Coffee" },
   { src: photo("DSC01690-2"), alt: "Pelayan mencatat pesanan" },
   { src: photo("DFTA0020"), alt: "Meja bernomor di area indoor" },
@@ -25,7 +27,7 @@ export const heroPhotos: { src: string; alt: string }[] = [
 ];
 
 // Latar slideshow section 2: foto suasana yang tetap enak dilihat saat digelapkan.
-export const ambientPhotos = [
+export const ambientPhotos: Photo[] = [
   "DSC01991",
   "DSCF0395",
   "DSC02111",

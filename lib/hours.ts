@@ -1,11 +1,14 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { site, type HoursRow } from "@/data/site";
+import { site } from "@/data/site";
+import type { HoursRow } from "@/types/content";
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-/** Hari (0 = Minggu) dan menit sejak tengah malam, menurut waktu Asia/Jakarta. */
+/**
+ * Hari (0 = Minggu) dan menit sejak tengah malam, menurut waktu Asia/Jakarta.
+ * Sengaja memakai Intl dengan timeZone, bukan date.getHours()/getDay(): getHours mengikuti
+ * zona waktu perangkat pengunjung, sehingga status buka akan salah bagi pengunjung di luar WIB.
+ * hourCycle "h23" memastikan tengah malam terbaca "00", bukan "24".
+ */
 export function jakartaNow(date = new Date()) {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "Asia/Jakarta",
@@ -35,6 +38,8 @@ export type OpenState = {
   today: HoursRow | undefined;
 };
 
+// Jam tutup bersifat eksklusif (tepat 22.00 sudah "tutup"). Baris tanpa open/close = libur.
+// Jam yang melewati tengah malam (mis. 20.00–02.00) tidak didukung; belum ada lokasi yang butuh.
 export function getOpenState(date = new Date(), hours: HoursRow[] = site.hours): OpenState {
   const { day, minutes } = jakartaNow(date);
   const today = rowForDay(day, hours);
@@ -44,21 +49,4 @@ export function getOpenState(date = new Date(), hours: HoursRow[] = site.hours):
     minutes >= toMinutes(today.open) &&
     minutes < toMinutes(today.close);
   return { isOpen, today };
-}
-
-/**
- * Status buka/tutup dihitung di klien (WIB) dan diperbarui tiap menit.
- * Bernilai null saat render server agar tidak terjadi hydration mismatch.
- */
-export function useOpenState(hours: HoursRow[] = site.hours) {
-  const [state, setState] = useState<OpenState | null>(null);
-
-  useEffect(() => {
-    const update = () => setState(getOpenState(new Date(), hours));
-    update();
-    const id = window.setInterval(update, 60_000);
-    return () => window.clearInterval(id);
-  }, [hours]);
-
-  return state;
 }

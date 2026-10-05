@@ -1,0 +1,13 @@
+# Hasil build dan file yang dibuat otomatis
+.next
+out
+build
+next-env.d.ts
+package-lock.json
+
+# Aset statis
+public
+
+# Dikelola otomatis oleh `next dev`
+AGENTS.md
+CLAUDE.md

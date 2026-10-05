@@ -15,7 +15,7 @@ export default function EventPanel() {
             src={featured.image}
             alt={featured.title}
             fill
-            sizes="(max-width: 1023px) 100vw, 50vw"
+            sizes="(max-width: 920px) 100vw, (max-width: 1225px) 40vw, 490px"
             quality={75}
           />
           <span className="badge">{newsLabel[featured.category]}</span>
@@ -42,7 +42,12 @@ export default function EventPanel() {
           <h3 className="display">
             Kabar <em>terbaru</em>
           </h3>
-          <a className="link-btn" href={site.instagramUrl} target="_blank" rel="noopener noreferrer">
+          <a
+            className="link-btn"
+            href={site.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Instagram size={18} /> {site.instagram} <ArrowUpRight size={14} />
           </a>
         </div>

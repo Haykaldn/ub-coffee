@@ -1,10 +1,4 @@
-export type HoursRow = {
-  day: string;
-  days: number[]; // 0 = Minggu … 6 = Sabtu
-  // "HH:MM" WIB; kosongkan keduanya bila hari itu libur
-  open?: string;
-  close?: string;
-};
+import type { HoursRow } from "@/types/content";
 
 export type Location = {
   key: string;
@@ -41,8 +35,7 @@ const mapsDirections = (q: string) =>
 const ubCoffee: Location = {
   key: "ub-coffee",
   name: "UB Coffee",
-  address:
-    "Jl. MT. Haryono No.169, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145",
+  address: "Jl. MT. Haryono No.169, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145",
   addressShort: "Jl. MT. Haryono No.169, Malang",
   landmark: "Tepi Jl. MT. Haryono, dekat gerbang masuk KPRI UB",
   // TODO: isi koordinat asli UB Coffee (argumen ke-2) agar titik peta tepat.
@@ -56,8 +49,7 @@ const ubCoffee: Location = {
 const gazeboCorner: Location = {
   key: "gazebo-corner",
   name: "Gazebo Corner by UB Coffee",
-  address:
-    "Jl. Universitas Brawijaya, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145",
+  address: "Jl. Universitas Brawijaya, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145",
   addressShort: "Gazebo Raden Wijaya, Universitas Brawijaya",
   landmark: "Berlokasi di Gazebo Raden Wijaya Universitas Brawijaya",
   // Plus Code Google (2JV7+J3X) menunjuk titik yang tepat

@@ -21,6 +21,7 @@ export default function HubBackground() {
     return () => window.clearInterval(id);
   }, [reduceMotion]);
 
+  // Sama seperti PhotoSlideshow: semua foto dirender bertumpuk agar pergantian tidak berkedip.
   return (
     <div className="hub__bg" aria-hidden="true">
       {PHOTOS.map((photo, i) => (

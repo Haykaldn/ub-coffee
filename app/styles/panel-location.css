@@ -1,0 +1,223 @@
+/* ---------- Panel Lokasi ---------- */
+
+/* Pilihan lokasi (UB Coffee / Gazebo Corner) */
+.loc-switch {
+  display: inline-flex;
+  max-width: 100%;
+  gap: var(--space-4);
+  padding: 4.5px;
+  margin-bottom: var(--space-28);
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.loc-switch::-webkit-scrollbar {
+  display: none;
+}
+
+.loc-switch__btn {
+  position: relative;
+  flex: none;
+  padding: 8.1px var(--space-18);
+  border-radius: var(--radius-sm);
+  font-size: 12.6px;
+  font-weight: 700;
+  color: var(--text-soft);
+  background: transparent;
+  transition: color 0.3s var(--ease);
+}
+
+.loc-switch__btn:hover:not(.is-active) {
+  color: var(--navy);
+}
+
+.loc-switch__btn.is-active {
+  color: var(--white);
+}
+
+.loc-switch__pill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--navy);
+  box-shadow: 0 2.7px 9px rgba(11, 42, 91, 0.25);
+}
+
+.loc-switch__label {
+  position: relative;
+}
+
+.loc-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.address {
+  display: flex;
+  gap: var(--space-12);
+  font-style: normal;
+  font-weight: 600;
+  margin-bottom: var(--space-22);
+}
+
+.address svg {
+  flex: none;
+  margin-top: 2.7px;
+  color: var(--accent);
+}
+
+.address small {
+  display: block;
+  margin-top: var(--space-4);
+  font-size: 12.6px;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.hours-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.hours-table th,
+.hours-table td {
+  padding: 11.7px var(--space-14);
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+.hours-table th {
+  font-weight: 600;
+}
+
+.hours-table td {
+  font-variant-numeric: tabular-nums;
+}
+
+.hours-table tr.is-today th,
+.hours-table tr.is-today td {
+  background: var(--bg-soft);
+  font-weight: 800;
+  color: var(--black);
+}
+
+.hours-table tr.is-today th {
+  box-shadow: inset 2.7px 0 0 var(--accent);
+}
+
+.hours-table__status {
+  text-align: right !important;
+}
+
+.mini-badge {
+  display: inline-block;
+  padding: 2.7px var(--space-10);
+  border-radius: var(--radius-sm);
+  font-size: 10.8px;
+  font-weight: 800;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+}
+
+.mini-badge.is-open {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: var(--white);
+}
+
+.hours-table + .muted {
+  margin-top: var(--space-10);
+}
+
+.map-stage {
+  position: relative;
+  min-height: 504px;
+  padding: var(--space-64) var(--space-48) 126px;
+  border-radius: var(--radius-card);
+  background-color: var(--navy);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.08px, transparent 1.44px);
+  background-size: 18px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-stage :focus-visible {
+  outline-color: var(--white);
+}
+
+.map-card {
+  position: relative;
+  width: 100%;
+  padding: var(--space-10);
+  border-radius: var(--radius-card);
+  background: #1a1a1a;
+  transform: rotate(3deg);
+  box-shadow: 0 27px 54px -18px rgba(0, 0, 0, 0.55);
+}
+
+.map-card iframe {
+  display: block;
+  width: 100%;
+  height: 324px;
+  border: 0;
+  border-radius: var(--radius-card);
+}
+
+.map-card__tag {
+  position: absolute;
+  top: -14.4px;
+  left: var(--space-28);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-sm);
+  background: var(--navy);
+  color: var(--white);
+  font-size: 12.6px;
+  font-weight: 800;
+  box-shadow: 0 9px 18px -7.2px rgba(0, 0, 0, 0.5);
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-5.4px);
+  }
+}
+
+.map-address {
+  position: absolute;
+  left: var(--space-32);
+  right: var(--space-32);
+  bottom: var(--space-32);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--space-16) var(--space-16) var(--space-22);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12.6px);
+  -webkit-backdrop-filter: blur(12.6px);
+}
+
+.map-address div {
+  display: flex;
+  flex-direction: column;
+  font-size: 12.6px;
+  color: var(--text);
+}
+
+.map-address strong {
+  color: var(--black);
+  font-size: 14.4px;
+}
