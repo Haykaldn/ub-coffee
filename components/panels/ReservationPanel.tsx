@@ -56,7 +56,7 @@ export default function ReservationPanel() {
           <h4 className="display">Siap untuk memulai?</h4>
           <p>{reservationText.cta}</p>
           <a
-            className="btn btn--white"
+            className="btn btn--navy"
             href={waLink("Halo UB Coffee, saya ingin reservasi meeting room.")}
             target="_blank"
             rel="noopener noreferrer"

@@ -140,16 +140,14 @@
   min-height: 504px;
   padding: var(--space-64) var(--space-48) 126px;
   border-radius: var(--radius-card);
-  background-color: var(--navy);
-  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.08px, transparent 1.44px);
-  background-size: 18px 18px;
+  background: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .map-stage :focus-visible {
-  outline-color: var(--white);
+  outline-color: var(--navy);
 }
 
 .map-card {
@@ -157,9 +155,8 @@
   width: 100%;
   padding: var(--space-10);
   border-radius: var(--radius-card);
-  background: #1a1a1a;
-  transform: rotate(3deg);
-  box-shadow: 0 27px 54px -18px rgba(0, 0, 0, 0.55);
+  background: var(--navy);
+  box-shadow: 0 27px 54px -18px rgba(0, 0, 0, 0.35);
 }
 
 .map-card iframe {

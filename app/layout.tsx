@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Plus_Jakarta_Sans } from "next/font/google";
+import { Montserrat, Plus_Jakarta_Sans, Roboto } from "next/font/google";
 import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
 
@@ -16,6 +16,12 @@ const jakarta = Plus_Jakarta_Sans({
   weight: ["400", "500", "600", "700", "800"],
 });
 
+const roboto = Roboto({
+  variable: "--font-roboto",
+  subsets: ["latin"],
+  weight: ["700"],
+});
+
 export const metadata: Metadata = {
   title: "UB Coffee",
   description:
@@ -28,7 +34,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="id" className={`${montserrat.variable} ${jakarta.variable}`}>
+    <html lang="id" className={`${montserrat.variable} ${jakarta.variable} ${roboto.variable}`}>
       <body>
         <MotionProvider>{children}</MotionProvider>
       </body>

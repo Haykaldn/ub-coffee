@@ -6,46 +6,12 @@
   position: relative;
   z-index: 2;
   padding: 86.4px 0 108px;
-  background: var(--bg-soft);
+  /* Nilai langsung, bukan var(--black): token itu dibalik jadi putih di dalam .hub */
+  background: #0a0a0a;
   scroll-margin-top: 0;
 }
 
-/* Latar foto berganti (slideshow) + lapisan hitam */
-.hub__bg {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  border-radius: inherit;
-  background: #0a0a0a;
-}
-
-.hub__bg-img {
-  object-fit: cover;
-  opacity: 0;
-  transform: scale(1.04);
-  transition:
-    opacity 1.4s ease,
-    transform 6s ease-out;
-}
-
-.hub__bg-img.is-active {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.hub__bg-shade {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.62);
-}
-
-/* Konten di atas latar */
-.hub > .container {
-  position: relative;
-  z-index: 1;
-}
-
-/* Teks yang langsung berada di atas foto dibuat putih */
+/* Teks yang langsung berada di atas latar hitam dibuat putih */
 .hub .event-list__head,
 .hub .event-list__head .display,
 .hub .event-list__head .link-btn {
@@ -87,6 +53,7 @@
   flex: none;
   padding: var(--space-12) var(--space-22);
   border-radius: var(--radius-sm);
+  font-family: var(--font-nav);
   font-size: 16px;
   font-weight: 700;
   color: var(--white);

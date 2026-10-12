@@ -104,10 +104,7 @@ export default function MenuPanel() {
       </div>
 
       <div className="menu-panel__visual">
-        <span className="menu-visual__dots" aria-hidden="true" />
-
         <div className="menu-circle">
-          <span className="menu-circle__orbit" aria-hidden="true" />
           <AnimatePresence mode="wait">
             <motion.div
               key={item.id}

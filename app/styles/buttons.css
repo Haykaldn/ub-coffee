@@ -21,13 +21,15 @@
   transform: translateY(-1.8px);
 }
 
-.btn--white {
-  background: var(--white);
-  color: var(--navy);
+/* Hanya tulisan putih tanpa latar, untuk di atas foto */
+.btn--text {
+  color: var(--white);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
 }
 
-.btn--white:hover {
-  box-shadow: 0 9px 21.6px -9px rgba(0, 0, 0, 0.45);
+.btn--text:hover {
+  text-decoration: underline;
+  text-underline-offset: 3.6px;
 }
 
 .btn--navy {

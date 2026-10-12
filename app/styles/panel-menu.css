@@ -62,16 +62,26 @@
   font-size: 12.6px;
 }
 
-/* Navigasi di panel biru; tombol diperbesar agar mudah disentuh di HP */
+/* Navigasi di panel putih; tombol diperbesar agar mudah disentuh di HP.
+   Warna teks memakai nilai langsung: --black/--text-soft dibalik jadi terang di dalam .hub */
 .menu-panel__visual .menu-panel__nav {
   position: relative;
   z-index: 2;
-  border-top-color: rgba(255, 255, 255, 0.18);
+  border-top-color: rgba(0, 0, 0, 0.12);
 }
 
 .menu-panel__visual .link-btn {
   min-height: 44px;
   padding: 0 4px;
+  color: #0a0a0a;
+}
+
+.menu-panel__visual .muted {
+  color: #555555;
+}
+
+.menu-panel__visual :focus-visible {
+  outline-color: var(--navy);
 }
 
 /* Ajakan lihat menu lengkap, didorong ke bagian bawah kartu */
@@ -95,13 +105,7 @@
   grid-template-rows: 1fr auto;
   place-items: center;
   gap: var(--space-20);
-  /* Latar biru tua di belakang lingkaran putih */
-  background:
-    radial-gradient(circle at 70% 35%, rgba(120, 160, 230, 0.28), transparent 55%),
-    linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12.6px);
-  -webkit-backdrop-filter: blur(12.6px);
+  background: var(--white);
   border-radius: var(--radius-card);
   padding: 36px;
   overflow: hidden;
@@ -113,36 +117,9 @@
   aspect-ratio: 1;
 }
 
-/* Lingkaran putih digeser ke kanan atas (gaya Starbucks) agar tetap terlihat di
-   belakang produk, termasuk piring yang lebar */
-.menu-circle::before {
-  content: "";
-  position: absolute;
-  top: 4%;
-  right: 2%;
-  width: 66%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: var(--white);
-  box-shadow: 0 0 0 14px rgba(255, 255, 255, 0.08);
-}
-
-/* Cincin tipis dekoratif di sisi kiri bawah, mengimbangi lingkaran putih */
-.menu-circle::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 58%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1px dashed rgba(255, 255, 255, 0.22);
-}
-
-/* Foto produk transparan tanpa wadah, sedikit ke kiri bawah agar menumpuk lingkaran */
+/* Foto produk transparan tanpa wadah */
 .menu-circle__photo {
   position: absolute;
-  z-index: 1;
   inset: 14% 10% 2% 4%;
 }
 
@@ -153,7 +130,7 @@
 
 .menu-circle__photo img {
   object-fit: contain;
-  filter: drop-shadow(0 22px 22px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 22px 22px rgba(0, 0, 0, 0.25));
 }
 
 /* Produk melayang naik-turun perlahan */
@@ -167,48 +144,4 @@
   50% {
     transform: translateY(-10px);
   }
-}
-
-/* Cincin putus-putus yang berputar pelan mengelilingi lingkaran putih */
-.menu-circle__orbit {
-  position: absolute;
-  top: -2%;
-  right: -4%;
-  width: 78%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1.5px dashed rgba(255, 255, 255, 0.28);
-  animation: menu-spin 40s linear infinite;
-}
-
-/* Titik kecil di cincin agar putarannya terlihat */
-.menu-circle__orbit::before {
-  content: "";
-  position: absolute;
-  top: 14%;
-  left: 14%;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--accent, #a9c2ee);
-  box-shadow: 0 0 12px var(--accent, #a9c2ee);
-  transform: translate(-50%, -50%);
-}
-
-@keyframes menu-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Pola titik halus di pojok kanan atas */
-.menu-visual__dots {
-  position: absolute;
-  top: 22px;
-  right: 22px;
-  width: 110px;
-  height: 80px;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.35) 1.4px, transparent 1.6px);
-  background-size: 14px 14px;
-  pointer-events: none;
 }

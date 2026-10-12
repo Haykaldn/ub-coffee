@@ -3,12 +3,12 @@
 import Image from "next/image";
 import { useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
-import { ambientPhotos } from "@/data/heroPhotos";
+import { heroPhotos } from "@/data/heroPhotos";
 
-const PHOTOS = ambientPhotos;
-const INTERVAL = 5000;
+const PHOTOS = heroPhotos;
+const INTERVAL = 6000;
 
-export default function HubBackground() {
+export default function HeroSlideshow() {
   const [index, setIndex] = useState(0);
   const reduceMotion = useReducedMotion();
 
@@ -23,7 +23,7 @@ export default function HubBackground() {
 
   // Sama seperti PhotoSlideshow: semua foto dirender bertumpuk agar pergantian tidak berkedip.
   return (
-    <div className="hub__bg" aria-hidden="true">
+    <div className="hero-slideshow" aria-hidden="true">
       {PHOTOS.map((photo, i) => (
         <Image
           key={photo.src}
@@ -31,11 +31,11 @@ export default function HubBackground() {
           alt=""
           fill
           sizes="100vw"
-          quality={60}
-          className={`hub__bg-img ${i === index ? "is-active" : ""}`}
+          quality={70}
+          priority={i === 0}
+          className={`hero-slideshow__img ${i === index ? "is-active" : ""}`}
         />
       ))}
-      <div className="hub__bg-shade" />
     </div>
   );
 }

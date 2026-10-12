@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import OpenStatus from "./OpenStatus";
-import PhotoWall from "./PhotoWall";
+import HeroSlideshow from "./HeroSlideshow";
 import { ArrowDown, WhatsApp } from "./Icons";
 import { formatHours, site, waLink } from "@/data/site";
 import { useOpenState } from "@/hooks/useOpenState";
@@ -19,13 +19,13 @@ export default function Hero() {
 
   return (
     <section className="hero" aria-label="UB Coffee">
-      <PhotoWall />
+      <HeroSlideshow />
       <div className="hero__overlay" />
 
       <header className="hero__top">
         <Image src={logo} alt="UB Coffee" className="hero__brand" priority />
         <a
-          className="btn btn--white"
+          className="btn btn--text"
           href={waLink("Halo UB Coffee, saya ingin melakukan reservasi.")}
           target="_blank"
           rel="noopener noreferrer"

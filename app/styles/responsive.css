@@ -49,42 +49,12 @@
     width: min(300px, 85vw);
   }
 
-  .photo-wall__item {
-    height: clamp(153px, 25vh, 234px);
-    margin-right: var(--space-14);
-  }
-
-  .photo-wall__tilt {
-    gap: var(--space-14);
-  }
-
   .hero__hours {
-    grid-auto-flow: row;
-    grid-template-columns: minmax(0, 1fr);
-    width: 100%;
-    max-width: 288px;
-  }
-
-  .hero__hours-col {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: var(--space-12);
-    padding: var(--space-10) var(--space-18);
-    min-width: 0;
+    gap: var(--space-16);
   }
 
   .hero__hours-col dd {
-    font-size: 14.4px;
-  }
-
-  .hero__hours-col {
-    flex-wrap: wrap;
-  }
-
-  .hero__hours-col .status-pill--inline {
-    flex-basis: 100%;
-    margin-top: 0;
+    font-size: 13.5px;
   }
 
   .hero__scroll {
@@ -132,10 +102,6 @@
     gap: var(--space-16);
   }
 
-  .map-card {
-    transform: none;
-  }
-
   .map-card iframe {
     height: 252px;
   }
@@ -166,12 +132,10 @@
     scroll-behavior: auto;
   }
 
-  .photo-wall__row,
   .status-pill__dot,
   .hero__scroll svg,
   .map-card__tag,
-  .menu-circle__float,
-  .menu-circle__orbit {
+  .menu-circle__float {
     animation: none !important;
   }
 

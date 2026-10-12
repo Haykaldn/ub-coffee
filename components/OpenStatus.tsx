@@ -8,7 +8,7 @@ export default function OpenStatus({
   className?: string;
 }) {
   const variant = !state ? "is-pending" : state.isOpen ? "is-open" : "is-closed";
-  const label = !state ? "Memuat jam buka" : state.isOpen ? "Buka sekarang" : "Sedang tutup";
+  const label = !state ? "Memuat jam buka" : state.isOpen ? "Buka" : "Tutup";
 
   return (
     <span className={`status-pill ${variant} ${className}`} role="status">

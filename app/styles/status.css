@@ -37,7 +37,6 @@
 /* Versi ringkas di dalam kolom jam hari ini (hero) */
 .status-pill--inline,
 .status-pill--inline.is-open {
-  margin-top: var(--space-6);
   padding: 0;
   gap: var(--space-6);
   font-size: 10.8px;

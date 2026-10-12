@@ -2,7 +2,6 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useSyncExternalStore, type ComponentType } from "react";
-import HubBackground from "./HubBackground";
 import MenuPanel from "./panels/MenuPanel";
 import ReservationPanel from "./panels/ReservationPanel";
 import LocationPanel from "./panels/LocationPanel";
@@ -90,7 +89,6 @@ export default function Hub() {
 
   return (
     <section id="jelajahi" ref={sectionRef} className="hub" aria-labelledby="hub-title">
-      <HubBackground />
       <div className="container">
         <h2 id="hub-title" className="sr-only">
           Jelajahi UB Coffee
