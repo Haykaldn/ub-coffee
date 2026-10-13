@@ -65,11 +65,23 @@
     padding: var(--space-64) 0 72px;
   }
 
+  /* Tab dikecilkan agar keempatnya muat dalam satu baris di HP */
+  .hub__tabs {
+    gap: 0;
+    padding: var(--space-4) 0;
+  }
+
+  .hub-tab {
+    padding: var(--space-8) var(--space-10);
+    font-size: clamp(12px, 3.6vw, 14.4px);
+  }
+
   .panel-card {
     padding: var(--space-26) var(--space-22);
   }
 
   .menu-panel__visual {
+    min-height: 440px;
     padding: var(--space-24);
   }
 
@@ -111,9 +123,39 @@
     width: 100%;
   }
 
+  /* Kartu kabar ringkas: foto kecil di kiri, teks di kanan */
+  .news-grid {
+    gap: var(--space-12);
+  }
+
   .news-card {
-    grid-template-columns: 86.4px 1fr;
+    display: grid;
+    grid-template-columns: 96px 1fr;
     gap: var(--space-14);
+    align-items: center;
+    padding: var(--space-10);
+  }
+
+  .news-card__photo {
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .news-card__photo .badge {
+    top: var(--space-6);
+    left: var(--space-6);
+    padding: 2.7px var(--space-6);
+    font-size: 9px;
+  }
+
+  .news-card__body {
+    padding: 0;
+  }
+
+  .news-card h4 {
+    margin: var(--space-4) 0;
+    font-size: 15.3px;
   }
 
   .footer {
@@ -134,8 +176,7 @@
 
   .status-pill__dot,
   .hero__scroll svg,
-  .map-card__tag,
-  .menu-circle__float {
+  .map-card__tag {
     animation: none !important;
   }
 

@@ -1,25 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Plus_Jakarta_Sans, Roboto } from "next/font/google";
+import { Plus_Jakarta_Sans, Roboto } from "next/font/google";
 import MotionProvider from "@/components/MotionProvider";
 import "./globals.css";
-
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-  weight: ["800"],
-  style: ["normal", "italic"],
-});
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
 });
 
+// Font Section 2 (Hub); variable font, jadi semua ketebalan tersedia
 const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
-  weight: ["700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -34,7 +29,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="id" className={`${montserrat.variable} ${jakarta.variable} ${roboto.variable}`}>
+    <html lang="id" className={`${jakarta.variable} ${roboto.variable}`}>
       <body>
         <MotionProvider>{children}</MotionProvider>
       </body>

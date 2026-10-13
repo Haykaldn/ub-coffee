@@ -26,7 +26,6 @@
 
 .footer__tagline {
   margin-top: var(--space-14);
-  font-family: var(--font-display);
   font-weight: 800;
   font-style: italic;
   font-size: 19.8px;

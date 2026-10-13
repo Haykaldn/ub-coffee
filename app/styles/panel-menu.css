@@ -44,7 +44,6 @@
 }
 
 .menu-panel__name {
-  font-family: var(--font-display);
   font-weight: 800;
   font-size: 30.6px;
   line-height: 1.15;
@@ -57,31 +56,28 @@
   justify-content: space-between;
   gap: var(--space-12);
   width: 100%;
-  padding-top: var(--space-20);
-  border-top: 1px solid var(--line);
   font-size: 12.6px;
 }
 
-/* Navigasi di panel putih; tombol diperbesar agar mudah disentuh di HP.
-   Warna teks memakai nilai langsung: --black/--text-soft dibalik jadi terang di dalam .hub */
+/* Navigasi di atas foto; tombol diperbesar agar mudah disentuh di HP.
+   Warna memakai nilai langsung: --black/--text-soft dibalik jadi terang di dalam .hub */
 .menu-panel__visual .menu-panel__nav {
   position: relative;
   z-index: 2;
-  border-top-color: rgba(0, 0, 0, 0.12);
+}
+
+.menu-panel__visual .link-btn,
+.menu-panel__visual .muted {
+  color: #ffffff;
 }
 
 .menu-panel__visual .link-btn {
   min-height: 44px;
   padding: 0 4px;
-  color: #0a0a0a;
-}
-
-.menu-panel__visual .muted {
-  color: #555555;
 }
 
 .menu-panel__visual :focus-visible {
-  outline-color: var(--navy);
+  outline-color: #ffffff;
 }
 
 /* Ajakan lihat menu lengkap, didorong ke bagian bawah kartu */
@@ -99,49 +95,31 @@
   color: var(--ink);
 }
 
+/* Foto menu berlatar mengisi penuh kartu; navigasi menempel di bawah */
 .menu-panel__visual {
   position: relative;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  place-items: center;
-  gap: var(--space-20);
-  background: var(--white);
+  display: flex;
+  align-items: flex-end;
+  min-height: 520px;
+  background: #0a0a0a;
   border-radius: var(--radius-card);
   padding: 36px;
   overflow: hidden;
 }
 
-.menu-circle {
-  position: relative;
-  width: min(100%, 450px);
-  aspect-ratio: 1;
-}
-
-/* Foto produk transparan tanpa wadah */
-.menu-circle__photo {
-  position: absolute;
-  inset: 14% 10% 2% 4%;
-}
-
-/* Minuman umumnya tinggi-ramping: beri kotak lebih tinggi agar tidak tampak kecil */
-.menu-circle__photo.is-drink {
-  inset: 2% 12% 0 6%;
-}
-
-.menu-circle__photo img {
-  object-fit: contain;
-  filter: drop-shadow(0 22px 22px rgba(0, 0, 0, 0.25));
-}
-
-/* Produk melayang naik-turun perlahan */
-.menu-circle__float {
+.menu-panel__photo {
   position: absolute;
   inset: 0;
-  animation: menu-float 5s ease-in-out infinite;
 }
 
-@keyframes menu-float {
-  50% {
-    transform: translateY(-10px);
-  }
+.menu-panel__photo img {
+  object-fit: cover;
+}
+
+/* Gradasi gelap di bawah agar navigasi tetap terbaca di atas foto */
+.menu-panel__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 30%);
 }

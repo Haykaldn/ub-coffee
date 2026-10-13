@@ -20,7 +20,7 @@ const fade = {
 };
 
 // Jeda sebelum menu berganti otomatis
-const AUTOPLAY_MS = 3000;
+const AUTOPLAY_MS = 4000;
 // Setelah klik Sebelumnya/Berikutnya, autoplay menunggu selama ini tanpa interaksi
 const RESUME_AFTER_MS = 10000;
 
@@ -43,7 +43,7 @@ export default function MenuPanel() {
     setManual(true);
   };
 
-  // Ganti menu tiap 3 detik. Klik Sebelumnya/Berikutnya menjeda autoplay; setiap klik
+  // Ganti menu tiap 4 detik. Klik Sebelumnya/Berikutnya menjeda autoplay; setiap klik
   // mengulang timer, dan autoplay lanjut setelah 10 detik tanpa klik.
   // Dimatikan bila pengguna memilih gerakan minimal.
   const autoplay = !reduceMotion && items.length > 1;
@@ -104,28 +104,24 @@ export default function MenuPanel() {
       </div>
 
       <div className="menu-panel__visual">
-        <div className="menu-circle">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={item.id}
-              className={`menu-circle__photo ${item.category === "Makanan" ? "" : "is-drink"}`}
-              initial={{ opacity: 0, scale: 0.9, rotate: -8 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.9, rotate: 8 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div className="menu-circle__float">
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  fill
-                  sizes="(max-width: 690px) 70vw, 380px"
-                  quality={75}
-                />
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+        <AnimatePresence>
+          <motion.div
+            key={item.id}
+            className="menu-panel__photo"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <Image
+              src={item.image}
+              alt={item.name}
+              fill
+              sizes="(max-width: 920px) 100vw, 50vw"
+              quality={75}
+            />
+          </motion.div>
+        </AnimatePresence>
 
         <nav className="menu-panel__nav" aria-label="Navigasi menu">
           <button type="button" className="link-btn" onClick={() => step(-1)}>

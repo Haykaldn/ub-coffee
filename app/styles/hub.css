@@ -8,6 +8,7 @@
   padding: 86.4px 0 108px;
   /* Nilai langsung, bukan var(--black): token itu dibalik jadi putih di dalam .hub */
   background: #0a0a0a;
+  font-family: var(--font-hub);
   scroll-margin-top: 0;
 }
 
@@ -53,9 +54,7 @@
   flex: none;
   padding: var(--space-12) var(--space-22);
   border-radius: var(--radius-sm);
-  font-family: var(--font-nav);
   font-size: 16px;
-  font-weight: 700;
   color: var(--white);
   background: transparent;
   transition: color 0.3s var(--ease);

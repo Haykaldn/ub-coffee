@@ -7,7 +7,6 @@ export type NewsItem = {
   date: string; // ISO
   excerpt: string;
   image: string;
-  featured?: boolean;
 };
 
 // Contoh data — ganti dengan event dan promo terbaru.
@@ -20,7 +19,6 @@ export const news: NewsItem[] = [
     excerpt:
       "Tutup minggu dengan musik akustik dari musisi kampus. Mulai pukul 19.00, gratis untuk semua pengunjung. Datang lebih awal untuk dapat tempat favorit.",
     image: photo("DSC01881"),
-    featured: true,
   },
   {
     id: "promo-civitas",

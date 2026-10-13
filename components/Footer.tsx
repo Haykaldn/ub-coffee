@@ -11,7 +11,10 @@ export default function Footer() {
           <div>
             <Image src={logo} alt={site.name} className="footer__brand" />
             <p className="footer__tagline">{site.tagline}</p>
-            <p className="footer__note">Unit usaha di bawah {site.company}.</p>
+            <p className="footer__note">
+              {site.name} merupakan salah satu unit bisnis yang berada di bawah Cluster BFB (Food
+              and Beverage) {site.company}, yang bergerak di bidang layanan makanan dan minuman.
+            </p>
           </div>
 
           <div>

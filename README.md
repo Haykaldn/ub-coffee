@@ -15,7 +15,7 @@ Halaman terdiri dari tiga bagian:
 - [Next.js 16](https://nextjs.org) (App Router) dengan React 19 dan TypeScript
 - CSS biasa (penamaan BEM) di `app/styles/`, tanpa framework CSS
 - [Motion](https://motion.dev) untuk animasi (transisi panel, tab, dan pergantian menu)
-- `next/image` untuk optimasi gambar, `next/font` untuk font (Montserrat dan Plus Jakarta Sans)
+- `next/image` untuk optimasi gambar, `next/font` untuk font (Plus Jakarta Sans; Roboto untuk Section 2)
 - ESLint dan Prettier
 
 ## Menjalankan proyek
@@ -60,7 +60,7 @@ types/
   content.ts          Tipe yang dipakai di banyak file (Photo, HoursRow)
 public/images/
   WEBP/               Foto suasana (hero, latar section 2, reservasi, event)
-  menu/               Foto produk menu (latar transparan)
+  menu/               Foto menu (berlatar, mengisi penuh kartu)
 ```
 
 ### Catatan CSS
@@ -82,8 +82,10 @@ Semua konten ada di folder `data/`. Setelah mengubah, jalankan `npm run lint` da
 - Tambah atau ubah item di array `menu`. `category` harus salah satu dari `"Kopi"`,
   `"Non-Kopi"`, atau `"Makanan"`.
 - Foto: simpan di `public/images/menu/` dengan nama `<id>.webp`, lalu isi
-  `image: menuPhoto("<id>")`. Gunakan foto **berlatar transparan** dan potong rapat ke tepi
-  objek (sisi terpanjang ±900 px, ukuran file di bawah 100 KB).
+  `image: menuPhoto("<id>")`. Foto ditampilkan penuh di kartu (tepinya bisa terpotong),
+  jadi letakkan hidangan di tengah foto. Gunakan foto potret ±1200 px dalam format WebP.
+- Mengganti foto dengan nama file yang sama? Hapus `.next/dev/cache/images` lalu muat ulang
+  dengan Ctrl + Shift + R, karena Next.js menyimpan cache gambar berdasarkan nama file.
 - `price` boleh diisi tetapi saat ini tidak ditampilkan di halaman.
 - Tombol "Lihat Menu Lengkap" membuka PDF di `menuPdf` pada `data/site.ts`.
 
@@ -107,7 +109,7 @@ Semua konten ada di folder `data/`. Setelah mengubah, jalankan `npm run lint` da
 
 - Tambah item di array `news`. `category`: `"event"`, `"promo"`, atau `"info"`; `date` dalam
   format `"YYYY-MM-DD"`.
-- Item dengan `featured: true` tampil besar; tiga item lain tampil di daftar "Kabar terbaru".
+- Semua item tampil sebagai kartu berukuran sama, urut dari tanggal terbaru; jumlahnya bebas.
 
 ### Reservasi meeting room (`data/reservation.ts`)
 
