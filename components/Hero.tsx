@@ -4,9 +4,10 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import OpenStatus from "./OpenStatus";
 import HeroSlideshow from "./HeroSlideshow";
-import { ArrowDown, WhatsApp } from "./Icons";
-import { formatHours, site, waLink } from "@/data/site";
+import { ArrowDown, Calendar } from "./Icons";
+import { formatHours, site } from "@/data/site";
 import { useOpenState } from "@/hooks/useOpenState";
+import { navigate } from "@/lib/hubNav";
 import logo from "@/public/images/Logo UB COFFEE.webp";
 import wordmark from "@/public/images/WEBP/UB Coffee_Asset 4@3x.webp";
 
@@ -24,13 +25,16 @@ export default function Hero() {
 
       <header className="hero__top">
         <Image src={logo} alt="UB Coffee" className="hero__brand" priority />
+        {/* Buka panel Reservasi lalu gulir ke tombol "Reservasi sekarang" */}
         <a
           className="btn btn--text"
-          href={waLink("Halo UB Coffee, saya ingin melakukan reservasi.")}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="#reservasi"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("#reservasi", "booking");
+          }}
         >
-          <WhatsApp size={18} /> Reservasi
+          <Calendar size={18} /> Reservasi
         </a>
       </header>
 

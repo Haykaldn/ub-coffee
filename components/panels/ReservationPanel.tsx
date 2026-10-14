@@ -1,117 +1,186 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import PhotoSlideshow from "../PhotoSlideshow";
-import { Calendar, Check, Users, WhatsApp } from "../Icons";
-import { site, waLink } from "@/data/site";
-import {
-  meetingPackages,
-  reservationText,
-  roomFacilities,
-  roomPhotos,
-  roomPrices,
-} from "@/data/reservation";
+import ReservationDialog from "../ReservationDialog";
+import { Calendar, Check, Users } from "../Icons";
+import { meetingPackages, reservationText, roomPrices, rooms } from "@/data/reservation";
+import { NAV_EVENT, takeNavTarget } from "@/lib/hubNav";
+
+const priceModes = [
+  { key: "sewa", title: "Sewa ruangan" },
+  { key: "paket", title: "Paket + konsumsi" },
+] as const;
+
+type PriceMode = (typeof priceModes)[number]["key"];
 
 export default function ReservationPanel() {
+  const [priceMode, setPriceMode] = useState<PriceMode>("sewa");
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [roomKey, setRoomKey] = useState<string>();
+  const priceRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLButtonElement>(null);
+  const [highlightCta, setHighlightCta] = useState(false);
+  const reduceMotion = useReducedMotion();
+
+  // Klik kartu ruangan: tandai ruangan itu lalu gulir ke kartu Harga; form reservasi
+  // nanti langsung memakai ruangan yang dipilih.
+  const chooseRoom = (key: string) => {
+    setRoomKey(key);
+    priceRef.current?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+  };
+
+  // Dari tombol Reservasi di hero: gulir ke tombol "Reservasi sekarang" dan sorot sebentar.
+  // Dicek saat panel muncul dan saat navigasi terjadi ketika panel ini sudah terbuka.
+  useEffect(() => {
+    let timer: number | undefined;
+    const goToCta = () => {
+      if (takeNavTarget() !== "booking") return;
+      const cta = ctaRef.current;
+      cta?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+      cta?.focus({ preventScroll: true });
+      setHighlightCta(true);
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => setHighlightCta(false), 2400);
+    };
+    goToCta();
+    window.addEventListener(NAV_EVENT, goToCta);
+    return () => {
+      window.removeEventListener(NAV_EVENT, goToCta);
+      window.clearTimeout(timer);
+    };
+  }, [reduceMotion]);
+
+  const selectedRoom = rooms.find((r) => r.key === roomKey);
+
   return (
-    <div className="panel-grid">
-      <div className="panel-card">
+    <div className="resv">
+      <div className="resv__head">
+        <span className="eyebrow">Reservasi</span>
         <h3 className="display panel-title" tabIndex={-1} data-panel-heading>
-          Ruang meeting yang <em>nyaman</em>
+          Ruang meeting yang <em>nyaman.</em>
         </h3>
         <p className="muted">{reservationText.intro}</p>
+      </div>
 
-        <h4 className="sub-label">Harga sewa</h4>
-        <div className="price-grid">
-          {roomPrices.map((p) => (
-            <div key={p.label} className="price-box">
-              <span>{p.label}</span>
-              <strong>{p.price}</strong>
+      <div className="room-grid">
+        {rooms.map((room) => (
+          <article key={room.key} className={`room ${room.key === roomKey ? "is-active" : ""}`}>
+            <div className="room__photo">
+              <PhotoSlideshow
+                photos={room.photos}
+                sizes="(max-width: 920px) 100vw, (max-width: 1200px) 50vw, 600px"
+              />
+              <span className="room__badge">
+                <Users size={16} /> Hingga {room.capacity} orang
+              </span>
             </div>
-          ))}
-        </div>
+            <div className="room__body">
+              <span className="eyebrow">{room.tagline}</span>
+              <h4 className="room__name">
+                {/* Tombol membentang menutupi seluruh kartu (lihat .room__link::after) */}
+                <button
+                  type="button"
+                  className="room__link"
+                  aria-pressed={room.key === roomKey}
+                  onClick={() => chooseRoom(room.key)}
+                >
+                  {room.name}
+                </button>
+              </h4>
+              <p className="muted">{room.desc}</p>
 
-        <h4 className="sub-label">Fasilitas gratis</h4>
-        <ul className="check-list">
-          {roomFacilities.map((f) => (
-            <li key={f}>
-              <span className="check-list__icon">
-                <Check size={14} />
-              </span>
-              {f}
-            </li>
-          ))}
-        </ul>
+              <h5 className="room__label">Cocok untuk</h5>
+              <p className="room__suitable">{room.suitable}</p>
+
+              <h5 className="room__label">Fasilitas</h5>
+              <ul className="room__facilities">
+                {room.facilities.map((f) => (
+                  <li key={f}>
+                    <Check size={16} />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))}
       </div>
 
-      <div className="stack">
-        <div className="photo-card">
-          <PhotoSlideshow
-            photos={roomPhotos}
-            sizes="(max-width: 920px) 100vw, (max-width: 1200px) 50vw, 600px"
-          />
-          <span className="photo-card__badge">
-            <Users size={16} /> Hingga 15 orang
-          </span>
-        </div>
-
-        <div className="cta-block">
-          <h4 className="display">Siap untuk memulai?</h4>
-          <p>{reservationText.cta}</p>
-          <a
-            className="btn btn--navy"
-            href={waLink("Halo UB Coffee, saya ingin reservasi meeting room.")}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <WhatsApp size={18} /> {site.whatsappDisplay}
-          </a>
-        </div>
-      </div>
-
-      <div className="panel-card packages">
-        <span className="eyebrow">Paket meeting</span>
-        <h4 className="display packages__title">
-          Pilihan <em>paket.</em>
-        </h4>
-        <p className="muted">{reservationText.packagesNote}</p>
-
-        <div className="package-grid">
-          {meetingPackages.map((pkg) => (
-            <article key={pkg.name} className="package">
-              <h5 className="package__name">{pkg.name}</h5>
-              <p className="muted small">{pkg.desc}</p>
-              <p className="package__price">
-                <strong>{pkg.price}</strong> <span>/ 10 orang</span>
-              </p>
-              <p className="package__extra">Tambahan per orang: {pkg.extra}</p>
-              <a
-                className="btn btn--navy btn--sm"
-                href={waLink(`Halo UB Coffee, saya ingin memesan paket "${pkg.name}".`)}
-                target="_blank"
-                rel="noopener noreferrer"
+      <div className="price-card" ref={priceRef}>
+        <div className="price-card__head">
+          <h4 className="price-card__title">Harga</h4>
+          <div className="loc-switch price-switch" role="group" aria-label="Pilih jenis harga">
+            {priceModes.map((m) => (
+              <button
+                key={m.key}
+                type="button"
+                className={`loc-switch__btn ${m.key === priceMode ? "is-active" : ""}`}
+                aria-pressed={m.key === priceMode}
+                onClick={() => setPriceMode(m.key)}
               >
-                <WhatsApp size={16} /> Pesan paket
-              </a>
-            </article>
-          ))}
+                {m.key === priceMode && (
+                  <motion.span
+                    layoutId="price-switch-pill"
+                    className="loc-switch__pill"
+                    aria-hidden="true"
+                    transition={
+                      reduceMotion
+                        ? { duration: 0 }
+                        : { type: "spring", stiffness: 380, damping: 34 }
+                    }
+                  />
+                )}
+                <span className="loc-switch__label">{m.title}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="package-info">
-          <div>
-            <h5 className="sub-label">Pilihan snack favorit</h5>
-            <p className="muted small">{reservationText.snacks}</p>
-          </div>
-          <div>
-            <h5 className="sub-label">Cara pemesanan</h5>
-            <p className="package-info__note">
-              <Calendar size={18} />
-              <span>
-                Untuk memastikan ketersediaan dan kualitas terbaik, pemesanan paket dengan snack
-                harus dikonfirmasi <strong>maksimal H-1</strong> sebelum acara. Jangan lewatkan
-                kesempatan ini dan buat pertemuan Anda lebih berkesan dengan UB Coffee!
-              </span>
-            </p>
-          </div>
+        <ul className="price-list">
+          {priceMode === "sewa"
+            ? roomPrices.map((p) => (
+                <li key={p.label}>
+                  <span className="price-list__name">{p.label}</span>
+                  <span className="price-list__price">
+                    <strong>{p.price}</strong>
+                  </span>
+                </li>
+              ))
+            : meetingPackages.map((pkg) => (
+                <li key={pkg.name}>
+                  <span className="price-list__name">{pkg.name}</span>
+                  <span className="price-list__price">
+                    <strong>{pkg.price}</strong> / 10 orang
+                    <span className="price-list__extra">+{pkg.extra} per orang</span>
+                  </span>
+                </li>
+              ))}
+        </ul>
+        <p className="price-card__note muted small">
+          {priceMode === "sewa" ? reservationText.rentNote : reservationText.packagesNote}
+        </p>
+
+        <div className="price-card__cta">
+          <p>
+            {selectedRoom && (
+              <strong className="price-card__room">Ruang {selectedRoom.name} dipilih · </strong>
+            )}
+            {reservationText.cta}
+          </p>
+          <button
+            ref={ctaRef}
+            type="button"
+            className={`btn btn--white ${highlightCta ? "is-highlight" : ""}`}
+            onClick={() => setBookingOpen(true)}
+          >
+            <Calendar size={18} /> Reservasi sekarang
+          </button>
         </div>
       </div>
+
+      <ReservationDialog open={bookingOpen} room={roomKey} onClose={() => setBookingOpen(false)} />
     </div>
   );
 }

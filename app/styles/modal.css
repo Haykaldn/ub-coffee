@@ -1,0 +1,37 @@
+/* ---------- Pop-up (components/Modal.tsx) ----------
+   <dialog> tetap berada di dalam .hub, jadi token warna tema gelap ikut berlaku. */
+
+.modal {
+  max-width: calc(100% - var(--space-32));
+  max-height: calc(100dvh - var(--space-32));
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: #111111;
+  color: var(--ink);
+  font-family: var(--font-hub);
+  color-scheme: dark;
+}
+
+.modal::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4.5px);
+}
+
+.modal__close {
+  display: grid;
+  place-items: center;
+  width: 39.6px;
+  height: 39.6px;
+  flex: none;
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.modal__close:hover {
+  background: var(--bg-soft);
+  color: var(--white);
+}

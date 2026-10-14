@@ -6,22 +6,44 @@ export type RoomPrice = {
   price: string;
 };
 
+/** Ruangan yang bisa dipilih di form reservasi. */
+export type BookableRoom = {
+  key: string;
+  name: string;
+  capacity: number; // orang
+};
+
+/** Ruangan yang juga tampil sebagai kartu di panel Reservasi. */
+export type Room = BookableRoom & {
+  tagline: string;
+  desc: string;
+  suitable: string; // "Cocok untuk"
+  facilities: string[];
+  photos: Photo[];
+};
+
+/** Jadwal yang sudah dipesan. Jam akhir eksklusif ("12:00" = slot 11.00–12.00 terakhir). */
+export type Booking = {
+  room: BookableRoom["key"];
+  date: string; // "YYYY-MM-DD"
+  start: string; // "HH:MM" WIB
+  end: string;
+};
+
 export type MeetingPackage = {
   name: string;
-  desc: string;
   price: string; // per 10 orang
   extra: string; // tambahan per orang
 };
 
-// Paragraf teks polos di panel Reservasi. Paragraf yang memakai <strong> tetap di komponen.
+// Paragraf teks polos di panel Reservasi.
 export const reservationText = {
   intro:
-    "Cari ruang meeting yang nyaman, fasilitas lengkap, dan suasana inspiratif? Meeting Room UB Coffee siap mendukung kesuksesan setiap acara Anda! Dengan kapasitas hingga 15 orang, ruangan kami adalah pilihan tepat untuk pertemuan bisnis, pelatihan, hingga workshop eksklusif.",
-  cta: "Hubungi kami untuk reservasi meeting room, peluang kerjasama, atau penyelenggaraan event khusus di UB Coffee.",
+    "Dua ruang meeting untuk rapat, pelatihan, dan workshop — lengkap dengan proyektor, audio, dan air mineral gratis.",
+  rentNote: "Sudah termasuk proyektor, set audio, dan air mineral 600 ml per orang.",
   packagesNote:
-    "Seluruh paket sudah termasuk biaya sewa ruangan dan air mineral gratis untuk minimal 10 orang.",
-  snacks:
-    "Kami menyediakan berbagai pilihan snack tradisional yang lezat, mulai dari donat manis, lapis, dadar gulung, hingga pizza mini. Semua bisa disesuaikan dengan selera peserta meeting Anda untuk pengalaman yang lebih personal.",
+    "Sudah termasuk sewa ruangan dan air mineral. Pesan paket maksimal H-1 · snack tradisional bisa disesuaikan.",
+  cta: "Cek jadwal kosong dan kirim permintaan — kami konfirmasi lewat WhatsApp.",
 };
 
 export const roomPrices: RoomPrice[] = [
@@ -29,39 +51,70 @@ export const roomPrices: RoomPrice[] = [
   { label: "Eksternal", price: "IDR 150K" },
 ];
 
-export const roomFacilities: string[] = [
-  "Air mineral 600ml per orang",
-  "LCD proyektor",
-  "Set audio",
+// TODO: sesuaikan kapasitas, fasilitas, dan foto Arjuna & Semeru dengan ruangan aslinya.
+export const rooms: Room[] = [
+  {
+    key: "arjuna",
+    name: "Arjuna",
+    capacity: 15,
+    tagline: "Ruang meeting utama",
+    desc: "Ruang tertutup dengan layar proyektor dan meja panjang. Tenang dan fokus.",
+    suitable: "Rapat kerja, pelatihan, presentasi, sidang kecil",
+    facilities: [
+      "Layar & LCD proyektor",
+      "Set audio",
+      "Meja panjang",
+      "Sofa tunggu",
+      "Air mineral 600 ml/orang",
+      "Colokan listrik",
+    ],
+    photos: [
+      { src: photo("DFTA0048"), alt: "Ruang Arjuna dengan layar proyektor" },
+      { src: photo("DFTA0081"), alt: "Meja coffee break dan sofa di ruang Arjuna" },
+      { src: photo("DFTA0069"), alt: "Sajian coffee break untuk meeting" },
+    ],
+  },
+  {
+    key: "semeru",
+    name: "Semeru",
+    capacity: 10,
+    tagline: "Ruang kaca semi outdoor",
+    desc: "Ruang berdinding kaca yang menghadap taman, dengan cahaya alami yang membuat suasana lebih santai.",
+    suitable: "Diskusi kelompok, workshop kecil, bimbingan, interview",
+    facilities: [
+      "LCD proyektor",
+      "Set audio",
+      "Dinding kaca",
+      "Pemandangan taman",
+      "Air mineral 600 ml/orang",
+      "Cahaya alami",
+    ],
+    photos: [
+      { src: photo("DFTA0045"), alt: "Ruang kaca Semeru" },
+      { src: photo("DFTA0041"), alt: "Ruang Semeru menghadap taman" },
+    ],
+  },
 ];
 
-export const roomPhotos: Photo[] = [
-  { src: photo("DFTA0048"), alt: "Meeting room UB Coffee dengan layar proyektor" },
-  { src: photo("DFTA0081"), alt: "Ruang meeting dengan meja coffee break dan sofa" },
-  { src: photo("DFTA0045"), alt: "Ruangan kaca semi outdoor UB Coffee" },
-  { src: photo("DFTA0069"), alt: "Sajian coffee break untuk meeting" },
-  { src: photo("DSC02120"), alt: "Meja panjang di area indoor" },
-  { src: photo("DFTA0041"), alt: "Ruangan kaca menghadap taman" },
-  { src: photo("DSC02111"), alt: "Area duduk indoor UB Coffee" },
+// Hanya ada di form reservasi, tidak ditampilkan sebagai kartu.
+// TODO: sesuaikan kapasitas Open Space.
+const openSpace: BookableRoom = { key: "open-space", name: "Open Space", capacity: 30 };
+
+export const bookableRooms: BookableRoom[] = [...rooms, openSpace];
+
+// Contoh jadwal terisi. Nanti diganti data dari dashboard reservasi.
+export const bookings: Booking[] = [
+  { room: "arjuna", date: "2026-10-15", start: "09:00", end: "12:00" },
+  { room: "arjuna", date: "2026-10-16", start: "13:00", end: "16:00" },
+  { room: "arjuna", date: "2026-10-19", start: "08:00", end: "17:00" },
+  { room: "semeru", date: "2026-10-15", start: "10:00", end: "12:00" },
+  { room: "semeru", date: "2026-10-17", start: "09:00", end: "11:00" },
+  { room: "open-space", date: "2026-10-14", start: "18:00", end: "21:00" },
+  { room: "open-space", date: "2026-10-18", start: "15:00", end: "20:00" },
 ];
 
 export const meetingPackages: MeetingPackage[] = [
-  {
-    name: "Mini Coffee Break & 2 Snack",
-    desc: "Cocok untuk pertemuan dengan santai dan ngemil ringan.",
-    price: "IDR 400K",
-    extra: "IDR 40K",
-  },
-  {
-    name: "Mini Coffee Break & 3 Snack",
-    desc: "Pilihan ekstra snack untuk memenuhi selera peserta meeting Anda.",
-    price: "IDR 450K",
-    extra: "IDR 45K",
-  },
-  {
-    name: "Mini Coffee Break Only",
-    desc: "Pilihan praktis bagi Anda yang hanya ingin menikmati kopi berkualitas selama meeting.",
-    price: "IDR 250K",
-    extra: "IDR 25K",
-  },
+  { name: "Mini Coffee Break Only", price: "IDR 250K", extra: "IDR 25K" },
+  { name: "Mini Coffee Break & 2 Snack", price: "IDR 400K", extra: "IDR 40K" },
+  { name: "Mini Coffee Break & 3 Snack", price: "IDR 450K", extra: "IDR 45K" },
 ];

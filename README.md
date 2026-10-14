@@ -5,7 +5,7 @@ Website satu halaman untuk **UB Coffee** (unit usaha PT Brawijaya Multi Usaha), 
 Halaman terdiri dari tiga bagian:
 
 1. **Hero**: dinding foto bergerak, jam buka, dan status buka/tutup saat ini (WIB).
-2. **Section 2 (Hub)**: empat panel dalam tab: Menu, Reservasi, Lokasi, serta Event & Promo.
+2. **Section 2 (Hub)**: empat panel dalam tab: Menu, Reservasi, Lokasi, serta Berita & Artikel.
    Panel aktif tersimpan di URL (`#menu`, `#reservasi`, `#lokasi`, `#event`), jadi tautan
    seperti `/#lokasi` langsung membuka panel tersebut.
 3. **Footer**: jam buka semua lokasi dan kontak.
@@ -105,17 +105,31 @@ Semua konten ada di folder `data/`. Setelah mengubah, jalankan `npm run lint` da
 - `heroPhotos`: foto dinding hero. Isi dengan `photo("<nama file tanpa .webp>")`.
 - `ambientPhotos`: foto latar section 2, cukup tulis nama file tanpa `.webp`.
 
-### Event & Promo (`data/news.ts`)
+### Berita & Artikel (`data/news.ts`)
 
-- Tambah item di array `news`. `category`: `"event"`, `"promo"`, atau `"info"`; `date` dalam
-  format `"YYYY-MM-DD"`.
-- Semua item tampil sebagai kartu berukuran sama, urut dari tanggal terbaru; jumlahnya bebas.
+- Tambah item di array `news`. `type`: `"berita"` atau `"artikel"`; `category`: `"event"`,
+  `"promo"`, `"info"`, `"tips"`, atau `"cerita"` (label badge di `newsLabel`); `date` dalam format
+  `"YYYY-MM-DD"`.
+- `excerpt` tampil di kartu (selalu dipotong 2 baris); `body` berisi teks lengkap, satu string per
+  paragraf, yang tampil menggantikan isi panel saat kartu diklik.
+- Panel menampilkan 3 item terbaru per jenis. Tombol "Lihat Semua" mengganti isi panel (tanpa
+  pindah halaman) dengan semua item, filter kategori, dan 9 item per halaman.
 
 ### Reservasi meeting room (`data/reservation.ts`)
 
-Harga sewa (`roomPrices`), fasilitas (`roomFacilities`), foto ruangan (`roomPhotos`), paket
-meeting (`meetingPackages`), dan paragraf teks (`reservationText`). Judul dan teks yang memakai
-huruf miring/tebal ada langsung di `components/panels/ReservationPanel.tsx`.
+- `reservationText`: paragraf intro, catatan harga, dan teks ajakan reservasi.
+- `rooms`: kartu ruangan (Arjuna, Semeru): kapasitas, keterangan, "Cocok untuk", fasilitas, dan
+  foto. `bookableRooms` = `rooms` + Open Space, yang hanya muncul sebagai pilihan di form.
+- `roomPrices` dan `meetingPackages`: isi kartu Harga (pilihan "Sewa ruangan" dan
+  "Paket + konsumsi").
+- `bookings`: jadwal yang sudah dipesan (`room`, `date`, `start`, `end`). Slot form reservasi
+  per jam mengikuti jam buka UB Coffee (`lib/booking.ts`); slot yang bentrok tampil "Sudah
+  dipesan". Isi sekarang hanya contoh, nanti diganti data dari dashboard.
+- Tombol "Reservasi sekarang" membuka form (`components/ReservationDialog.tsx`). Tombol
+  "Reservasi" di hero membuka panel ini dan menggulir ke tombol tersebut.
+- Form mengirim data lewat `submitReservation` di `lib/reservationApi.ts`. Dashboard belum
+  tersambung, jadi fungsi itu baru meniru pengiriman (jeda + kode reservasi contoh); ganti isinya
+  dengan `fetch` ke API dashboard.
 
 ### Tab section 2 (`data/navigation.ts`)
 

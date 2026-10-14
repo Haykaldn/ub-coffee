@@ -4,7 +4,7 @@ export const hubTabs = [
   { key: "menu", title: "Menu" },
   { key: "reservasi", title: "Reservasi" },
   { key: "lokasi", title: "Lokasi" },
-  { key: "event", title: "Event & Promo" },
+  { key: "event", title: "Berita & Artikel" },
 ] as const;
 
 export type HubTabKey = (typeof hubTabs)[number]["key"];

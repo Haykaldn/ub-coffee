@@ -20,7 +20,7 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "UB Coffee",
   description:
-    "UB Coffee di Jl. MT. Haryono No.169, Malang. Menu kopi dan makanan, meeting room hingga 15 orang, serta event dan promo terbaru.",
+    "UB Coffee di Jl. MT. Haryono No.169, Malang. Menu kopi dan makanan, meeting room hingga 15 orang, serta berita dan artikel terbaru.",
 };
 
 export const viewport: Viewport = {

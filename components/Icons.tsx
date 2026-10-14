@@ -103,3 +103,9 @@ export const Calendar = (p: IconProps) => (
     <path d="M3.5 10h17M8 3v4M16 3v4" />
   </Icon>
 );
+
+export const Close = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M6 6l12 12M18 6 6 18" />
+  </Icon>
+);

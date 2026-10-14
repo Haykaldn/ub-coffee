@@ -42,6 +42,30 @@
   box-shadow: 0 9px 21.6px -9px rgba(11, 42, 91, 0.6);
 }
 
+/* Putih dengan teks navy, untuk di atas latar gelap */
+.btn--white {
+  padding: var(--space-16) var(--space-28);
+  border-radius: var(--radius-card);
+  background: var(--white);
+  color: var(--navy);
+  font-size: 16.2px;
+}
+
+.btn--white:hover {
+  background: #e9eef8;
+}
+
+/* Sorotan sesaat saat tombol dituju dari hero */
+.btn.is-highlight {
+  animation: btn-pulse 0.8s var(--ease) 3;
+}
+
+@keyframes btn-pulse {
+  50% {
+    box-shadow: 0 0 0 9px rgba(169, 194, 238, 0.35);
+  }
+}
+
 .btn--sm {
   padding: var(--space-10) var(--space-16);
   font-size: 12.6px;

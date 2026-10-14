@@ -7,6 +7,7 @@ import ReservationPanel from "./panels/ReservationPanel";
 import LocationPanel from "./panels/LocationPanel";
 import EventPanel from "./panels/EventPanel";
 import { hubTabs, type HubTabKey } from "@/data/navigation";
+import { NAV_EVENT, navigate } from "@/lib/hubNav";
 
 const PANELS: Record<HubTabKey, ComponentType> = {
   menu: MenuPanel,
@@ -31,9 +32,6 @@ const DEFAULT_PANEL: HubTabKey = "menu";
 // URL (#menu, #reservasi, …) menjadi sumber kebenaran panel aktif, bukan state React, agar
 // tombol back/forward browser dan tautan yang dibagikan (mis. /#lokasi) langsung membuka panel
 // yang benar. Tanpa hash, panel Menu yang tampil.
-// history.pushState tidak memicu event apa pun, jadi navigate() mengirim event sendiri
-// supaya useSyncExternalStore membaca ulang hash.
-const NAV_EVENT = "ubcoffee:navigate";
 
 function subscribeHash(onChange: () => void) {
   window.addEventListener("popstate", onChange);
@@ -44,11 +42,6 @@ function subscribeHash(onChange: () => void) {
     window.removeEventListener("hashchange", onChange);
     window.removeEventListener(NAV_EVENT, onChange);
   };
-}
-
-function navigate(url: string) {
-  history.pushState(null, "", url);
-  window.dispatchEvent(new Event(NAV_EVENT));
 }
 
 export default function Hub() {
