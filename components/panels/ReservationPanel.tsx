@@ -77,7 +77,6 @@ export default function ReservationPanel() {
               </span>
             </div>
             <div className="room__body">
-              <span className="eyebrow">{room.tagline}</span>
               <h4 className="room__name">
                 {/* Tombol membentang menutupi seluruh kartu (lihat .room__link::after) */}
                 <button
@@ -165,7 +164,9 @@ export default function ReservationPanel() {
         <div className="price-card__cta">
           <p>
             {selectedRoom && (
-              <strong className="price-card__room">Ruang {selectedRoom.name} dipilih · </strong>
+              <>
+                Anda memilih <strong className="price-card__room">{selectedRoom.name}</strong>.{" "}
+              </>
             )}
             {reservationText.cta}
           </p>

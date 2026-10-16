@@ -10,12 +10,12 @@ export type RoomPrice = {
 export type BookableRoom = {
   key: string;
   name: string;
-  capacity: number; // orang
+  capacity?: number; // orang, kosong = bebas
 };
 
 /** Ruangan yang juga tampil sebagai kartu di panel Reservasi. */
 export type Room = BookableRoom & {
-  tagline: string;
+  capacity: number;
   desc: string;
   suitable: string; // "Cocok untuk"
   facilities: string[];
@@ -39,8 +39,8 @@ export type MeetingPackage = {
 // Paragraf teks polos di panel Reservasi.
 export const reservationText = {
   intro:
-    "Dua ruang meeting untuk rapat, pelatihan, dan workshop — lengkap dengan proyektor, audio, dan air mineral gratis.",
-  rentNote: "Sudah termasuk proyektor, set audio, dan air mineral 600 ml per orang.",
+    "Dua ruang meeting untuk rapat, pelatihan, dan workshop — lengkap dengan smart TV, air cooler, WiFi, dan air mineral gratis.",
+  rentNote: "Sudah termasuk smart TV, air cooler, WiFi, dan air mineral 500 ml untuk 5 orang.",
   packagesNote:
     "Sudah termasuk sewa ruangan dan air mineral. Pesan paket maksimal H-1 · snack tradisional bisa disesuaikan.",
   cta: "Cek jadwal kosong dan kirim permintaan — kami konfirmasi lewat WhatsApp.",
@@ -51,44 +51,38 @@ export const roomPrices: RoomPrice[] = [
   { label: "Eksternal", price: "IDR 150K" },
 ];
 
-// TODO: sesuaikan kapasitas, fasilitas, dan foto Arjuna & Semeru dengan ruangan aslinya.
+// Fasilitas sama untuk semua meeting room.
+const roomFacilities = [
+  "Smart TV",
+  "Air cooler",
+  "Meja & kursi",
+  "Colokan listrik",
+  "Free WiFi",
+  "Air mineral 500 ml untuk 5 orang",
+];
+
+// TODO: sesuaikan foto Arjuna & Semeru dengan ruangan aslinya.
 export const rooms: Room[] = [
   {
     key: "arjuna",
-    name: "Arjuna",
+    name: "Arjuna Meeting Room",
     capacity: 15,
-    tagline: "Ruang meeting utama",
-    desc: "Ruang tertutup dengan layar proyektor dan meja panjang. Tenang dan fokus.",
+    desc: "Ruang tertutup dengan smart TV dan meja panjang. Tenang dan fokus.",
     suitable: "Rapat kerja, pelatihan, presentasi, sidang kecil",
-    facilities: [
-      "Layar & LCD proyektor",
-      "Set audio",
-      "Meja panjang",
-      "Sofa tunggu",
-      "Air mineral 600 ml/orang",
-      "Colokan listrik",
-    ],
+    facilities: roomFacilities,
     photos: [
-      { src: photo("DFTA0048"), alt: "Ruang Arjuna dengan layar proyektor" },
+      { src: photo("DFTA0048"), alt: "Ruang Arjuna dengan smart TV" },
       { src: photo("DFTA0081"), alt: "Meja coffee break dan sofa di ruang Arjuna" },
       { src: photo("DFTA0069"), alt: "Sajian coffee break untuk meeting" },
     ],
   },
   {
     key: "semeru",
-    name: "Semeru",
-    capacity: 10,
-    tagline: "Ruang kaca semi outdoor",
+    name: "Semeru Meeting Room",
+    capacity: 15,
     desc: "Ruang berdinding kaca yang menghadap taman, dengan cahaya alami yang membuat suasana lebih santai.",
     suitable: "Diskusi kelompok, workshop kecil, bimbingan, interview",
-    facilities: [
-      "LCD proyektor",
-      "Set audio",
-      "Dinding kaca",
-      "Pemandangan taman",
-      "Air mineral 600 ml/orang",
-      "Cahaya alami",
-    ],
+    facilities: roomFacilities,
     photos: [
       { src: photo("DFTA0045"), alt: "Ruang kaca Semeru" },
       { src: photo("DFTA0041"), alt: "Ruang Semeru menghadap taman" },
@@ -97,8 +91,8 @@ export const rooms: Room[] = [
 ];
 
 // Hanya ada di form reservasi, tidak ditampilkan sebagai kartu.
-// TODO: sesuaikan kapasitas Open Space.
-const openSpace: BookableRoom = { key: "open-space", name: "Open Space", capacity: 30 };
+// Kapasitas bebas, jadi tidak ditulis.
+const openSpace: BookableRoom = { key: "open-space", name: "Open Space" };
 
 export const bookableRooms: BookableRoom[] = [...rooms, openSpace];
 

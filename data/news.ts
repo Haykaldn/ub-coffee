@@ -6,7 +6,7 @@ export type NewsItem = {
   id: string;
   type: NewsType;
   title: string;
-  category: "event" | "promo" | "info" | "tips" | "cerita";
+  category: "event" | "kolaborasi" | "tips" | "cerita";
   date: string; // ISO
   excerpt: string; // ringkasan di kartu (dipotong 2 baris)
   body: string[]; // teks lengkap, satu string per paragraf
@@ -21,61 +21,79 @@ export const newsTypes: { key: NewsType; title: string }[] = [
 
 // Contoh data — ganti dengan berita dan artikel terbaru.
 export const news: NewsItem[] = [
+  // TODO: ganti tanggal, foto, dan isi berita kolaborasi dengan data aslinya.
   {
-    id: "akustik-jumat",
+    id: "akar-jiwa-yoga",
     type: "berita",
-    title: "Live Akustik Jumat Malam",
+    title: "UB Coffee x Akar Jiwa Yoga",
     category: "event",
-    date: "2026-10-09",
+    date: "2026-10-12",
+    excerpt: "Tarik napas, lepaskan penat. Sunset yoga bersama Akar Jiwa Yoga di CFD Bundaran UB.",
+    body: [
+      "Tarik napas, lepaskan penat. Sunset di CFD Bundaran UB terasa lebih menenangkan bersama Akar Jiwa Yoga.",
+      "Di tengah hiruk pikuk menuju akhir pekan, kita belajar berhenti sejenak, hadir sepenuhnya, dan kembali terhubung dengan diri sendiri.",
+      "Sampai bertemu di sesi berikutnya. Namaste.",
+    ],
+    image: photo("akar-jiwa-yoga"),
+  },
+  {
+    id: "morning-run-ms-glow",
+    type: "berita",
+    title: "Morning Run with MS Glow",
+    category: "event",
+    date: "2026-10-11",
     excerpt:
-      "Tutup minggu dengan musik akustik dari musisi kampus. Mulai pukul 19.00, gratis untuk semua pengunjung. Datang lebih awal untuk dapat tempat favorit.",
+      "Running for Passion: fun run kolaborasi MS Glow Men dan UB Coffee yang penuh energi dan momen seru.",
     body: [
-      "Setiap Jumat malam, UB Coffee menghadirkan live akustik dari musisi kampus Universitas Brawijaya. Lagu-lagu santai dibawakan mulai pukul 19.00 hingga 21.30 WIB.",
-      "Acara ini gratis untuk semua pengunjung tanpa minimum pemesanan. Tempat duduk terbatas dan tidak bisa dipesan sebelumnya, jadi datang lebih awal untuk mendapat tempat favorit.",
-      "Musisi kampus yang ingin tampil bisa menghubungi admin UB Coffee lewat WhatsApp atau Instagram.",
+      "Running for Passion! Minggu, 11 Oktober 2026, UB Coffee berkolaborasi dengan MS Glow Men dan Free Runners Malang mengadakan fun run bersama, lari pagi yang penuh good vibes dan energi positif.",
+      "Terima kasih untuk semua yang sudah ikut berlari dan membuat setiap langkah berarti. Momen seru bersama kalian jadi kenangan yang tak terlupakan.",
+      "Sampai jumpa di run berikutnya! Pantau Instagram UB Coffee untuk info kegiatan selanjutnya.",
     ],
-    image: photo("DSC01881"),
+    image: photo("ms-glow-fun-run"),
   },
   {
-    id: "promo-civitas",
+    id: "colab-sweetisfied",
     type: "berita",
-    title: "Diskon 15% Civitas UB",
-    category: "promo",
-    date: "2026-10-01",
-    excerpt: "Tunjukkan kartu identitas UB untuk potongan 15% semua minuman, Senin – Kamis.",
+    title: "Colab UB Coffee x Sweetisfied",
+    category: "kolaborasi",
+    date: "2026-09-28",
+    excerpt:
+      "Sweet treats dari Sweetisfied kini hadir di UB Coffee, siap bikin jeda belajarmu jadi lebih manis.",
     body: [
-      "Mahasiswa, dosen, dan tenaga kependidikan Universitas Brawijaya mendapat potongan 15% untuk semua minuman di UB Coffee.",
-      "Promo berlaku Senin sampai Kamis selama jam buka. Tunjukkan kartu identitas UB (KTM atau kartu pegawai) saat memesan di kasir.",
-      "Promo tidak bisa digabung dengan promo lain dan tidak berlaku untuk pemesanan paket meeting.",
+      "Kabar manis untuk civitas Brawijaya: sweet treats favorit dari Sweetisfied kini bisa kamu temukan di UB Coffee, siap bikin jeda belajarmu jadi lebih manis.",
+      "Selain di UB Coffee, Sweetisfied juga hadir di Brewijaya Coffee untuk menemani sore harimu dengan camilan manis yang menenangkan.",
+      "Di tengah hari-hari produktif di kampus, kamu selalu pantas mendapat jeda yang hangat. Mampir ke UB Coffee dan nikmati sweet treats Sweetisfied bersama kopi favoritmu.",
     ],
-    image: photo("Iced_UB_Coffee_11"),
+    image: photo("sweetisfied"),
   },
   {
-    id: "kelas-seduh",
+    id: "kolaborasi-rich",
     type: "berita",
-    title: "Kelas Seduh Manual",
-    category: "event",
-    date: "2026-10-18",
-    excerpt: "Belajar dasar V60 bersama barista UB Coffee. Kuota 12 orang.",
+    title: "UB Coffee Berkolaborasi dengan RICH",
+    category: "kolaborasi",
+    date: "2026-09-21",
+    excerpt:
+      "UB Coffee berkolaborasi dengan RICH menghadirkan menu baru yang wajib banget kamu cobain.",
     body: [
-      "Ikuti kelas seduh manual bersama barista UB Coffee. Peserta belajar dasar menyeduh kopi dengan V60, mulai dari memilih biji, menggiling, hingga mengatur rasio kopi dan air.",
-      "Kelas dibatasi 12 orang agar setiap peserta bisa praktik langsung. Peralatan dan biji kopi sudah disediakan, dan peserta boleh membawa pulang hasil seduhannya.",
-      "Pendaftaran dibuka melalui WhatsApp admin UB Coffee hingga kuota terpenuhi.",
+      "Kali ini, UB Coffee berkolaborasi dengan RICH menghadirkan menu baru yang wajib banget kamu cobain. Penasaran gimana review dan rasanya?",
+      "Yuk, intip review-nya sampai akhir dan cari tahu menu mana yang bakal jadi favorit kamu!",
+      "Jangan lupa cobain menu baru UB Coffee x RICH!",
     ],
-    image: photo("DSCF0523"),
+    image: photo("ub-coffee-x-rich"),
   },
   {
-    id: "jam-libur",
+    id: "roti-cengly",
     type: "berita",
-    title: "Jam Buka Libur Nasional",
-    category: "info",
-    date: "2026-09-25",
-    excerpt: "Saat libur nasional, UB Coffee buka pukul 12.00 – 20.00.",
+    title: "UB Coffee x Roti Cengly",
+    category: "kolaborasi",
+    date: "2026-09-14",
+    excerpt: "Kopi UB Coffee kini bisa dinikmati bersama roti dari Roti Cengly.",
     body: [
-      "Pada hari libur nasional, UB Coffee tetap buka dengan jam operasional khusus, yaitu pukul 12.00 – 20.00 WIB.",
-      "Reservasi ruang meeting pada hari libur tetap bisa dilakukan sesuai jam buka tersebut. Pantau Instagram UB Coffee untuk informasi perubahan jam buka berikutnya.",
+      "UB Coffee berkolaborasi dengan Roti Cengly, menghadirkan roti yang cocok menemani secangkir kopi UB Coffee.",
+      "Kolaborasi ini bisa dinikmati langsung di UB Coffee selama periode kolaborasi berlangsung.",
+      "Ikuti Instagram UB Coffee dan Roti Cengly untuk informasi lengkapnya.",
     ],
-    image: photo("DSC01991"),
+    image: photo("ub-coffee-x-roti-cengly"),
   },
   {
     id: "arabika-robusta",
@@ -125,8 +143,7 @@ export const news: NewsItem[] = [
 
 export const newsLabel: Record<NewsItem["category"], string> = {
   event: "Event",
-  promo: "Promo",
-  info: "Info",
+  kolaborasi: "Kolaborasi",
   tips: "Tips Kopi",
   cerita: "Cerita",
 };

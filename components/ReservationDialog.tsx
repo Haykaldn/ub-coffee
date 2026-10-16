@@ -198,9 +198,11 @@ function BookingForm({ initialRoom, onClose }: { initialRoom?: string; onClose: 
                 className="sr-only"
               />
               <strong>{r.name}</strong>
-              <span>
-                <Users size={14} /> Hingga {r.capacity} orang
-              </span>
+              {r.capacity && (
+                <span>
+                  <Users size={14} /> Hingga {r.capacity} orang
+                </span>
+              )}
             </label>
           ))}
         </div>

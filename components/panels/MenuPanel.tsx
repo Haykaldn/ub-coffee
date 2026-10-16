@@ -63,7 +63,7 @@ export default function MenuPanel() {
     <div className="panel-grid menu-panel">
       <div className="panel-card menu-panel__info">
         <h3 className="display panel-title" tabIndex={-1} data-panel-heading>
-          Temukan Menu <em>Favoritmu</em>
+          Our Best Seller Menu
         </h3>
 
         <div className="chips" role="group" aria-label="Filter menu">

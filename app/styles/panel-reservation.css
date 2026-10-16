@@ -126,7 +126,7 @@
 }
 
 .room__name {
-  margin: var(--space-4) 0 var(--space-14);
+  margin: 0 0 var(--space-14);
   font-size: 27px;
   line-height: 1.2;
   color: var(--black);

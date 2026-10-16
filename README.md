@@ -108,7 +108,7 @@ Semua konten ada di folder `data/`. Setelah mengubah, jalankan `npm run lint` da
 ### Berita & Artikel (`data/news.ts`)
 
 - Tambah item di array `news`. `type`: `"berita"` atau `"artikel"`; `category`: `"event"`,
-  `"promo"`, `"info"`, `"tips"`, atau `"cerita"` (label badge di `newsLabel`); `date` dalam format
+  `"kolaborasi"`, `"tips"`, atau `"cerita"` (label badge di `newsLabel`); `date` dalam format
   `"YYYY-MM-DD"`.
 - `excerpt` tampil di kartu (selalu dipotong 2 baris); `body` berisi teks lengkap, satu string per
   paragraf, yang tampil menggantikan isi panel saat kartu diklik.
