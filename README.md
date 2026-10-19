@@ -4,7 +4,8 @@ Website satu halaman untuk **UB Coffee** (unit usaha PT Brawijaya Multi Usaha), 
 
 Halaman terdiri dari tiga bagian:
 
-1. **Hero**: dinding foto bergerak, jam buka, dan status buka/tutup saat ini (WIB).
+1. **Hero**: slideshow foto layar penuh (berganti tiap 6 detik), logo, jam buka, status
+   buka/tutup saat ini (WIB), dan tombol Reservasi.
 2. **Section 2 (Hub)**: empat panel dalam tab: Menu, Reservasi, Lokasi, serta Berita & Artikel.
    Panel aktif tersimpan di URL (`#menu`, `#reservasi`, `#lokasi`, `#event`), jadi tautan
    seperti `/#lokasi` langsung membuka panel tersebut.
@@ -14,7 +15,8 @@ Halaman terdiri dari tiga bagian:
 
 - [Next.js 16](https://nextjs.org) (App Router) dengan React 19 dan TypeScript
 - CSS biasa (penamaan BEM) di `app/styles/`, tanpa framework CSS
-- [Motion](https://motion.dev) untuk animasi (transisi panel, tab, dan pergantian menu)
+- [Motion](https://motion.dev) untuk animasi (transisi panel, tab, dan pergantian menu); semua
+  animasi menghormati pengaturan "kurangi gerakan" (`prefers-reduced-motion`)
 - `next/image` untuk optimasi gambar, `next/font` untuk font (Plus Jakarta Sans; Roboto untuk Section 2)
 - ESLint dan Prettier
 
@@ -49,18 +51,27 @@ app/
   icon.png            Favicon (dibaca otomatis oleh Next.js)
   apple-icon.png      Ikon "Add to Home Screen" iOS (dibaca otomatis oleh Next.js)
 components/
-  Hero.tsx, Hub.tsx, Footer.tsx, ...
-  panels/             Isi tiap tab: MenuPanel, ReservationPanel, LocationPanel, EventPanel
+  Hero.tsx, HeroSlideshow.tsx   Hero dan slideshow fotonya
+  Hub.tsx                       Section 2: tab + panel aktif
+  Footer.tsx
+  ReservationDialog.tsx         Form reservasi meeting room
+  Modal.tsx, PhotoSlideshow.tsx, NewsCard.tsx, NewsArticle.tsx, OpenStatus.tsx, Icons.tsx
+  MotionProvider.tsx            Pengaturan Motion global (reduced motion)
+  panels/                       Isi tiap tab: MenuPanel, ReservationPanel, LocationPanel, EventPanel
 data/                 Semua konten yang bisa diubah (lihat bagian berikut)
 hooks/
   useOpenState.ts     Status buka/tutup yang diperbarui tiap menit
 lib/
   hours.ts            Perhitungan jam buka berdasarkan WIB (fungsi biasa, tanpa React)
+  booking.ts          Slot reservasi per jam dan helper tanggal WIB
+  reservationApi.ts   Pengiriman data reservasi ke dashboard (masih tiruan)
+  hubNav.ts           Pindah panel lewat hash URL (dipakai tombol Reservasi di hero)
 types/
   content.ts          Tipe yang dipakai di banyak file (Photo, HoursRow)
 public/images/
-  WEBP/               Foto suasana (hero, latar section 2, reservasi, event)
-  menu/               Foto menu (berlatar, mengisi penuh kartu)
+  Logo UB COFFEE.webp Logo (hero dan footer)
+  WEBP/               Foto suasana (hero, ruang meeting, berita & artikel) dan wordmark hero
+  menu/               Foto menu (mengisi penuh kartu)
 ```
 
 ### Catatan CSS
@@ -99,11 +110,13 @@ Semua konten ada di folder `data/`. Setelah mengubah, jalankan `npm run lint` da
   melewati tengah malam belum didukung.
 - WhatsApp, Instagram, dan nama perusahaan ada di objek `site`.
 
-### Foto hero dan latar section 2 (`data/heroPhotos.ts`)
+### Foto hero (`data/heroPhotos.ts`)
 
-- Simpan foto di `public/images/WEBP/` (format `.webp`, landscape).
-- `heroPhotos`: foto dinding hero. Isi dengan `photo("<nama file tanpa .webp>")`.
-- `ambientPhotos`: foto latar section 2, cukup tulis nama file tanpa `.webp`.
+- Simpan foto di `public/images/WEBP/` (format `.webp`, landscape 3:2).
+- `heroPhotos`: foto slideshow hero, tampil bergiliran sesuai urutan array. Isi dengan
+  `photo("<nama file tanpa .webp>")` dan teks `alt`.
+- Helper `photo()` yang sama dipakai untuk foto ruangan (`data/reservation.ts`) dan berita
+  (`data/news.ts`).
 
 ### Berita & Artikel (`data/news.ts`)
 
@@ -124,7 +137,8 @@ Semua konten ada di folder `data/`. Setelah mengubah, jalankan `npm run lint` da
   "Paket + konsumsi").
 - `bookings`: jadwal yang sudah dipesan (`room`, `date`, `start`, `end`). Slot form reservasi
   per jam mengikuti jam buka UB Coffee (`lib/booking.ts`); slot yang bentrok tampil "Sudah
-  dipesan". Isi sekarang hanya contoh, nanti diganti data dari dashboard.
+  dipesan". Tanggal bisa dipilih hingga 60 hari ke depan. Isi sekarang hanya contoh, nanti
+  diganti data dari dashboard.
 - Tombol "Reservasi sekarang" membuka form (`components/ReservationDialog.tsx`). Tombol
   "Reservasi" di hero membuka panel ini dan menggulir ke tombol tersebut.
 - Form mengirim data lewat `submitReservation` di `lib/reservationApi.ts`. Dashboard belum

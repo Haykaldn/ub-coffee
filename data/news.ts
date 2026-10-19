@@ -1,4 +1,4 @@
-import { photo } from "@/data/heroPhotos";
+import { photo } from "@/data/paths";
 
 export type NewsType = "berita" | "artikel";
 

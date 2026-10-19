@@ -3,30 +3,30 @@
 import Image from "next/image";
 import { useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
-import { heroPhotos } from "@/data/heroPhotos";
+import type { HeroPhoto } from "@/types/content";
 
-const PHOTOS = heroPhotos;
 const INTERVAL = 6000;
 
-export default function HeroSlideshow() {
+export default function HeroSlideshow({ photos }: { photos: HeroPhoto[] }) {
   const [index, setIndex] = useState(0);
   const reduceMotion = useReducedMotion();
+  const count = photos.length;
 
   useEffect(() => {
     if (reduceMotion) return;
     const id = window.setInterval(() => {
       // Jangan berganti saat tab tidak terlihat
-      if (!document.hidden) setIndex((i) => (i + 1) % PHOTOS.length);
+      if (!document.hidden) setIndex((i) => (i + 1) % count);
     }, INTERVAL);
     return () => window.clearInterval(id);
-  }, [reduceMotion]);
+  }, [reduceMotion, count]);
 
   // Sama seperti PhotoSlideshow: semua foto dirender bertumpuk agar pergantian tidak berkedip.
   return (
     <div className="hero-slideshow" aria-hidden="true">
-      {PHOTOS.map((photo, i) => (
+      {photos.map((photo, i) => (
         <Image
-          key={photo.src}
+          key={photo.id}
           src={photo.src}
           alt=""
           fill

@@ -1,12 +1,15 @@
 import Hero from "@/components/Hero";
 import Hub from "@/components/Hub";
 import Footer from "@/components/Footer";
+import { getHeroPhotos } from "@/lib/content";
 
-export default function Home() {
+export default async function Home() {
+  const heroPhotos = await getHeroPhotos();
+
   return (
     <>
       <main>
-        <Hero />
+        <Hero photos={heroPhotos} />
         <Hub />
       </main>
       <Footer />

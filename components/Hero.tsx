@@ -10,8 +10,9 @@ import { useOpenState } from "@/hooks/useOpenState";
 import { navigate } from "@/lib/hubNav";
 import logo from "@/public/images/Logo UB COFFEE.webp";
 import wordmark from "@/public/images/WEBP/UB Coffee_Asset 4@3x.webp";
+import type { HeroPhoto } from "@/types/content";
 
-export default function Hero() {
+export default function Hero({ photos }: { photos: HeroPhoto[] }) {
   const open = useOpenState();
 
   const scrollToHub = () => {
@@ -20,7 +21,7 @@ export default function Hero() {
 
   return (
     <section className="hero" aria-label="UB Coffee">
-      <HeroSlideshow />
+      <HeroSlideshow photos={photos} />
       <div className="hero__overlay" />
 
       <header className="hero__top">

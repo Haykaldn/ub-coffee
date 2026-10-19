@@ -1,4 +1,4 @@
-import { photo } from "@/data/heroPhotos";
+import { photo } from "@/data/paths";
 import type { Photo } from "@/types/content";
 
 export type RoomPrice = {

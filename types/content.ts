@@ -6,6 +6,11 @@ export type Photo = {
   alt: string;
 };
 
+/** Foto slideshow hero. */
+export type HeroPhoto = Photo & {
+  id: string;
+};
+
 /** Satu baris jam buka. Kosongkan open/close bila hari itu libur. */
 export type HoursRow = {
   day: string;
