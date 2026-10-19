@@ -1,4 +1,3 @@
-import { site } from "@/data/site";
 import type { HoursRow } from "@/types/content";
 
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -29,7 +28,7 @@ export const toMinutes = (t: string) => {
   return h * 60 + m;
 };
 
-export function rowForDay(day: number, hours: HoursRow[] = site.hours): HoursRow | undefined {
+export function rowForDay(day: number, hours: HoursRow[]): HoursRow | undefined {
   return hours.find((row) => row.days.includes(day));
 }
 
@@ -40,7 +39,7 @@ export type OpenState = {
 
 // Jam tutup bersifat eksklusif (tepat 22.00 sudah "tutup"). Baris tanpa open/close = libur.
 // Jam yang melewati tengah malam (mis. 20.00–02.00) tidak didukung; belum ada lokasi yang butuh.
-export function getOpenState(date = new Date(), hours: HoursRow[] = site.hours): OpenState {
+export function getOpenState(hours: HoursRow[], date = new Date()): OpenState {
   const { day, minutes } = jakartaNow(date);
   const today = rowForDay(day, hours);
   const isOpen =

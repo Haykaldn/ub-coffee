@@ -4,7 +4,6 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, FileText } from "../Icons";
-import { site } from "@/data/site";
 import { menuFilters, type MenuFilterKey } from "@/lib/menu";
 import type { MenuItem } from "@/types/content";
 
@@ -20,7 +19,13 @@ const AUTOPLAY_MS = 4000;
 // Setelah klik Sebelumnya/Berikutnya, autoplay menunggu selama ini tanpa interaksi
 const RESUME_AFTER_MS = 10000;
 
-export default function MenuPanel({ items: menu }: { items: MenuItem[] }) {
+export default function MenuPanel({
+  items: menu,
+  pdfUrl,
+}: {
+  items: MenuItem[];
+  pdfUrl: string; // PDF menu lengkap
+}) {
   const [filter, setFilter] = useState<MenuFilterKey>("all");
   const [index, setIndex] = useState(0);
   const [manual, setManual] = useState(false);
@@ -93,12 +98,7 @@ export default function MenuPanel({ items: menu }: { items: MenuItem[] }) {
 
         <div className="menu-panel__cta">
           <p>Temukan lebih banyak pilihan menu kami</p>
-          <a
-            className="btn btn--navy"
-            href={site.menuPdf}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a className="btn btn--navy" href={pdfUrl} target="_blank" rel="noopener noreferrer">
             <FileText size={18} /> Lihat Menu Lengkap
           </a>
         </div>

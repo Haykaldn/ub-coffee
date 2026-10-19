@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { site } from "@/data/site";
 import { getOpenState, type OpenState } from "@/lib/hours";
 import type { HoursRow } from "@/types/content";
 
@@ -11,11 +10,11 @@ import type { HoursRow } from "@/types/content";
  * statis saat build, jadi jam server tidak sama dengan jam saat pengunjung membukanya.
  * Interval satu menit cukup karena jam buka/tutup berbatas menit.
  */
-export function useOpenState(hours: HoursRow[] = site.hours) {
+export function useOpenState(hours: HoursRow[]) {
   const [state, setState] = useState<OpenState | null>(null);
 
   useEffect(() => {
-    const update = () => setState(getOpenState(new Date(), hours));
+    const update = () => setState(getOpenState(hours, new Date()));
     update();
     const id = window.setInterval(update, 60_000);
     return () => window.clearInterval(id);

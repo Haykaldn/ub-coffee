@@ -5,6 +5,7 @@ import {
   getBookableRooms,
   getBookings,
   getHeroPhotos,
+  getLocations,
   getMeetingPackages,
   getMenu,
   getNews,
@@ -12,11 +13,15 @@ import {
   getReservationText,
   getRoomPrices,
   getRooms,
+  getSiteInfo,
+  mainLocation,
 } from "@/lib/content";
 import type { ReservationContent } from "@/types/content";
 
 export default async function Home() {
   const [
+    site,
+    locations,
     heroPhotos,
     menu,
     news,
@@ -28,6 +33,8 @@ export default async function Home() {
     meetingPackages,
     reservationText,
   ] = await Promise.all([
+    getSiteInfo(),
+    getLocations(),
     getHeroPhotos(),
     getMenu(),
     getNews(),
@@ -40,6 +47,9 @@ export default async function Home() {
     getReservationText(),
   ]);
 
+  // Alamat & jam buka di hero, footer, dan slot reservasi
+  const main = mainLocation(site, locations);
+
   const reservation: ReservationContent = {
     rooms,
     bookableRooms,
@@ -47,15 +57,23 @@ export default async function Home() {
     roomPrices,
     meetingPackages,
     text: reservationText,
+    hours: main.hours,
   };
 
   return (
     <>
       <main>
-        <Hero photos={heroPhotos} />
-        <Hub menu={menu} reservation={reservation} news={news} newsCategories={newsCategories} />
+        <Hero photos={heroPhotos} siteName={site.name} hours={main.hours} />
+        <Hub
+          menu={menu}
+          menuPdf={site.menuPdf}
+          reservation={reservation}
+          locations={locations}
+          news={news}
+          newsCategories={newsCategories}
+        />
       </main>
-      <Footer />
+      <Footer site={site} address={main.address} locations={locations} />
     </>
   );
 }

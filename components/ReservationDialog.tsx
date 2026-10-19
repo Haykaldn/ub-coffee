@@ -3,10 +3,10 @@
 import { useState, type FormEvent } from "react";
 import Modal from "./Modal";
 import { ArrowRight, Check, Clock, Close, Users } from "./Icons";
-import { formatTime, site } from "@/data/site";
 import { addDays, endTime, formatBookingDate, jakartaToday, slotsFor } from "@/lib/booking";
+import { formatTime } from "@/lib/format";
 import { submitReservation } from "@/lib/reservationApi";
-import type { BookableRoom, Booking, MeetingPackage, RoomPrice } from "@/types/content";
+import type { BookableRoom, Booking, HoursRow, MeetingPackage, RoomPrice } from "@/types/content";
 import type { ReservationPayload } from "@/types/reservation";
 
 /** Data pilihan di form reservasi. */
@@ -15,6 +15,7 @@ type BookingOptions = {
   bookings: Booking[];
   roomPrices: RoomPrice[];
   meetingPackages: MeetingPackage[];
+  hours: HoursRow[]; // jam buka yang membatasi slot
 };
 
 // Batas tanggal yang bisa dipesan dari hari ini
@@ -61,6 +62,7 @@ function BookingForm({
   bookings,
   roomPrices,
   meetingPackages,
+  hours: openingHours,
 }: BookingOptions & { initialRoom?: string; onClose: () => void }) {
   const today = jakartaToday();
   const [roomId, setRoomId] = useState(initialRoom ?? bookableRooms[0].id);
@@ -72,7 +74,7 @@ function BookingForm({
   const [error, setError] = useState("");
 
   const room = bookableRooms.find((r) => r.id === roomId) ?? bookableRooms[0];
-  const slotsOn = (d: string) => slotsFor(room.id, d, bookings, site.hours);
+  const slotsOn = (d: string) => slotsFor(room.id, d, bookings, openingHours);
   const slots = date ? slotsOn(date) : [];
   const days = Array.from({ length: DATE_STRIP_DAYS }, (_, i) => addDays(today, i));
   const hours = range ? range.to - range.from + 1 : 0;

@@ -5,15 +5,23 @@ import { motion } from "motion/react";
 import OpenStatus from "./OpenStatus";
 import HeroSlideshow from "./HeroSlideshow";
 import { ArrowDown, Calendar } from "./Icons";
-import { formatHours, site } from "@/data/site";
 import { useOpenState } from "@/hooks/useOpenState";
+import { formatHours } from "@/lib/format";
 import { navigate } from "@/lib/hubNav";
 import logo from "@/public/images/Logo UB COFFEE.webp";
 import wordmark from "@/public/images/WEBP/UB Coffee_Asset 4@3x.webp";
-import type { HeroPhoto } from "@/types/content";
+import type { HeroPhoto, HoursRow } from "@/types/content";
 
-export default function Hero({ photos }: { photos: HeroPhoto[] }) {
-  const open = useOpenState();
+export default function Hero({
+  photos,
+  siteName,
+  hours,
+}: {
+  photos: HeroPhoto[];
+  siteName: string;
+  hours: HoursRow[]; // jam buka lokasi utama
+}) {
+  const open = useOpenState(hours);
 
   const scrollToHub = () => {
     document.getElementById("jelajahi")?.scrollIntoView({ behavior: "smooth" });
@@ -50,14 +58,14 @@ export default function Hero({ photos }: { photos: HeroPhoto[] }) {
           }}
           transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
         >
-          <Image src={wordmark} alt={site.name} priority sizes="(max-width: 767px) 85vw, 560px" />
+          <Image src={wordmark} alt={siteName} priority sizes="(max-width: 767px) 85vw, 560px" />
         </motion.h1>
 
         <dl className="hero__hours">
-          {site.hours.map((row) => {
-            const isToday = open?.today === row;
+          {hours.map((row) => {
+            const isToday = open?.today?.id === row.id;
             return (
-              <div key={row.day} className={`hero__hours-col ${isToday ? "is-today" : ""}`}>
+              <div key={row.id} className={`hero__hours-col ${isToday ? "is-today" : ""}`}>
                 <dt>
                   {row.day}
                   {isToday && <span className="sr-only"> (hari ini)</span>}

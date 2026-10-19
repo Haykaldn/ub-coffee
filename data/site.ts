@@ -1,16 +1,4 @@
-import type { HoursRow } from "@/types/content";
-
-export type Location = {
-  key: string;
-  name: string;
-  address: string;
-  addressShort: string;
-  landmark: string;
-  mapsUrl: string;
-  mapsEmbed: string;
-  directionsUrl: string;
-  hours: HoursRow[];
-};
+import type { Location, SiteInfo } from "@/types/content";
 
 /**
  * Titik peta. Koordinat ("lat,lng" dari Google Maps: klik kanan titik → salin angka)
@@ -33,7 +21,7 @@ const mapsDirections = (q: string) =>
   "https://www.google.com/maps/dir/?api=1&destination=" + encodeURIComponent(q);
 
 const ubCoffee: Location = {
-  key: "ub-coffee",
+  id: "ub-coffee",
   name: "UB Coffee",
   address: "Jl. MT. Haryono No.169, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145",
   addressShort: "Jl. MT. Haryono No.169, Malang",
@@ -41,13 +29,19 @@ const ubCoffee: Location = {
   // TODO: isi koordinat asli UB Coffee (argumen ke-2) agar titik peta tepat.
   ...place("UB Coffee, Jl. MT. Haryono No.169, Ketawanggede, Lowokwaru, Malang"),
   hours: [
-    { day: "Minggu – Jumat", days: [0, 1, 2, 3, 4, 5], open: "07:00", close: "22:00" },
-    { day: "Sabtu", days: [6], open: "09:00", close: "22:00" },
+    {
+      id: "ub-coffee-weekdays",
+      day: "Minggu – Jumat",
+      days: [0, 1, 2, 3, 4, 5],
+      open: "07:00",
+      close: "22:00",
+    },
+    { id: "ub-coffee-sabtu", day: "Sabtu", days: [6], open: "09:00", close: "22:00" },
   ],
 };
 
 const gazeboCorner: Location = {
-  key: "gazebo-corner",
+  id: "gazebo-corner",
   name: "Gazebo Corner by UB Coffee",
   address: "Jl. Universitas Brawijaya, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145",
   addressShort: "Gazebo Raden Wijaya, Universitas Brawijaya",
@@ -55,46 +49,30 @@ const gazeboCorner: Location = {
   // Plus Code Google (2JV7+J3X) menunjuk titik yang tepat
   ...place("2JV7+J3X Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur"),
   hours: [
-    { day: "Senin – Sabtu", days: [1, 2, 3, 4, 5, 6], open: "08:00", close: "18:00" },
-    { day: "Minggu", days: [0] },
+    {
+      id: "gazebo-corner-weekdays",
+      day: "Senin – Sabtu",
+      days: [1, 2, 3, 4, 5, 6],
+      open: "08:00",
+      close: "18:00",
+    },
+    { id: "gazebo-corner-minggu", day: "Minggu", days: [0] },
   ],
 };
 
 export const locations: Location[] = [ubCoffee, gazeboCorner];
 
-export const site = {
+export const site: SiteInfo = {
   name: "UB Coffee",
   tagline: "Mampir, duduk, nikmati.",
   company: "PT Brawijaya Multi Usaha",
   companyUrl: "https://brawijayamultiusaha.co.id",
-  // Hero & footer memakai data lokasi utama (UB Coffee)
-  address: ubCoffee.address,
-  addressShort: ubCoffee.addressShort,
-  landmark: ubCoffee.landmark,
   // PDF menu lengkap (Google Drive)
   menuPdf: "https://drive.google.com/file/d/12NkYto4KrPpZlWOe-BfJy7LZF3TuHb1F/view",
   whatsapp: "6282132245897",
   whatsappDisplay: "+62 821-3224-5897",
   instagram: "Instagram UB Coffee",
   instagramUrl: "https://www.instagram.com/ub_coffee/",
-  mapsUrl: ubCoffee.mapsUrl,
-  mapsEmbed: ubCoffee.mapsEmbed,
-  directionsUrl: ubCoffee.directionsUrl,
-  hours: ubCoffee.hours,
+  // Hero, footer, dan slot reservasi memakai alamat & jam buka lokasi ini
+  mainLocationId: ubCoffee.id,
 };
-
-export function waLink(message?: string) {
-  const base = `https://wa.me/${site.whatsapp}`;
-  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
-}
-
-/** "07:30" → "07.30" (format jam Indonesia) */
-export function formatTime(t: string) {
-  return t.replace(":", ".");
-}
-
-/** "08.00 – 18.00", atau "Libur" bila baris tanpa jam buka. */
-export function formatHours(row: HoursRow) {
-  if (!row.open || !row.close) return "Libur";
-  return `${formatTime(row.open)} – ${formatTime(row.close)}`;
-}

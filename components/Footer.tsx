@@ -1,9 +1,18 @@
 import Image from "next/image";
 import { Instagram, MapPin, WhatsApp } from "./Icons";
-import { formatHours, locations, site, waLink } from "@/data/site";
+import { formatHours, waLink } from "@/lib/format";
 import logo from "@/public/images/Logo UB COFFEE.webp";
+import type { Location, SiteInfo } from "@/types/content";
 
-export default function Footer() {
+export default function Footer({
+  site,
+  address,
+  locations,
+}: {
+  site: SiteInfo;
+  address: string; // alamat lokasi utama
+  locations: Location[];
+}) {
   return (
     <footer className="footer">
       <div className="container">
@@ -20,11 +29,11 @@ export default function Footer() {
           <div>
             <h2 className="footer__label">Jam Buka</h2>
             {locations.map((loc) => (
-              <section key={loc.key} className="footer__loc">
+              <section key={loc.id} className="footer__loc">
                 <h3 className="footer__loc-name">{loc.name}</h3>
                 <dl className="footer__hours">
                   {loc.hours.map((row) => (
-                    <div key={row.day}>
+                    <div key={row.id}>
                       <dt>{row.day}</dt>
                       <dd>{formatHours(row)}</dd>
                     </div>
@@ -39,7 +48,7 @@ export default function Footer() {
             <ul className="footer__contact">
               <li>
                 <WhatsApp size={18} />
-                <a href={waLink()} target="_blank" rel="noopener noreferrer">
+                <a href={waLink(site.whatsapp)} target="_blank" rel="noopener noreferrer">
                   {site.whatsappDisplay}
                 </a>
               </li>
@@ -51,7 +60,7 @@ export default function Footer() {
               </li>
               <li>
                 <MapPin size={18} />
-                <span>{site.address}</span>
+                <span>{address}</span>
               </li>
             </ul>
           </div>

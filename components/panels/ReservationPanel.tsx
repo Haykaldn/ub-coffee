@@ -22,6 +22,7 @@ export default function ReservationPanel({
   roomPrices,
   meetingPackages,
   text: reservationText,
+  hours,
 }: ReservationContent) {
   const [priceMode, setPriceMode] = useState<PriceMode>("sewa");
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -195,6 +196,7 @@ export default function ReservationPanel({
         bookings={bookings}
         roomPrices={roomPrices}
         meetingPackages={meetingPackages}
+        hours={hours}
         onClose={() => setBookingOpen(false)}
       />
     </div>

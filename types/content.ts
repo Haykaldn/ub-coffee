@@ -101,12 +101,41 @@ export type ReservationContent = {
   roomPrices: RoomPrice[];
   meetingPackages: MeetingPackage[];
   text: ReservationText;
+  hours: HoursRow[]; // jam buka yang membatasi slot (lokasi utama)
 };
 
 /** Satu baris jam buka. Kosongkan open/close bila hari itu libur. */
 export type HoursRow = {
+  id: string;
   day: string;
   days: number[]; // 0 = Minggu … 6 = Sabtu
   open?: string; // "HH:MM" WIB
   close?: string;
+};
+
+/** Lokasi outlet, dengan jam buka masing-masing. */
+export type Location = {
+  id: string;
+  name: string;
+  address: string;
+  addressShort: string;
+  landmark: string;
+  mapsUrl: string;
+  mapsEmbed: string;
+  directionsUrl: string;
+  hours: HoursRow[];
+};
+
+/** Info merek dan kontak. Alamat dan jam buka diambil dari lokasi `mainLocationId`. */
+export type SiteInfo = {
+  name: string;
+  tagline: string;
+  company: string;
+  companyUrl: string;
+  menuPdf: string; // PDF menu lengkap
+  whatsapp: string; // nomor untuk wa.me, tanpa "+"
+  whatsappDisplay: string;
+  instagram: string;
+  instagramUrl: string;
+  mainLocationId: Location["id"]; // lokasi untuk hero, footer, dan slot reservasi
 };

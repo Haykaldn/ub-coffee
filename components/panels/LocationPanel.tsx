@@ -3,8 +3,9 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { ArrowUpRight, MapPin } from "../Icons";
-import { formatHours, locations } from "@/data/site";
 import { useOpenState } from "@/hooks/useOpenState";
+import { formatHours } from "@/lib/format";
+import type { Location } from "@/types/content";
 
 const fade = {
   hidden: { opacity: 0, y: 7.2 },
@@ -12,9 +13,9 @@ const fade = {
   exit: { opacity: 0, y: -7.2 },
 };
 
-export default function LocationPanel() {
-  const [locKey, setLocKey] = useState(locations[0].key);
-  const loc = locations.find((l) => l.key === locKey) ?? locations[0];
+export default function LocationPanel({ locations }: { locations: Location[] }) {
+  const [locId, setLocId] = useState(locations[0].id);
+  const loc = locations.find((l) => l.id === locId) ?? locations[0];
   const open = useOpenState(loc.hours);
   const reduceMotion = useReducedMotion();
   const transition = reduceMotion
@@ -27,13 +28,13 @@ export default function LocationPanel() {
         <div className="loc-switch" role="group" aria-label="Pilih lokasi">
           {locations.map((l) => (
             <button
-              key={l.key}
+              key={l.id}
               type="button"
-              className={`loc-switch__btn ${l.key === locKey ? "is-active" : ""}`}
-              aria-pressed={l.key === locKey}
-              onClick={() => setLocKey(l.key)}
+              className={`loc-switch__btn ${l.id === locId ? "is-active" : ""}`}
+              aria-pressed={l.id === locId}
+              onClick={() => setLocId(l.id)}
             >
-              {l.key === locKey && (
+              {l.id === locId && (
                 <motion.span
                   layoutId="loc-switch-pill"
                   className="loc-switch__pill"
@@ -54,7 +55,7 @@ export default function LocationPanel() {
 
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
-            key={loc.key}
+            key={loc.id}
             className="loc-details"
             variants={fade}
             initial="hidden"
@@ -83,9 +84,9 @@ export default function LocationPanel() {
             <table className="hours-table">
               <tbody>
                 {loc.hours.map((row) => {
-                  const isToday = open?.today === row;
+                  const isToday = open?.today?.id === row.id;
                   return (
-                    <tr key={row.day} className={isToday ? "is-today" : ""}>
+                    <tr key={row.id} className={isToday ? "is-today" : ""}>
                       <th scope="row">{row.day}</th>
                       <td>{formatHours(row)}</td>
                       <td className="hours-table__status">
@@ -109,7 +110,7 @@ export default function LocationPanel() {
         <div className="map-card">
           {/* key memaksa iframe dimuat ulang saat lokasi berganti */}
           <iframe
-            key={loc.key}
+            key={loc.id}
             title={`Peta lokasi ${loc.name}`}
             src={loc.mapsEmbed}
             loading="lazy"
