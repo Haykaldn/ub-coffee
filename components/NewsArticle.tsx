@@ -1,20 +1,26 @@
 import Image from "next/image";
 import { ArrowLeft, Calendar } from "./Icons";
-import { formatDate, newsByType, newsLabel, type NewsItem } from "@/data/news";
+import { formatDate } from "@/lib/format";
+import { categoryLabel, newsByType } from "@/lib/news";
+import type { NewsCategory, NewsItem } from "@/types/content";
 
 const MORE_COUNT = 3;
 
 /** Teks lengkap satu berita/artikel, menggantikan isi panel Berita & Artikel. */
 export default function NewsArticle({
   item,
+  news,
+  categories,
   onBack,
   onOpen,
 }: {
   item: NewsItem;
+  news: NewsItem[];
+  categories: NewsCategory[];
   onBack: () => void;
   onOpen: (item: NewsItem) => void;
 }) {
-  const more = newsByType(item.type)
+  const more = newsByType(news, item.type)
     .filter((n) => n.id !== item.id)
     .slice(0, MORE_COUNT);
 
@@ -26,7 +32,7 @@ export default function NewsArticle({
             <ArrowLeft size={18} /> Kembali
           </button>
           <div className="news-article__meta">
-            <span className="news-tag">{newsLabel[item.category]}</span>
+            <span className="news-tag">{categoryLabel(categories, item.category)}</span>
             <span className="news-article__date">
               <Calendar size={14} /> <time dateTime={item.date}>{formatDate(item.date)}</time>
             </span>
@@ -35,8 +41,8 @@ export default function NewsArticle({
 
         <div className="news-article__photo">
           <Image
-            src={item.image}
-            alt={item.title}
+            src={item.image.src}
+            alt={item.image.alt}
             fill
             sizes="(max-width: 920px) 100vw, 800px"
             quality={75}
@@ -64,7 +70,7 @@ export default function NewsArticle({
               <li key={n.id}>
                 <button type="button" className="news-side__item" onClick={() => onOpen(n)}>
                   <span className="news-side__thumb">
-                    <Image src={n.image} alt="" fill sizes="(max-width: 920px) 100vw, 340px" />
+                    <Image src={n.image.src} alt="" fill sizes="(max-width: 920px) 100vw, 340px" />
                   </span>
                   <span className="news-side__date">{formatDate(n.date)}</span>
                   <strong>{n.title}</strong>

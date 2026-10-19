@@ -5,16 +5,23 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowUpRight } from "../Icons";
 import NewsCard from "../NewsCard";
 import NewsArticle from "../NewsArticle";
-import { newsByType, newsLabel, newsTypes, type NewsItem, type NewsType } from "@/data/news";
+import { categoryLabel, newsByType, newsTypes } from "@/lib/news";
+import type { NewsCategory, NewsItem, NewsType } from "@/types/content";
 
 // Tampilan awal hanya yang terbaru; "Lihat Semua" mengganti isi panel dengan semua kabar
 const PREVIEW_COUNT = 3;
 const PAGE_SIZE = 9;
 
-export default function NewsPanel() {
+export default function NewsPanel({
+  news,
+  categories: newsCategories,
+}: {
+  news: NewsItem[];
+  categories: NewsCategory[];
+}) {
   const [type, setType] = useState<NewsType>("berita");
   const [showAll, setShowAll] = useState(false);
-  const [kategori, setKategori] = useState<NewsItem["category"] | null>(null);
+  const [kategori, setKategori] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [reading, setReading] = useState<NewsItem | null>(null);
   const reduceMotion = useReducedMotion();
@@ -32,7 +39,7 @@ export default function NewsPanel() {
     root?.querySelector<HTMLElement>("[data-panel-heading]")?.focus({ preventScroll: true });
   }, [reading, reduceMotion]);
 
-  const all = newsByType(type);
+  const all = newsByType(news, type);
   // Kategori hanya yang benar-benar dipakai item jenis ini
   const categories = [...new Set(all.map((n) => n.category))];
   const filtered = kategori ? all.filter((n) => n.category === kategori) : all;
@@ -47,7 +54,7 @@ export default function NewsPanel() {
     setPage(1);
   };
 
-  const chooseKategori = (c: NewsItem["category"] | null) => {
+  const chooseKategori = (c: string | null) => {
     setKategori(c);
     setPage(1);
   };
@@ -61,7 +68,13 @@ export default function NewsPanel() {
   if (reading) {
     return (
       <div ref={rootRef} className="news-panel">
-        <NewsArticle item={reading} onBack={() => setReading(null)} onOpen={setReading} />
+        <NewsArticle
+          item={reading}
+          news={news}
+          categories={newsCategories}
+          onBack={() => setReading(null)}
+          onOpen={setReading}
+        />
       </div>
     );
   }
@@ -151,7 +164,7 @@ export default function NewsPanel() {
                 aria-pressed={c === kategori}
                 onClick={() => chooseKategori(c)}
               >
-                {newsLabel[c]}
+                {categoryLabel(newsCategories, c)}
               </button>
             ))}
           </div>
@@ -160,7 +173,12 @@ export default function NewsPanel() {
         {/* Grid kartu seragam: berapa pun jumlah item, otomatis turun ke baris berikutnya */}
         <div className="news-grid">
           {items.map((item) => (
-            <NewsCard key={item.id} item={item} onOpen={() => setReading(item)} />
+            <NewsCard
+              key={item.id}
+              item={item}
+              label={categoryLabel(newsCategories, item.category)}
+              onOpen={() => setReading(item)}
+            />
           ))}
         </div>
 

@@ -1,19 +1,28 @@
 import Image from "next/image";
 import { ArrowRight, Calendar } from "./Icons";
-import { formatDate, newsLabel, type NewsItem } from "@/data/news";
+import { formatDate } from "@/lib/format";
+import type { NewsItem } from "@/types/content";
 
-export default function NewsCard({ item, onOpen }: { item: NewsItem; onOpen: () => void }) {
+export default function NewsCard({
+  item,
+  label,
+  onOpen,
+}: {
+  item: NewsItem;
+  label: string; // label kategori untuk badge
+  onOpen: () => void;
+}) {
   return (
     <article className="news-card">
       <div className="news-card__photo">
         <Image
-          src={item.image}
-          alt={item.title}
+          src={item.image.src}
+          alt={item.image.alt}
           fill
           sizes="(max-width: 690px) 100vw, (max-width: 920px) 50vw, 380px"
           quality={70}
         />
-        <span className="badge">{newsLabel[item.category]}</span>
+        <span className="badge">{label}</span>
       </div>
       <div className="news-card__body">
         <p className="event-date">

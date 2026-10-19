@@ -23,6 +23,27 @@ export type MenuItem = {
   image: Photo;
 };
 
+/** Jenis kabar. Tetap (bukan data dashboard); labelnya di lib/news.ts. */
+export type NewsType = "berita" | "artikel";
+
+/** Kategori berita. Data, jadi admin bisa menambah kategori baru. */
+export type NewsCategory = {
+  id: string;
+  slug: string;
+  label: string;
+};
+
+export type NewsItem = {
+  id: string;
+  type: NewsType;
+  title: string;
+  category: string; // NewsCategory.slug
+  date: string; // "YYYY-MM-DD"
+  excerpt: string; // ringkasan di kartu (dipotong 2 baris)
+  body: string[]; // teks lengkap, satu string per paragraf
+  image: Photo;
+};
+
 /** Satu baris jam buka. Kosongkan open/close bila hari itu libur. */
 export type HoursRow = {
   day: string;

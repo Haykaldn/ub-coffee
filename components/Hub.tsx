@@ -14,11 +14,13 @@ import {
   tabFromHash,
   type HubTabKey,
 } from "@/lib/hubNav";
-import type { MenuItem } from "@/types/content";
+import type { MenuItem, NewsCategory, NewsItem } from "@/types/content";
 
 /** Data semua panel, dari app/page.tsx. Tambah field di sini saat panel lain butuh data. */
 export type HubProps = {
   menu: MenuItem[];
+  news: NewsItem[];
+  newsCategories: NewsCategory[];
 };
 
 function renderPanel(key: HubTabKey, data: HubProps) {
@@ -30,7 +32,7 @@ function renderPanel(key: HubTabKey, data: HubProps) {
     case "lokasi":
       return <LocationPanel />;
     case "berita":
-      return <NewsPanel />;
+      return <NewsPanel news={data.news} categories={data.newsCategories} />;
   }
 }
 
