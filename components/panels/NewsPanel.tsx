@@ -11,7 +11,7 @@ import { newsByType, newsLabel, newsTypes, type NewsItem, type NewsType } from "
 const PREVIEW_COUNT = 3;
 const PAGE_SIZE = 9;
 
-export default function EventPanel() {
+export default function NewsPanel() {
   const [type, setType] = useState<NewsType>("berita");
   const [showAll, setShowAll] = useState(false);
   const [kategori, setKategori] = useState<NewsItem["category"] | null>(null);

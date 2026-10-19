@@ -1,13 +1,42 @@
 // Tab panel di section 2. `key` sekaligus menjadi hash URL (#menu, #reservasi, …):
-// mengubahnya akan mematahkan tautan yang sudah dibagikan. Urutan = urutan tab.
+// mengubahnya akan mematahkan tautan yang sudah dibagikan, jadi daftarkan key lama di
+// legacyTabKeys. Urutan = urutan tab.
 export const hubTabs = [
   { key: "menu", title: "Menu" },
   { key: "reservasi", title: "Reservasi" },
   { key: "lokasi", title: "Lokasi" },
-  { key: "event", title: "Berita & Artikel" },
+  { key: "berita", title: "Berita & Artikel" },
 ] as const;
 
 export type HubTabKey = (typeof hubTabs)[number]["key"];
+
+/** Key lama → key sekarang, agar tautan lama (mis. /#event) tetap membuka panel yang benar. */
+const legacyTabKeys: Record<string, HubTabKey> = {
+  event: "berita",
+};
+
+const isTabKey = (key: string): key is HubTabKey => hubTabs.some((t) => t.key === key);
+
+/**
+ * Panel dari hash URL, termasuk key lama. Tanpa efek samping karena dipakai sebagai snapshot
+ * useSyncExternalStore; penggantian URL dilakukan replaceLegacyHash().
+ */
+export function tabFromHash(): HubTabKey | null {
+  const hash = window.location.hash.slice(1);
+  if (isTabKey(hash)) return hash;
+  return Object.hasOwn(legacyTabKeys, hash) ? legacyTabKeys[hash] : null;
+}
+
+/** Ganti hash key lama dengan key sekarang tanpa menambah riwayat (tombol back). */
+export function replaceLegacyHash() {
+  const hash = window.location.hash.slice(1);
+  if (!Object.hasOwn(legacyTabKeys, hash)) return;
+  history.replaceState(
+    history.state,
+    "",
+    `${location.pathname}${location.search}#${legacyTabKeys[hash]}`,
+  );
+}
 
 // history.pushState tidak memicu event apa pun, jadi navigate() mengirim event sendiri
 // supaya Hub (dan panel yang mendengarkan) membaca ulang hash.

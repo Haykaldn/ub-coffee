@@ -5,8 +5,15 @@ import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import MenuPanel from "./panels/MenuPanel";
 import ReservationPanel from "./panels/ReservationPanel";
 import LocationPanel from "./panels/LocationPanel";
-import EventPanel from "./panels/EventPanel";
-import { hubTabs, NAV_EVENT, navigate, type HubTabKey } from "@/lib/hubNav";
+import NewsPanel from "./panels/NewsPanel";
+import {
+  hubTabs,
+  NAV_EVENT,
+  navigate,
+  replaceLegacyHash,
+  tabFromHash,
+  type HubTabKey,
+} from "@/lib/hubNav";
 import type { MenuItem } from "@/types/content";
 
 /** Data semua panel, dari app/page.tsx. Tambah field di sini saat panel lain butuh data. */
@@ -22,8 +29,8 @@ function renderPanel(key: HubTabKey, data: HubProps) {
       return <ReservationPanel />;
     case "lokasi":
       return <LocationPanel />;
-    case "event":
-      return <EventPanel />;
+    case "berita":
+      return <NewsPanel />;
   }
 }
 
@@ -33,11 +40,6 @@ const panelVariants = {
   exit: { opacity: 0, y: 14.4 },
 };
 
-function keyFromHash(): HubTabKey | null {
-  const hash = window.location.hash.slice(1);
-  return hubTabs.some((c) => c.key === hash) ? (hash as HubTabKey) : null;
-}
-
 const DEFAULT_PANEL: HubTabKey = "menu";
 
 // URL (#menu, #reservasi, …) menjadi sumber kebenaran panel aktif, bukan state React, agar
@@ -45,19 +47,24 @@ const DEFAULT_PANEL: HubTabKey = "menu";
 // yang benar. Tanpa hash, panel Menu yang tampil.
 
 function subscribeHash(onChange: () => void) {
-  window.addEventListener("popstate", onChange);
-  window.addEventListener("hashchange", onChange);
-  window.addEventListener(NAV_EVENT, onChange);
+  // Hash key lama yang diketik saat halaman terbuka (mis. #event) diganti dulu
+  const handle = () => {
+    replaceLegacyHash();
+    onChange();
+  };
+  window.addEventListener("popstate", handle);
+  window.addEventListener("hashchange", handle);
+  window.addEventListener(NAV_EVENT, handle);
   return () => {
-    window.removeEventListener("popstate", onChange);
-    window.removeEventListener("hashchange", onChange);
-    window.removeEventListener(NAV_EVENT, onChange);
+    window.removeEventListener("popstate", handle);
+    window.removeEventListener("hashchange", handle);
+    window.removeEventListener(NAV_EVENT, handle);
   };
 }
 
 export default function Hub(props: HubProps) {
   // Snapshot server = null (tidak ada window); di klien hash dibaca setelah hydration.
-  const active = useSyncExternalStore(subscribeHash, keyFromHash, () => null) ?? DEFAULT_PANEL;
+  const active = useSyncExternalStore(subscribeHash, tabFromHash, () => null) ?? DEFAULT_PANEL;
   const sectionRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const focusOnEnter = useRef(false);
@@ -68,8 +75,10 @@ export default function Hub(props: HubProps) {
   }, [reduceMotion]);
 
   // Tautan langsung (mis. /#lokasi): gulir ke section 2 saat halaman dibuka.
+  // Tautan lama (/#event) diganti dulu menjadi key sekarang.
   useEffect(() => {
-    if (keyFromHash()) sectionRef.current?.scrollIntoView();
+    replaceLegacyHash();
+    if (tabFromHash()) sectionRef.current?.scrollIntoView();
   }, []);
 
   const open = (key: HubTabKey) => {
