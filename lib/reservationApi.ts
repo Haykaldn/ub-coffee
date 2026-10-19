@@ -1,21 +1,4 @@
-/** Data reservasi yang dikirim ke dashboard. */
-export type ReservationPayload = {
-  room: string; // key ruangan
-  date: string; // "YYYY-MM-DD"
-  start: string; // "HH:MM" WIB
-  end: string; // eksklusif
-  people: number;
-  package: string | null; // null = sewa ruangan saja
-  name: string;
-  phone: string;
-  org: string;
-  priceCategory: string;
-  notes: string;
-};
-
-export type ReservationResult = {
-  code: string; // kode reservasi untuk pemesan
-};
+import type { ReservationPayload, ReservationResult } from "@/types/reservation";
 
 /**
  * Kirim reservasi ke dashboard.

@@ -1,6 +1,5 @@
-import { bookings } from "@/data/reservation";
-import { site } from "@/data/site";
 import { jakartaNow, rowForDay, toMinutes } from "@/lib/hours";
+import type { Booking, HoursRow } from "@/types/content";
 
 // Reservasi dipesan per jam, di dalam jam buka UB Coffee
 export const SLOT_MINUTES = 60;
@@ -39,12 +38,21 @@ export function endTime(start: string, slots: number) {
   return fromMinutes(toMinutes(start) + slots * SLOT_MINUTES);
 }
 
-/** Slot per jam satu ruangan pada satu tanggal; kosong bila hari itu libur. */
-export function slotsFor(room: string, date: string, now = new Date()): Slot[] {
-  const row = rowForDay(jakartaNow(new Date(`${date}T12:00:00+07:00`)).day, site.hours);
+/**
+ * Slot per jam satu ruangan pada satu tanggal; kosong bila hari itu libur.
+ * `hours` = jam buka yang membatasi slot (UB Coffee), `bookings` = jadwal yang sudah terisi.
+ */
+export function slotsFor(
+  roomId: string,
+  date: string,
+  bookings: Booking[],
+  hours: HoursRow[],
+  now = new Date(),
+): Slot[] {
+  const row = rowForDay(jakartaNow(new Date(`${date}T12:00:00+07:00`)).day, hours);
   if (!row?.open || !row.close) return [];
 
-  const taken = bookings.filter((b) => b.room === room && b.date === date);
+  const taken = bookings.filter((b) => b.roomId === roomId && b.date === date);
   const isToday = date === jakartaToday(now);
   const nowMinutes = jakartaNow(now).minutes;
   const slots: Slot[] = [];

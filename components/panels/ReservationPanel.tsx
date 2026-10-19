@@ -5,8 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import PhotoSlideshow from "../PhotoSlideshow";
 import ReservationDialog from "../ReservationDialog";
 import { Calendar, Check, Users } from "../Icons";
-import { meetingPackages, reservationText, roomPrices, rooms } from "@/data/reservation";
 import { NAV_EVENT, takeNavTarget } from "@/lib/hubNav";
+import type { ReservationContent } from "@/types/content";
 
 const priceModes = [
   { key: "sewa", title: "Sewa ruangan" },
@@ -15,10 +15,17 @@ const priceModes = [
 
 type PriceMode = (typeof priceModes)[number]["key"];
 
-export default function ReservationPanel() {
+export default function ReservationPanel({
+  rooms,
+  bookableRooms,
+  bookings,
+  roomPrices,
+  meetingPackages,
+  text: reservationText,
+}: ReservationContent) {
   const [priceMode, setPriceMode] = useState<PriceMode>("sewa");
   const [bookingOpen, setBookingOpen] = useState(false);
-  const [roomKey, setRoomKey] = useState<string>();
+  const [roomId, setRoomId] = useState<string>();
   const priceRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLButtonElement>(null);
   const [highlightCta, setHighlightCta] = useState(false);
@@ -26,8 +33,8 @@ export default function ReservationPanel() {
 
   // Klik kartu ruangan: tandai ruangan itu lalu gulir ke kartu Harga; form reservasi
   // nanti langsung memakai ruangan yang dipilih.
-  const chooseRoom = (key: string) => {
-    setRoomKey(key);
+  const chooseRoom = (id: string) => {
+    setRoomId(id);
     priceRef.current?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
   };
 
@@ -52,7 +59,7 @@ export default function ReservationPanel() {
     };
   }, [reduceMotion]);
 
-  const selectedRoom = rooms.find((r) => r.key === roomKey);
+  const selectedRoom = rooms.find((r) => r.id === roomId);
 
   return (
     <div className="resv">
@@ -66,7 +73,7 @@ export default function ReservationPanel() {
 
       <div className="room-grid">
         {rooms.map((room) => (
-          <article key={room.key} className={`room ${room.key === roomKey ? "is-active" : ""}`}>
+          <article key={room.id} className={`room ${room.id === roomId ? "is-active" : ""}`}>
             <div className="room__photo">
               <PhotoSlideshow
                 photos={room.photos}
@@ -82,8 +89,8 @@ export default function ReservationPanel() {
                 <button
                   type="button"
                   className="room__link"
-                  aria-pressed={room.key === roomKey}
-                  onClick={() => chooseRoom(room.key)}
+                  aria-pressed={room.id === roomId}
+                  onClick={() => chooseRoom(room.id)}
                 >
                   {room.name}
                 </button>
@@ -140,7 +147,7 @@ export default function ReservationPanel() {
         <ul className="price-list">
           {priceMode === "sewa"
             ? roomPrices.map((p) => (
-                <li key={p.label}>
+                <li key={p.id}>
                   <span className="price-list__name">{p.label}</span>
                   <span className="price-list__price">
                     <strong>{p.price}</strong>
@@ -148,7 +155,7 @@ export default function ReservationPanel() {
                 </li>
               ))
             : meetingPackages.map((pkg) => (
-                <li key={pkg.name}>
+                <li key={pkg.id}>
                   <span className="price-list__name">{pkg.name}</span>
                   <span className="price-list__price">
                     <strong>{pkg.price}</strong> / 10 orang
@@ -181,7 +188,15 @@ export default function ReservationPanel() {
         </div>
       </div>
 
-      <ReservationDialog open={bookingOpen} room={roomKey} onClose={() => setBookingOpen(false)} />
+      <ReservationDialog
+        open={bookingOpen}
+        room={roomId}
+        bookableRooms={bookableRooms}
+        bookings={bookings}
+        roomPrices={roomPrices}
+        meetingPackages={meetingPackages}
+        onClose={() => setBookingOpen(false)}
+      />
     </div>
   );
 }

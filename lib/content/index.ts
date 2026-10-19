@@ -3,3 +3,4 @@
 export * from "./hero";
 export * from "./menu";
 export * from "./news";
+export * from "./reservation";

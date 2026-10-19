@@ -6,10 +6,13 @@ export type Photo = {
   alt: string;
 };
 
-/** Foto slideshow hero. */
-export type HeroPhoto = Photo & {
+/** Foto yang bisa diedit satu per satu oleh admin. */
+export type PhotoWithId = Photo & {
   id: string;
 };
+
+/** Foto slideshow hero. */
+export type HeroPhoto = PhotoWithId;
 
 /** Kategori menu. Tetap (bukan data dashboard); daftar filternya di lib/menu.ts. */
 export type MenuCategory = "Kopi" | "Non-Kopi" | "Makanan";
@@ -42,6 +45,62 @@ export type NewsItem = {
   excerpt: string; // ringkasan di kartu (dipotong 2 baris)
   body: string[]; // teks lengkap, satu string per paragraf
   image: Photo;
+};
+
+/** Ruangan yang bisa dipilih di form reservasi. */
+export type BookableRoom = {
+  id: string;
+  name: string;
+  capacity?: number; // orang, kosong = bebas
+};
+
+/** Ruangan yang juga tampil sebagai kartu di panel Reservasi. */
+export type Room = BookableRoom & {
+  capacity: number;
+  desc: string;
+  suitable: string; // "Cocok untuk"
+  facilities: string[];
+  photos: PhotoWithId[];
+};
+
+/** Jadwal yang sudah dipesan. Jam akhir eksklusif ("12:00" = slot 11.00–12.00 terakhir). */
+export type Booking = {
+  id: string;
+  roomId: BookableRoom["id"];
+  date: string; // "YYYY-MM-DD"
+  start: string; // "HH:MM" WIB
+  end: string;
+};
+
+export type RoomPrice = {
+  id: string;
+  label: string;
+  price: string;
+};
+
+export type MeetingPackage = {
+  id: string;
+  name: string;
+  price: string; // per 10 orang
+  extra: string; // tambahan per orang
+};
+
+/** Paragraf teks polos di panel Reservasi. */
+export type ReservationText = {
+  intro: string;
+  rentNote: string; // catatan harga sewa ruangan
+  packagesNote: string; // catatan harga paket
+  cta: string;
+};
+
+/** Semua data panel Reservasi, dirangkai di app/page.tsx. */
+export type ReservationContent = {
+  rooms: Room[];
+  bookableRooms: BookableRoom[];
+  bookings: Booking[];
+  roomPrices: RoomPrice[];
+  meetingPackages: MeetingPackage[];
+  text: ReservationText;
 };
 
 /** Satu baris jam buka. Kosongkan open/close bila hari itu libur. */

@@ -3,10 +3,19 @@
 import { useState, type FormEvent } from "react";
 import Modal from "./Modal";
 import { ArrowRight, Check, Clock, Close, Users } from "./Icons";
-import { bookableRooms, meetingPackages, roomPrices } from "@/data/reservation";
-import { formatTime } from "@/data/site";
+import { formatTime, site } from "@/data/site";
 import { addDays, endTime, formatBookingDate, jakartaToday, slotsFor } from "@/lib/booking";
-import { submitReservation, type ReservationPayload } from "@/lib/reservationApi";
+import { submitReservation } from "@/lib/reservationApi";
+import type { BookableRoom, Booking, MeetingPackage, RoomPrice } from "@/types/content";
+import type { ReservationPayload } from "@/types/reservation";
+
+/** Data pilihan di form reservasi. */
+type BookingOptions = {
+  bookableRooms: BookableRoom[];
+  bookings: Booking[];
+  roomPrices: RoomPrice[];
+  meetingPackages: MeetingPackage[];
+};
 
 // Batas tanggal yang bisa dipesan dari hari ini
 const MAX_DAYS_AHEAD = 60;
@@ -21,14 +30,15 @@ export default function ReservationDialog({
   open,
   room,
   onClose,
-}: {
+  ...options
+}: BookingOptions & {
   open: boolean;
-  room?: string; // ruangan yang langsung terpilih
+  room?: string; // id ruangan yang langsung terpilih
   onClose: () => void;
 }) {
   return (
     <Modal open={open} onClose={onClose} labelledBy="booking-title" className="booking">
-      <BookingForm initialRoom={room} onClose={onClose} />
+      <BookingForm initialRoom={room} onClose={onClose} {...options} />
     </Modal>
   );
 }
@@ -44,9 +54,16 @@ const shortDate = (iso: string) =>
 
 type Range = { from: number; to: number }; // indeks slot, inklusif
 
-function BookingForm({ initialRoom, onClose }: { initialRoom?: string; onClose: () => void }) {
+function BookingForm({
+  initialRoom,
+  onClose,
+  bookableRooms,
+  bookings,
+  roomPrices,
+  meetingPackages,
+}: BookingOptions & { initialRoom?: string; onClose: () => void }) {
   const today = jakartaToday();
-  const [roomKey, setRoomKey] = useState(initialRoom ?? bookableRooms[0].key);
+  const [roomId, setRoomId] = useState(initialRoom ?? bookableRooms[0].id);
   const [date, setDate] = useState(today);
   const [range, setRange] = useState<Range | null>(null);
   const [status, setStatus] = useState<"idle" | "sending">("idle");
@@ -54,8 +71,9 @@ function BookingForm({ initialRoom, onClose }: { initialRoom?: string; onClose: 
   const [sent, setSent] = useState<{ code: string; payload: ReservationPayload } | null>(null);
   const [error, setError] = useState("");
 
-  const room = bookableRooms.find((r) => r.key === roomKey) ?? bookableRooms[0];
-  const slots = date ? slotsFor(room.key, date) : [];
+  const room = bookableRooms.find((r) => r.id === roomId) ?? bookableRooms[0];
+  const slotsOn = (d: string) => slotsFor(room.id, d, bookings, site.hours);
+  const slots = date ? slotsOn(date) : [];
   const days = Array.from({ length: DATE_STRIP_DAYS }, (_, i) => addDays(today, i));
   const hours = range ? range.to - range.from + 1 : 0;
 
@@ -88,7 +106,7 @@ function BookingForm({ initialRoom, onClose }: { initialRoom?: string; onClose: 
     const field = (name: string) => String(data.get(name) ?? "").trim();
     const start = slots[range.from].start;
     const payload: ReservationPayload = {
-      room: room.key,
+      room: room.id,
       date,
       start,
       end: endTime(start, hours),
@@ -185,14 +203,14 @@ function BookingForm({ initialRoom, onClose }: { initialRoom?: string; onClose: 
         <legend className="sub-label">Ruangan</legend>
         <div className="room-pick">
           {bookableRooms.map((r) => (
-            <label key={r.key} className={`room-pick__opt ${r.key === roomKey ? "is-active" : ""}`}>
+            <label key={r.id} className={`room-pick__opt ${r.id === roomId ? "is-active" : ""}`}>
               <input
                 type="radio"
                 name="room"
-                value={r.key}
-                checked={r.key === roomKey}
+                value={r.id}
+                checked={r.id === roomId}
                 onChange={() => {
-                  setRoomKey(r.key);
+                  setRoomId(r.id);
                   resetTime();
                 }}
                 className="sr-only"
@@ -212,7 +230,7 @@ function BookingForm({ initialRoom, onClose }: { initialRoom?: string; onClose: 
         <legend className="sub-label">Tanggal</legend>
         <div className="date-pick">
           {days.map((d) => {
-            const closed = slotsFor(room.key, d).length === 0;
+            const closed = slotsOn(d).length === 0;
             return (
               <button
                 key={d}
@@ -335,7 +353,7 @@ function BookingForm({ initialRoom, onClose }: { initialRoom?: string; onClose: 
           </label>
           <select id="booking-status" name="status" className="field">
             {roomPrices.map((p) => (
-              <option key={p.label} value={p.label}>
+              <option key={p.id} value={p.label}>
                 {p.label} ({p.price})
               </option>
             ))}
@@ -362,7 +380,7 @@ function BookingForm({ initialRoom, onClose }: { initialRoom?: string; onClose: 
           <select id="booking-package" name="package" className="field">
             <option value="">Sewa ruangan saja</option>
             {meetingPackages.map((p) => (
-              <option key={p.name} value={p.name}>
+              <option key={p.id} value={p.name}>
                 {p.name} ({p.price})
               </option>
             ))}
