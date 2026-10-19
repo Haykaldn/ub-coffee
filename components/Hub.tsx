@@ -1,20 +1,31 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useCallback, useEffect, useRef, useSyncExternalStore, type ComponentType } from "react";
+import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import MenuPanel from "./panels/MenuPanel";
 import ReservationPanel from "./panels/ReservationPanel";
 import LocationPanel from "./panels/LocationPanel";
 import EventPanel from "./panels/EventPanel";
-import { hubTabs, type HubTabKey } from "@/data/navigation";
-import { NAV_EVENT, navigate } from "@/lib/hubNav";
+import { hubTabs, NAV_EVENT, navigate, type HubTabKey } from "@/lib/hubNav";
+import type { MenuItem } from "@/types/content";
 
-const PANELS: Record<HubTabKey, ComponentType> = {
-  menu: MenuPanel,
-  reservasi: ReservationPanel,
-  lokasi: LocationPanel,
-  event: EventPanel,
+/** Data semua panel, dari app/page.tsx. Tambah field di sini saat panel lain butuh data. */
+export type HubProps = {
+  menu: MenuItem[];
 };
+
+function renderPanel(key: HubTabKey, data: HubProps) {
+  switch (key) {
+    case "menu":
+      return <MenuPanel items={data.menu} />;
+    case "reservasi":
+      return <ReservationPanel />;
+    case "lokasi":
+      return <LocationPanel />;
+    case "event":
+      return <EventPanel />;
+  }
+}
 
 const panelVariants = {
   hidden: { opacity: 0, y: 28.8 },
@@ -44,7 +55,7 @@ function subscribeHash(onChange: () => void) {
   };
 }
 
-export default function Hub() {
+export default function Hub(props: HubProps) {
   // Snapshot server = null (tidak ada window); di klien hash dibaca setelah hydration.
   const active = useSyncExternalStore(subscribeHash, keyFromHash, () => null) ?? DEFAULT_PANEL;
   const sectionRef = useRef<HTMLElement>(null);
@@ -77,8 +88,6 @@ export default function Hub() {
       preventScroll: true,
     });
   };
-
-  const Panel = PANELS[active];
 
   return (
     <section id="jelajahi" ref={sectionRef} className="hub" aria-labelledby="hub-title">
@@ -132,7 +141,7 @@ export default function Hub() {
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             onAnimationComplete={(def) => def === "show" && onPanelEntered()}
           >
-            <Panel />
+            {renderPanel(active, props)}
           </motion.div>
         </AnimatePresence>
       </div>

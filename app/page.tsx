@@ -1,16 +1,16 @@
 import Hero from "@/components/Hero";
 import Hub from "@/components/Hub";
 import Footer from "@/components/Footer";
-import { getHeroPhotos } from "@/lib/content";
+import { getHeroPhotos, getMenu } from "@/lib/content";
 
 export default async function Home() {
-  const heroPhotos = await getHeroPhotos();
+  const [heroPhotos, menu] = await Promise.all([getHeroPhotos(), getMenu()]);
 
   return (
     <>
       <main>
         <Hero photos={heroPhotos} />
-        <Hub />
+        <Hub menu={menu} />
       </main>
       <Footer />
     </>

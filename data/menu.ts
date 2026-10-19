@@ -1,24 +1,5 @@
-export type MenuItem = {
-  id: string;
-  name: string;
-  category: "Kopi" | "Non-Kopi" | "Makanan";
-  description: string;
-  price?: number; // kosongkan bila harga belum ada; harga tidak ditampilkan
-  image: string;
-};
-
-// Tombol filter di panel Menu, sesuai urutan tampil. "all" = semua kategori.
-export const menuFilters = [
-  { key: "all", label: "Semua" },
-  { key: "Kopi", label: "Kopi" },
-  { key: "Non-Kopi", label: "Non-Kopi" },
-  { key: "Makanan", label: "Makanan" },
-] as const;
-
-export type MenuFilterKey = (typeof menuFilters)[number]["key"];
-
-// Foto menu (public/images/menu), nama file = id menu.
-const menuPhoto = (id: string) => `/images/menu/${id}.webp`;
+import { menuPhoto } from "@/data/paths";
+import type { MenuItem } from "@/types/content";
 
 export const menu: MenuItem[] = [
   {
@@ -27,14 +8,14 @@ export const menu: MenuItem[] = [
     category: "Kopi",
     description: "Espresso, susu steamed, dan foam lembut dengan latte art khas UB Coffee.",
     price: 25000,
-    image: menuPhoto("hot-cappucino"),
+    image: menuPhoto("hot-cappucino", "Hot Cappucino"),
   },
   {
     id: "ice-ub-coffee",
     name: "Ice UB Coffee",
     category: "Kopi",
     description: "Kopi susu dingin khas UB Coffee dengan espresso, susu segar, dan es batu.",
-    image: menuPhoto("ice-ub-coffee"),
+    image: menuPhoto("ice-ub-coffee", "Ice UB Coffee"),
   },
   {
     id: "milkshake-vanilla",
@@ -42,7 +23,7 @@ export const menu: MenuItem[] = [
     category: "Non-Kopi",
     description:
       "Milkshake vanila yang lembut dengan whipped cream, saus karamel, remahan biskuit, dan wafer roll.",
-    image: menuPhoto("milkshake-vanilla"),
+    image: menuPhoto("milkshake-vanilla", "Milkshake Vanilla"),
   },
   {
     id: "ubee-breakfast",
@@ -51,7 +32,7 @@ export const menu: MenuItem[] = [
     description:
       "Sarapan lengkap dengan telur orak-arik, sosis panggang, kentang panggang, dan saus.",
     price: 30000,
-    image: menuPhoto("ubee-breakfast"),
+    image: menuPhoto("ubee-breakfast", "Ubee Breakfast"),
   },
   {
     id: "nasi-goreng-kampung",
@@ -60,7 +41,7 @@ export const menu: MenuItem[] = [
     description:
       "Nasi goreng rempah Nusantara dengan ayam dan sayuran, bercita rasa legit, gurih, asin, dan sedikit pedas. Disajikan bersama acar, kerupuk, ikan asin, dan telur.",
     price: 40000,
-    image: menuPhoto("nasi-goreng-kampung"),
+    image: menuPhoto("nasi-goreng-kampung", "Nasi Goreng Kampung"),
   },
   {
     id: "chicken-rice-steak",
@@ -68,7 +49,7 @@ export const menu: MenuItem[] = [
     category: "Makanan",
     description:
       "Ayam panggang dengan nasi hangat, sayuran campur, dan saus steak, disajikan dalam satu piring.",
-    image: menuPhoto("chicken-rice-steak"),
+    image: menuPhoto("chicken-rice-steak", "Chicken Rice Steak"),
   },
   {
     id: "nusantara-fries",
@@ -77,7 +58,7 @@ export const menu: MenuItem[] = [
     description:
       "Tempe mendoan, pisang goreng, tahu sutra, menjes goreng, dan tape goreng disajikan dengan saus petis dan cabai rawit.",
     price: 37000,
-    image: menuPhoto("nusantara-fries"),
+    image: menuPhoto("nusantara-fries", "Nusantara Fries"),
   },
   {
     id: "cookie-bomb",
@@ -86,6 +67,6 @@ export const menu: MenuItem[] = [
     description:
       "Cookie cokelat tebal yang lembut di dalam, disajikan dengan whipped cream dan daun mint.",
     price: 35000,
-    image: menuPhoto("cookie-bomb"),
+    image: menuPhoto("cookie-bomb", "Cookie Bomb"),
   },
 ];

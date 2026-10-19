@@ -4,13 +4,9 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, FileText } from "../Icons";
-import { menu, menuFilters, type MenuFilterKey } from "@/data/menu";
 import { site } from "@/data/site";
-
-// Filter yang belum punya item tidak ditampilkan
-const visibleFilters = menuFilters.filter(
-  (f) => f.key === "all" || menu.some((m) => m.category === f.key),
-);
+import { menuFilters, type MenuFilterKey } from "@/lib/menu";
+import type { MenuItem } from "@/types/content";
 
 const fade = {
   initial: { opacity: 0, y: 9 },
@@ -24,11 +20,16 @@ const AUTOPLAY_MS = 4000;
 // Setelah klik Sebelumnya/Berikutnya, autoplay menunggu selama ini tanpa interaksi
 const RESUME_AFTER_MS = 10000;
 
-export default function MenuPanel() {
+export default function MenuPanel({ items: menu }: { items: MenuItem[] }) {
   const [filter, setFilter] = useState<MenuFilterKey>("all");
   const [index, setIndex] = useState(0);
   const [manual, setManual] = useState(false);
   const reduceMotion = useReducedMotion();
+
+  // Filter yang belum punya item tidak ditampilkan
+  const visibleFilters = menuFilters.filter(
+    (f) => f.key === "all" || menu.some((m) => m.category === f.key),
+  );
 
   const items = filter === "all" ? menu : menu.filter((m) => m.category === filter);
   const item = items[index] ?? items[0];
@@ -114,8 +115,8 @@ export default function MenuPanel() {
             transition={{ duration: 0.4 }}
           >
             <Image
-              src={item.image}
-              alt={item.name}
+              src={item.image.src}
+              alt={item.image.alt}
               fill
               sizes="(max-width: 920px) 100vw, 50vw"
               quality={75}

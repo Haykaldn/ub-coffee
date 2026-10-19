@@ -11,6 +11,18 @@ export type HeroPhoto = Photo & {
   id: string;
 };
 
+/** Kategori menu. Tetap (bukan data dashboard); daftar filternya di lib/menu.ts. */
+export type MenuCategory = "Kopi" | "Non-Kopi" | "Makanan";
+
+export type MenuItem = {
+  id: string;
+  name: string;
+  category: MenuCategory;
+  description: string;
+  price?: number; // kosongkan bila harga belum ada; harga tidak ditampilkan
+  image: Photo;
+};
+
 /** Satu baris jam buka. Kosongkan open/close bila hari itu libur. */
 export type HoursRow = {
   day: string;
