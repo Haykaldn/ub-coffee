@@ -134,13 +134,6 @@
     overflow: hidden;
   }
 
-  .news-card__photo .badge {
-    top: var(--space-6);
-    left: var(--space-6);
-    padding: 2.7px var(--space-6);
-    font-size: 9px;
-  }
-
   .news-card__body {
     padding: 0;
   }

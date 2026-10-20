@@ -41,8 +41,8 @@ export default function NewsPanel({
 
   const all = newsByType(news, type);
   // Kategori hanya yang benar-benar dipakai item jenis ini
-  const categories = [...new Set(all.map((n) => n.category))];
-  const filtered = kategori ? all.filter((n) => n.category === kategori) : all;
+  const categories = [...new Set(all.flatMap((n) => n.categories))];
+  const filtered = kategori ? all.filter((n) => n.categories.includes(kategori)) : all;
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const items = showAll
     ? filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
@@ -176,7 +176,6 @@ export default function NewsPanel({
             <NewsCard
               key={item.id}
               item={item}
-              label={categoryLabel(newsCategories, item.category)}
               onOpen={() => setReading(item)}
             />
           ))}

@@ -30,7 +30,7 @@ konten: [README.md](README.md).
 - Kategori **menu** adalah union tetap (`"Kopi" | "Non-Kopi" | "Makanan"`), dengan filter di
   `lib/menu.ts`. Jangan diubah menjadi data.
 - Kategori **berita** adalah data (`NewsCategory { id, slug, label }` di `newsCategories`).
-  `NewsItem.category` berisi slug; slug yang tidak dikenal tampil "Lainnya" lewat
+  `NewsItem.categories` berisi daftar slug (boleh lebih dari satu); slug yang tidak dikenal tampil "Lainnya" lewat
   `categoryLabel()` di `lib/news.ts`, tidak boleh error.
 - Jenis berita (`"berita" | "artikel"`) adalah union tetap.
 

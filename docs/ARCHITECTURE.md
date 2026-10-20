@@ -274,7 +274,7 @@ Endpoint di bawah ini masih **usulan**; API dashboard belum ada.
 5. **Peta dibangun otomatis.** Dashboard cukup menyimpan koordinat (`"lat,lng"`) atau query tempat
    per lokasi. URL `mapsUrl`, `mapsEmbed`, dan `directionsUrl` dibangun otomatis seperti helper
    `place()` di `data/site.ts`; admin tidak perlu mengisi tiga URL.
-6. **Kategori berita adalah data.** `NewsItem.category` berisi `slug` kategori. Slug yang tidak
+6. **Kategori berita adalah data.** `NewsItem.categories` berisi daftar `slug` kategori (satu berita boleh punya beberapa tag). Slug yang tidak
    dikenal tampil "Lainnya" (dengan peringatan console saat development), jadi menghapus kategori
    tidak membuat halaman error.
 7. **Lokasi utama.** `SiteInfo.mainLocationId` menentukan alamat dan jam buka di hero dan footer

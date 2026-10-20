@@ -5,11 +5,9 @@ import type { NewsItem } from "@/types/content";
 
 export default function NewsCard({
   item,
-  label,
   onOpen,
 }: {
   item: NewsItem;
-  label: string; // label kategori untuk badge
   onOpen: () => void;
 }) {
   return (
@@ -22,7 +20,6 @@ export default function NewsCard({
           sizes="(max-width: 690px) 100vw, (max-width: 920px) 50vw, 380px"
           quality={70}
         />
-        <span className="badge">{label}</span>
       </div>
       <div className="news-card__body">
         <p className="event-date">

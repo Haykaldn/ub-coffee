@@ -32,7 +32,11 @@ export default function NewsArticle({
             <ArrowLeft size={18} /> Kembali
           </button>
           <div className="news-article__meta">
-            <span className="news-tag">{categoryLabel(categories, item.category)}</span>
+            {item.categories.map((slug) => (
+              <span key={slug} className="news-tag">
+                {categoryLabel(categories, slug)}
+              </span>
+            ))}
             <span className="news-article__date">
               <Calendar size={14} /> <time dateTime={item.date}>{formatDate(item.date)}</time>
             </span>

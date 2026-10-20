@@ -40,7 +40,7 @@ export type NewsItem = {
   id: string;
   type: NewsType;
   title: string;
-  category: string; // NewsCategory.slug
+  categories: string[]; // NewsCategory.slug; satu item boleh punya lebih dari satu tag
   date: string; // "YYYY-MM-DD"
   excerpt: string; // ringkasan di kartu (dipotong 2 baris)
   body: string[]; // teks lengkap, satu string per paragraf

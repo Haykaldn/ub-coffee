@@ -74,18 +74,6 @@
   color: var(--accent);
 }
 
-.badge {
-  display: inline-block;
-  padding: 4.5px var(--space-12);
-  border-radius: var(--radius-sm);
-  font-size: 10.8px;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: var(--navy);
-  color: var(--white);
-}
-
 .news-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
@@ -121,14 +109,6 @@
 
 .news-card__photo img {
   object-fit: cover;
-}
-
-.news-card__photo .badge {
-  position: absolute;
-  top: var(--space-14);
-  left: var(--space-14);
-  background: var(--white);
-  color: var(--navy);
 }
 
 .news-card__body {

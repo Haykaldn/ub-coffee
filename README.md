@@ -132,11 +132,11 @@ memastikan tidak ada yang salah ketik.
 ### Berita & Artikel (`data/news.ts`)
 
 - **Kategori** adalah data di array `newsCategories` (`id`, `slug`, `label`). Kategori baru cukup
-  ditambahkan di sana; `label` tampil di badge dan filter.
-- Tambah item di array `news`. `type`: `"berita"` atau `"artikel"`; `category`: salah satu
-  `slug` di `newsCategories`; `date` dalam format `"YYYY-MM-DD"`; `image`:
+  ditambahkan di sana; `label` tampil di tag halaman artikel dan filter (tidak tampil di kartu).
+- Tambah item di array `news`. `type`: `"berita"` atau `"artikel"`; `categories`: daftar
+  `slug` dari `newsCategories`, boleh lebih dari satu (mis. `["event", "kolaborasi"]`); `date` dalam format `"YYYY-MM-DD"`; `image`:
   `{ src: photo("<nama file>"), alt: "<judul>" }`.
-- Slug yang tidak ada di `newsCategories` tidak membuat error: badge tampil "Lainnya", dan saat
+- Slug yang tidak ada di `newsCategories` tidak membuat error: tag tampil "Lainnya", dan saat
   development muncul peringatan di console.
 - `excerpt` tampil di kartu (selalu dipotong 2 baris); `body` berisi teks lengkap, satu string per
   paragraf, yang tampil menggantikan isi panel saat kartu diklik.

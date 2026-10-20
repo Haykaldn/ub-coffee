@@ -1,7 +1,7 @@
 import { photo } from "@/data/paths";
 import type { NewsCategory, NewsItem } from "@/types/content";
 
-// Kategori berita; `slug` dipakai di NewsItem.category, `label` tampil di badge dan filter.
+// Kategori berita; `slug` dipakai di NewsItem.categories, `label` tampil di tag artikel dan filter.
 export const newsCategories: NewsCategory[] = [
   { id: "cat-event", slug: "event", label: "Event" },
   { id: "cat-kolaborasi", slug: "kolaborasi", label: "Kolaborasi" },
@@ -16,7 +16,7 @@ export const news: NewsItem[] = [
     id: "akar-jiwa-yoga",
     type: "berita",
     title: "UB Coffee x Akar Jiwa Yoga",
-    category: "event",
+    categories: ["event"],
     date: "2026-10-12",
     excerpt: "Tarik napas, lepaskan penat. Sunset yoga bersama Akar Jiwa Yoga di CFD Bundaran UB.",
     body: [
@@ -30,7 +30,7 @@ export const news: NewsItem[] = [
     id: "morning-run-ms-glow",
     type: "berita",
     title: "Morning Run with MS Glow",
-    category: "event",
+    categories: ["event"],
     date: "2026-10-11",
     excerpt:
       "Running for Passion: fun run kolaborasi MS Glow Men dan UB Coffee yang penuh energi dan momen seru.",
@@ -45,7 +45,7 @@ export const news: NewsItem[] = [
     id: "colab-sweetisfied",
     type: "berita",
     title: "Colab UB Coffee x Sweetisfied",
-    category: "kolaborasi",
+    categories: ["kolaborasi"],
     date: "2026-09-28",
     excerpt:
       "Sweet treats dari Sweetisfied kini hadir di UB Coffee, siap bikin jeda belajarmu jadi lebih manis.",
@@ -60,7 +60,7 @@ export const news: NewsItem[] = [
     id: "kolaborasi-rich",
     type: "berita",
     title: "UB Coffee Berkolaborasi dengan RICH",
-    category: "kolaborasi",
+    categories: ["kolaborasi"],
     date: "2026-09-21",
     excerpt:
       "UB Coffee berkolaborasi dengan RICH menghadirkan menu baru yang wajib banget kamu cobain.",
@@ -75,7 +75,7 @@ export const news: NewsItem[] = [
     id: "roti-cengly",
     type: "berita",
     title: "UB Coffee x Roti Cengly",
-    category: "kolaborasi",
+    categories: ["kolaborasi"],
     date: "2026-09-14",
     excerpt: "Kopi UB Coffee kini bisa dinikmati bersama roti dari Roti Cengly.",
     body: [
@@ -89,7 +89,7 @@ export const news: NewsItem[] = [
     id: "arabika-robusta",
     type: "artikel",
     title: "Mengenal Arabika dan Robusta",
-    category: "tips",
+    categories: ["tips"],
     date: "2026-10-05",
     excerpt:
       "Dua jenis biji kopi paling populer dengan karakter rasa yang berbeda. Kenali bedanya sebelum memesan kopi favoritmu.",
@@ -104,7 +104,7 @@ export const news: NewsItem[] = [
     id: "seduh-v60-rumah",
     type: "artikel",
     title: "Menyeduh V60 di Rumah",
-    category: "tips",
+    categories: ["tips"],
     date: "2026-09-20",
     excerpt: "Rasio kopi, suhu air, dan waktu seduh: panduan singkat dari barista UB Coffee.",
     body: [
@@ -118,7 +118,7 @@ export const news: NewsItem[] = [
     id: "cerita-gazebo",
     type: "artikel",
     title: "Cerita di Balik Gazebo Corner",
-    category: "cerita",
+    categories: ["cerita"],
     date: "2026-09-12",
     excerpt:
       "Dari Gazebo Raden Wijaya, sudut ngopi baru untuk civitas Universitas Brawijaya di tengah kampus.",
